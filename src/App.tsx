@@ -473,16 +473,21 @@ function SpecRow({ label, value }: { label: string, value: string }) {
   );
 }
 
+const STATE_TAX_RATES: Record<string, number> = { 'None': 0, 'AL': 0.04, 'AK': 0, 'AZ': 0.056, 'AR': 0.065, 'CA': 0.0725, 'CO': 0.029, 'CT': 0.0635, 'DE': 0, 'FL': 0.06, 'GA': 0.04, 'HI': 0.04, 'ID': 0.06, 'IL': 0.0625, 'IN': 0.07, 'IA': 0.06, 'KS': 0.065, 'KY': 0.06, 'LA': 0.0445, 'ME': 0.055, 'MD': 0.06, 'MA': 0.0625, 'MI': 0.06, 'MN': 0.06875, 'MS': 0.07, 'MO': 0.04225, 'MT': 0, 'NE': 0.055, 'NV': 0.0685, 'NH': 0, 'NJ': 0.06625, 'NM': 0.05125, 'NY': 0.04, 'NC': 0.0475, 'ND': 0.05, 'OH': 0.0575, 'OK': 0.045, 'OR': 0, 'PA': 0.06, 'RI': 0.07, 'SC': 0.06, 'SD': 0.045, 'TN': 0.07, 'TX': 0.0625, 'UT': 0.061, 'VT': 0.06, 'VA': 0.053, 'WA': 0.065, 'WV': 0.06, 'WI': 0.05, 'WY': 0.04 };
+
 function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack: () => void }) {
   const [downPayment, setDownPayment] = useState(1000);
   const [promo, setPromo] = useState('none');
   const [standardTerm, setStandardTerm] = useState(36);
   const [standardApr, setStandardApr] = useState(7.99);
+  const [buyerState, setBuyerState] = useState<string>('None');
 
   const price = build.price;
   
-  const { monthlyPayment, totalInterest, totalCost, principal, activeTerm } = useMemo(() => {
-    const p = Math.max(0, price - downPayment);
+  const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
+    const taxAmount = build.price * (STATE_TAX_RATES[buyerState] ?? 0);
+    const totalFinanced = build.price + taxAmount;
+    const p = Math.max(0, totalFinanced - downPayment);
     
     if (promo === '6mo' || promo === '12mo') {
       const t = promo === '6mo' ? 6 : 12;
@@ -491,7 +496,9 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
         activeTerm: t,
         monthlyPayment: p / t,
         totalInterest: 0,
-        totalCost: price
+        totalCost: totalFinanced,
+        taxAmount,
+        totalFinanced
       };
     }
 
@@ -514,9 +521,11 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
       activeTerm: t,
       monthlyPayment: m,
       totalInterest: interest,
-      totalCost: price + interest
+      totalCost: totalFinanced + interest,
+      taxAmount,
+      totalFinanced
     };
-  }, [price, downPayment, promo, standardTerm, standardApr]);
+  }, [price, downPayment, promo, standardTerm, standardApr, buyerState]);
 
   const formatMoney = (val: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
 
@@ -577,12 +586,20 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
                   <span className="font-semibold">{formatMoney(price)}</span>
                 </div>
                 <div className="flex justify-between items-center">
+                  <span className="text-slate-400">Estimated Tax</span>
+                  <span className="font-semibold">{formatMoney(taxAmount || 0)}</span>
+                </div>
+                <div className="flex justify-between items-center">
                   <span className="text-slate-400">Down Payment</span>
                   <span className="font-semibold text-emerald-400">-{formatMoney(downPayment)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400">Total Interest</span>
                   <span className="font-semibold text-rose-400">+{formatMoney(totalInterest)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-400">Total Financed</span>
+                  <span className="font-semibold">{formatMoney(totalFinanced || price)}</span>
                 </div>
               </div>
 
@@ -637,6 +654,18 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
               </div>
 
               <div className={`space-y-6 transition-opacity duration-300 ${promo !== 'none' ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">State</label>
+                  <select
+                    value={buyerState}
+                    onChange={(e) => setBuyerState(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl p-3"
+                  >
+                    {Object.keys(STATE_TAX_RATES).map(s => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">Standard Term (Months)</label>
                   <input 
