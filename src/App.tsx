@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { ChevronLeft, ArrowRight, Scale, Calculator, Bike, Filter, X, Star, Heart } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { ChevronLeft, ArrowRight, Scale, Calculator, Bike, Filter, X, Star } from 'lucide-react';
 import { eMTBData } from './bikeData';
 
 const BIKES = eMTBData.flatMap(brand => 
