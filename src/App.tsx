@@ -145,7 +145,7 @@ export default function App() {
                 {showGarage ? (
                   <>Your <span className="text-emerald-600">Dream Garage</span></>
                 ) : (
-                  <>Find Your Next <span className="text-emerald-600">Dream Rig</span></>
+                  <>Find Your Next <br className="sm:hidden" /> <span className="text-emerald-500">Dream Rig</span></>
                 )}
               </h1>
               <p className="text-lg text-slate-600">
