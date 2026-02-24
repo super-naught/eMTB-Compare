@@ -232,6 +232,24 @@ export const eMTBData = [
           { name: "C3 GX Transmission", price: 10500, material: "Carbon", motor: "Shimano EP801", battery: "630Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code R", wheelset: "DT Swiss HX 1700", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
           { name: "C1 Factory", price: 10100, material: "Carbon", motor: "Shimano EP801", battery: "630Wh", fork: "Fox 38 Factory 170mm", shock: "Fox Float X2 Factory - 160mm", drivetrain: "Shimano SLX", brakes: "SRAM Code R", wheelset: "DT Swiss H1900", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
         ]
+      },
+      {
+        name: "LTe",
+        image: "/bikes/Yeti LTe.png",
+        builds: [
+          { name: "T4 XX", price: 14900, material: "Carbon", motor: "Bosch CX Race", battery: "800Wh", fork: "Fox Podium Factory 38 170mm", shock: "Fox Float X2 Factory - 160mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "SRAM Maven Ultimate", wheelset: "DT Swiss HXC1700 Carbon", tires: "Schwalbe Magic Mary / Albert 2.5" },
+          { name: "T3 X0", price: 12900, material: "Carbon", motor: "Bosch CX", battery: "800Wh", fork: "Fox 38 Factory Grip X2 170mm", shock: "Fox Float X2 Factory - 160mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "DT Swiss HXC1700 Carbon", tires: "Schwalbe Magic Mary / Albert 2.5" },
+          { name: "C2 Transmission", price: 10300, material: "Carbon", motor: "Bosch CX", battery: "800Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "SRAM Maven Bronze", wheelset: "DT Swiss H 1900", tires: "Schwalbe Magic Mary / Albert 2.5" }
+        ]
+      },
+      {
+        name: "MTe",
+        image: "/bikes/Yeti MTe.png",
+        builds: [
+          { name: "T4 XX", price: 14300, material: "Carbon", motor: "TQ HPR 60", battery: "290Wh", fork: "Fox 36 Factory 160mm", shock: "Fox Float X Factory - 145mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "SRAM Maven Ultimate", wheelset: "DT Swiss EXC1501 Carbon", tires: "Schwalbe Magic Mary / Albert 2.5" },
+          { name: "T3 X0", price: 12650, material: "Carbon", motor: "TQ HPR 60", battery: "580Wh", fork: "Fox 36 Factory 160mm", shock: "Fox Float X Factory - 145mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "DT Swiss EXC1700 Carbon", tires: "Schwalbe Magic Mary / Albert 2.5" },
+          { name: "C2 90", price: 9850, material: "Carbon", motor: "TQ HPR 60", battery: "580Wh", fork: "Fox 36 Performance 160mm", shock: "Fox Float X Performance - 145mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "SRAM Maven Bronze", wheelset: "DT Swiss E1900", tires: "Schwalbe Magic Mary / Albert 2.5" }
+        ]
       }
     ]
   },
@@ -339,6 +357,15 @@ export const eMTBData = [
         builds: [
           { name: "Deore 12", price: 4999, material: "Aluminum", motor: "Fazua Ride 60", battery: "430Wh", fork: "RockShox Psylo Gold RC 160mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano Deore 12-Speed", brakes: "Shimano Deore M6120", wheelset: "WTB ST i30", tires: "Teravail Kessel 2.6 / Warwick 2.5" },
           { name: "CUES 10", price: 4199, material: "Aluminum", motor: "Fazua Ride 60", battery: "430Wh", fork: "RockShox Psylo Gold RC 160mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano CUES 10-Speed", brakes: "Shimano MT420", wheelset: "WTB ST i30", tires: "Teravail Kessel 2.6 / Warwick 2.5" }
+        ]
+      },
+      {
+        name: "Notch",
+        image: "/bikes/Salsa Notch.png",
+        builds: [
+          { name: "Carbon Deore 12", price: 6999, material: "Carbon", motor: "Bosch CX", battery: "625Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano Deore 12", brakes: "Shimano Deore 4-Piston", wheelset: "WTB KOM Tough i30", tires: "Teravail Kessel 2.5" },
+          { name: "Alloy Deore 12", price: 5999, material: "Alloy", motor: "Bosch CX", battery: "500Wh", fork: "RockShox Domain Gold RC 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano Deore 12", brakes: "Shimano Deore 4-Piston", wheelset: "WTB ST i30 Tough", tires: "Teravail Kessel / Warwick 2.6" },
+          { name: "Alloy Cues 10", price: 4999, material: "Alloy", motor: "Bosch CX", battery: "500Wh", fork: "SR Suntour ZERON36 160mm", shock: "RockShox Deluxe Select - 160mm", drivetrain: "Shimano CUES 10", brakes: "Shimano 4-Piston", wheelset: "WTB ST i30 Tough", tires: "Teravail Kessel / Warwick 2.6" }
         ]
       }
     ]
