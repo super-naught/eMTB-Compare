@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ChevronLeft, ArrowRight, Scale, Calculator, Bike, Filter, X, Star } from 'lucide-react';
+import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Bike, Filter, X, Star } from 'lucide-react';
 import { eMTBData } from './bikeData';
 
 const BIKES = eMTBData.flatMap(brand => 
@@ -37,8 +37,15 @@ export default function App() {
   const [selectedMotorFilters, setSelectedMotorFilters] = useState<string[]>([]);
   const [selectedWheelFilters, setSelectedWheelFilters] = useState<string[]>([]);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [selectedTorqueFilters, setSelectedTorqueFilters] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showGarage, setShowGarage] = useState(false);
+
+  // Accordion open state for filter categories (default closed)
+  const [isBrandOpen, setIsBrandOpen] = useState(false);
+  const [isMotorOpen, setIsMotorOpen] = useState(false);
+  const [isTorqueOpen, setIsTorqueOpen] = useState(false);
+  const [isWheelsOpen, setIsWheelsOpen] = useState(false);
 
   const [rigAId, setRigAId] = useState(ALL_BUILDS[0].id);
   const [rigBId, setRigBId] = useState(ALL_BUILDS[1].id);
@@ -59,6 +66,21 @@ export default function App() {
       });
     });
     return Array.from(allMotors).sort((a, b) => a.localeCompare(b));
+  }, []);
+
+  const torques = useMemo(() => {
+    const all = new Set<string>();
+    BIKES.forEach(bike => bike.builds.forEach(build => all.add((build as any).torque || 'TBD')));
+    return Array.from(all).sort((a, b) => {
+      if (a === 'TBD') return 1;
+      if (b === 'TBD') return -1;
+      const na = parseInt(String(a), 10);
+      const nb = parseInt(String(b), 10);
+      if (!isNaN(na) && !isNaN(nb)) return na - nb;
+      if (!isNaN(na)) return -1;
+      if (!isNaN(nb)) return 1;
+      return String(a).localeCompare(String(b));
+    });
   }, []);
 
   const filteredBikes = useMemo(() => {
@@ -92,6 +114,7 @@ export default function App() {
     setSelectedBrandFilters([]);
     setSelectedMotorFilters([]);
     setSelectedWheelFilters([]);
+    setSelectedTorqueFilters([]);
   };
 
   const formatPrice = (price: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(price);
@@ -186,112 +209,133 @@ export default function App() {
                 </div>
 
                 {isFilterModalOpen && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                  <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
                     <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setIsFilterModalOpen(false)} />
-                    <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[80vh] flex flex-col relative z-10 overflow-hidden">
-                      <div className="flex items-center justify-between p-6 border-b border-slate-100 shrink-0">
-                        <h2 className="text-xl font-bold text-slate-900">Filters</h2>
+                    <div className="bg-white rounded-xl shadow-xl w-[90vw] max-w-md max-h-[80vh] flex flex-col relative z-10 overflow-hidden">
+                      <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-100 shrink-0">
+                        <h2 className="text-lg sm:text-xl font-bold text-slate-900">Filters</h2>
                         <button onClick={() => setIsFilterModalOpen(false)} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
                           <X size={20} className="text-slate-500" />
                         </button>
                       </div>
-                      
-                      <div className="p-6 overflow-y-auto space-y-8 flex-1">
-                        <div className="space-y-4">
-                          <label className="text-sm font-bold text-slate-900 uppercase tracking-wider">Brand</label>
-                          <div className="space-y-3">
-                            {brands.map(brand => {
-                              const isSelected = selectedBrandFilters.includes(brand);
-                              return (
-                                <label key={brand} className="flex items-center gap-3 cursor-pointer group">
-                                  <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300 group-hover:border-emerald-500'}`}>
-                                    {isSelected && <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                                  </div>
-                                  <input 
-                                    type="checkbox" 
-                                    className="hidden"
-                                    checked={isSelected}
-                                    onChange={() => {
-                                      setSelectedBrandFilters(prev => 
-                                        isSelected ? prev.filter(b => b !== brand) : [...prev, brand]
-                                      );
-                                    }}
-                                  />
-                                  <span className="text-slate-700 font-medium">{brand}</span>
-                                </label>
-                              );
-                            })}
-                          </div>
+
+                      <div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
+                        {/* Brand Accordion */}
+                        <div>
+                          <button
+                            onClick={() => setIsBrandOpen(v => !v)}
+                            className="w-full flex items-center justify-between gap-4 p-3 bg-slate-50 rounded-md"
+                            aria-expanded={isBrandOpen}
+                          >
+                            <span className="text-sm font-bold uppercase tracking-wider text-slate-900">Brand</span>
+                            <ChevronDown className={`transition-transform ${isBrandOpen ? 'rotate-180' : ''}`} />
+                          </button>
+                          {isBrandOpen && (
+                            <div className="mt-3 space-y-2">
+                              {brands.map(brand => {
+                                const isSelected = selectedBrandFilters.includes(brand);
+                                return (
+                                  <label key={brand} className="flex items-center gap-3 cursor-pointer">
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300'}`}>
+                                      {isSelected && <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                                    </div>
+                                    <input type="checkbox" className="hidden" checked={isSelected} onChange={() => setSelectedBrandFilters(prev => isSelected ? prev.filter(b => b !== brand) : [...prev, brand])} />
+                                    <span className="text-sm text-slate-700">{brand}</span>
+                                  </label>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
 
-                        <div className="space-y-4">
-                          <label className="text-sm font-bold text-slate-900 uppercase tracking-wider">Motor</label>
-                          <div className="space-y-3">
-                            {motors.map(motor => {
-                              const isSelected = selectedMotorFilters.includes(motor);
-                              return (
-                                <label key={motor} className="flex items-center gap-3 cursor-pointer group">
-                                  <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300 group-hover:border-emerald-500'}`}>
-                                    {isSelected && <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                                  </div>
-                                  <input 
-                                    type="checkbox" 
-                                    className="hidden"
-                                    checked={isSelected}
-                                    onChange={() => {
-                                      setSelectedMotorFilters(prev => 
-                                        isSelected ? prev.filter(m => m !== motor) : [...prev, motor]
-                                      );
-                                    }}
-                                  />
-                                  <span className="text-slate-700 font-medium">{motor}</span>
-                                </label>
-                              );
-                            })}
-                          </div>
+                        {/* Motor Accordion */}
+                        <div>
+                          <button
+                            onClick={() => setIsMotorOpen(v => !v)}
+                            className="w-full flex items-center justify-between gap-4 p-3 bg-slate-50 rounded-md"
+                            aria-expanded={isMotorOpen}
+                          >
+                            <span className="text-sm font-bold uppercase tracking-wider text-slate-900">Motor</span>
+                            <ChevronDown className={`transition-transform ${isMotorOpen ? 'rotate-180' : ''}`} />
+                          </button>
+                          {isMotorOpen && (
+                            <div className="mt-3 space-y-2">
+                              {motors.map(motor => {
+                                const isSelected = selectedMotorFilters.includes(motor);
+                                return (
+                                  <label key={motor} className="flex items-center gap-3 cursor-pointer">
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300'}`}>
+                                      {isSelected && <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                                    </div>
+                                    <input type="checkbox" className="hidden" checked={isSelected} onChange={() => setSelectedMotorFilters(prev => isSelected ? prev.filter(m => m !== motor) : [...prev, motor])} />
+                                    <span className="text-sm text-slate-700">{motor}</span>
+                                  </label>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
 
-                        <div className="space-y-4">
-                          <label className="text-sm font-bold text-slate-900 uppercase tracking-wider">WHEELS</label>
-                          <div className="space-y-3">
-                            {['29"', '27.5"', 'Mullet'].map(w => {
-                              const isSelected = selectedWheelFilters.includes(w);
-                              return (
-                                <label key={w} className="flex items-center gap-3 cursor-pointer group">
-                                  <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300 group-hover:border-emerald-500'}`}>
-                                    {isSelected && <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                                  </div>
-                                  <input
-                                    type="checkbox"
-                                    className="hidden"
-                                    checked={isSelected}
-                                    onChange={() => {
-                                      setSelectedWheelFilters(prev =>
-                                        isSelected ? prev.filter(x => x !== w) : [...prev, w]
-                                      );
-                                    }}
-                                  />
-                                  <span className="text-slate-700 font-medium">{w}</span>
-                                </label>
-                              );
-                            })}
-                          </div>
+                        {/* Torque Accordion */}
+                        <div>
+                          <button
+                            onClick={() => setIsTorqueOpen(v => !v)}
+                            className="w-full flex items-center justify-between gap-4 p-3 bg-slate-50 rounded-md"
+                            aria-expanded={isTorqueOpen}
+                          >
+                            <span className="text-sm font-bold uppercase tracking-wider text-slate-900">Torque</span>
+                            <ChevronDown className={`transition-transform ${isTorqueOpen ? 'rotate-180' : ''}`} />
+                          </button>
+                          {isTorqueOpen && (
+                            <div className="mt-3 space-y-2">
+                              {torques.map(tq => {
+                                const isSelected = selectedTorqueFilters.includes(tq);
+                                return (
+                                  <label key={tq} className="flex items-center gap-3 cursor-pointer">
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300'}`}>
+                                      {isSelected && <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                                    </div>
+                                    <input type="checkbox" className="hidden" checked={isSelected} onChange={() => setSelectedTorqueFilters(prev => isSelected ? prev.filter(x => x !== tq) : [...prev, tq])} />
+                                    <span className="text-sm text-slate-700">{tq}</span>
+                                  </label>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Wheels Accordion */}
+                        <div>
+                          <button
+                            onClick={() => setIsWheelsOpen(v => !v)}
+                            className="w-full flex items-center justify-between gap-4 p-3 bg-slate-50 rounded-md"
+                            aria-expanded={isWheelsOpen}
+                          >
+                            <span className="text-sm font-bold uppercase tracking-wider text-slate-900">Wheels</span>
+                            <ChevronDown className={`transition-transform ${isWheelsOpen ? 'rotate-180' : ''}`} />
+                          </button>
+                          {isWheelsOpen && (
+                            <div className="mt-3 space-y-2">
+                              {['29"', '27.5"', 'Mullet'].map(w => {
+                                const isSelected = selectedWheelFilters.includes(w);
+                                return (
+                                  <label key={w} className="flex items-center gap-3 cursor-pointer">
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300'}`}>
+                                      {isSelected && <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                                    </div>
+                                    <input type="checkbox" className="hidden" checked={isSelected} onChange={() => setSelectedWheelFilters(prev => isSelected ? prev.filter(x => x !== w) : [...prev, w])} />
+                                    <span className="text-sm text-slate-700">{w}</span>
+                                  </label>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
                       </div>
 
-                      <div className="p-6 border-t border-slate-100 bg-slate-50 shrink-0 flex gap-4">
-                        <button 
-                          onClick={clearFilters}
-                          className="flex-1 bg-white border border-slate-300 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors"
-                        >
-                          Clear Filters
-                        </button>
-                        <button 
-                          onClick={() => setIsFilterModalOpen(false)}
-                          className="flex-1 bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-sm shadow-emerald-200 hover:bg-emerald-700 transition-colors"
-                        >
-                          Apply Filters
-                        </button>
+                      <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50 shrink-0 flex gap-4">
+                        <button onClick={clearFilters} className="flex-1 bg-white border border-slate-300 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors">Clear Filters</button>
+                        <button onClick={() => setIsFilterModalOpen(false)} className="flex-1 bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-sm shadow-emerald-200 hover:bg-emerald-700 transition-colors">Apply Filters</button>
                       </div>
                     </div>
                   </div>
@@ -324,7 +368,12 @@ export default function App() {
                         />
                       </div>
                       <div className="p-6 flex-1 flex flex-col justify-center min-w-0">
-                        <div className="text-xs font-semibold text-emerald-600 tracking-wide uppercase mb-1 truncate">{bike.brand}</div>
+                        <div className="flex justify-between items-center text-xs uppercase mb-1">
+                          <div className="text-xs font-semibold text-emerald-600 tracking-wide truncate">{bike.brand}</div>
+                          <span className="text-gray-400 font-medium">
+                            {(() => { const s = new Set(bike.builds.map((b: any) => (b as any).torque || 'TBD')); return s.size === 1 ? Array.from(s)[0] : 'Various'; })()}
+                          </span>
+                        </div>
                         <h3 className="text-xl font-bold text-slate-900 mb-4 truncate">{bike.model}</h3>
                         <div className="mt-auto flex items-center justify-between">
                           <div>
@@ -604,16 +653,56 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
               <div className="text-2xl font-medium text-slate-600">{formatMoney(price)}</div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 pt-6 border-t border-slate-100">
-              <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider">Material</span><span className="font-medium text-slate-800">{build.material}</span></div>
-              <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider">Motor</span><span className="font-medium text-slate-800">{build.motor}</span></div>
-              <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider">Battery</span><span className="font-medium text-slate-800">{build.battery}</span></div>
-              <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider">Drivetrain</span><span className="font-medium text-slate-800">{build.drivetrain || 'TBD'}</span></div>
-              <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider">Fork</span><span className="font-medium text-slate-800">{build.fork || 'TBD'}</span></div>
-              <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider">Shock</span><span className="font-medium text-slate-800">{build.shock || 'TBD'}</span></div>
-              <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider">Brakes</span><span className="font-medium text-slate-800">{build.brakes || 'TBD'}</span></div>
-              <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider">Wheelset</span><span className="font-medium text-slate-800">{build.wheelset || 'TBD'}</span></div>
-              <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider">Tires</span><span className="font-medium text-slate-800">{build.tires || 'TBD'}</span></div>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-6 pt-6 border-t border-slate-100">
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">MATERIAL</span>
+                <span className="font-medium text-slate-800">{build.material || bike.material || 'TBD'}</span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">DRIVETRAIN</span>
+                <span className="font-medium text-slate-800">{build.drivetrain || bike.drivetrain || 'TBD'}</span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">MOTOR</span>
+                <span className="font-medium text-slate-800">{build.motor || bike.motor || 'TBD'}</span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">TORQUE</span>
+                <span className="font-medium text-slate-800">{build.torque || (() => { const s = new Set(bike.builds.map((b: any) => (b as any).torque || 'TBD')); return s.size === 1 ? Array.from(s)[0] : 'Various'; })()}</span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">BATTERY</span>
+                <span className="font-medium text-slate-800">{build.battery || bike.battery || 'TBD'}</span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">BRAKES</span>
+                <span className="font-medium text-slate-800">{build.brakes || bike.brakes || 'TBD'}</span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">FRONT / FORK</span>
+                <span className="font-medium text-slate-800">{build.fork || bike.fork || 'TBD'}</span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">REAR / SHOCK</span>
+                <span className="font-medium text-slate-800">{build.shock || bike.shock || 'TBD'}</span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">WHEELSET</span>
+                <span className="font-medium text-slate-800">{build.wheelset || bike.wheelset || 'TBD'}</span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-400 uppercase tracking-wider">TIRES</span>
+                <span className="font-medium text-slate-800">{build.tires || bike.tires || 'TBD'}</span>
+              </div>
             </div>
           </div>
         </div>

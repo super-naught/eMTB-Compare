@@ -737,13 +737,53 @@ function inferWheelsFromWheelset(ws?: string): string | undefined {
   return undefined;
 }
 
+const MOTOR_TORQUE_MAP: Record<string, string> = {
+  'Bosch CX': '85Nm - 100Nm',
+  'Bosch CX Race': '85Nm',
+  'Bosch SX': '55Nm',
+  'DJI Avinox': '105Nm - 120Nm',
+  'Fazua Ride 60': '60Nm',
+  'Shimano EP8': '85Nm',
+  'Shimano EP800': '85Nm',
+  'Shimano EP801': '85Nm',
+  'Shimano E7000': '60Nm',
+  'Specialized 2.2': '90Nm',
+  'Specialized 3.1': '105Nm',
+  'SRAM Powertrain': '90Nm',
+  'SyncDrive Pro 3': '85Nm',
+  'SyncDrive Pro 85Nm': '85Nm',
+  'TQ-HPR50': '50Nm',
+  'Dyname 4.0': '108Nm',
+  'Dyname S4 Lite': '65Nm'
+};
+
+function inferTorque(motor?: string): string {
+  if (!motor) return 'TBD';
+  const m = motor.trim();
+  // direct exact match
+  if (MOTOR_TORQUE_MAP[m]) return MOTOR_TORQUE_MAP[m];
+
+  const lower = m.toLowerCase();
+  for (const [key, val] of Object.entries(MOTOR_TORQUE_MAP)) {
+    const k = key.toLowerCase();
+    if (lower.includes(k) || k.includes(lower)) return val;
+  }
+
+  // fallback: try to strip numeric Nm suffixes and retry
+  const stripped = m.replace(/\d+nm$/i, '').trim();
+  if (stripped && MOTOR_TORQUE_MAP[stripped]) return MOTOR_TORQUE_MAP[stripped];
+
+  return 'TBD';
+}
+
 export const eMTBData = RAW_EMTB.map(brand => ({
   ...brand,
   models: brand.models.map(model => ({
     ...model,
     builds: model.builds.map(build => ({
       ...build,
-      wheels: (build as any).wheels ?? inferWheelsFromWheelset(build.wheelset)
+      wheels: (build as any).wheels ?? inferWheelsFromWheelset(build.wheelset),
+      torque: inferTorque((build as any).motor)
     }))
   }))
 }));
