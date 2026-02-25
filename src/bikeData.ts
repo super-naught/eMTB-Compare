@@ -1,4 +1,4 @@
-export const eMTBData = [
+const RAW_EMTB = [
   {
     brand: "Orbea",
     logo: "https://placehold.co/200x100/ffffff/000000?text=ORBEA",
@@ -20,6 +20,28 @@ export const eMTBData = [
         builds: [
          { name: "M10", price: 8599, material: "Carbon", motor: "Shimano EP801 RS", battery: "420Wh", fork: "Fox 36 Float Factory 160mm", shock: "Fox Float X Factory - 160mm", drivetrain: "Shimano XT M8100", brakes: "Shimano XT M8120", wheelset: "OQUO MC32TEAM", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
           { name: "H10", price: 6599, material: "Hydroformed Alloy", motor: "Shimano EP801 RS", battery: "630Wh", fork: "Fox 36 Float Performance 160mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano SLX M7100", brakes: "Shimano Deore M6120", wheelset: "Race Face AR 30c", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
+        ]
+      }
+    ]
+  },
+  {
+    brand: "Giant",
+    logo: "https://placehold.co/200x100/ffffff/000000?text=Giant",
+     models: [
+      {
+        name: "Reign E+",
+        image: "/bikes/Giant Reign E+.png",
+        builds: [
+          { name: "Advanced 1", price: 8499, material: "Carbon", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 38 Performance Elite 170mm", shock: "Fox Float X2 Performance Elite - 160mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "Shimano Deore XT 4-Piston", wheelset: "Giant TRX 2 Carbon", tires: "Maxxis Minion DHF / High Roller II", wheels: "Mullet" },
+          { name: "2", price: 6500, material: "Alloy", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 38 Rhythm 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano SLX 12-Speed", brakes: "Shimano SLX 4-Piston", wheelset: "Giant AM 30", tires: "Maxxis Minion DHF / High Roller II", wheels: "Mullet" }
+        ]
+      },
+      {
+        name: "Trance X E+",
+        image: "/bikes/Giant Trance X E+.png",
+        builds: [
+          { name: "Advanced Elite 1", price: 10000, material: "Carbon", motor: "SyncDrive Pro 85Nm", battery: "400Wh", fork: "Fox 36 Factory 150mm", shock: "Fox Float X Factory - 140mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code R", wheelset: "Giant TRX 2 Carbon", tires: "Maxxis Minion DHF / Dissector 2.6", wheels: "29\"" },
+          { name: "2", price: 6999, material: "Alloy", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 36 Rhythm 150mm", shock: "Fox Float DPS Performance - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "Shimano Deore 4-Piston", wheelset: "Giant AM 30", tires: "Maxxis Minion DHF / Dissector 2.6", wheels: "29\"" }
         ]
       }
     ]
@@ -60,6 +82,43 @@ export const eMTBData = [
          { name: "9.9", price: 12500, material: "Carbon", motor: "Bosch CX", battery: "800Wh", fork: "RockShox ZEB Ultimate 160mm", shock: "RockShox Super Deluxe Ultimate - 160mm", drivetrain: "SRAM XX Transmission", brakes: "SRAM Code Stealth Ultimate", wheelset: "Bontrager Line Pro 30 Carbon", tires: "Bontrager SE6 / SE5 2.5" },
           { name: "9.7", price: 8699, material: "Carbon", motor: "Bosch CX", battery: "800Wh", fork: "RockShox ZEB Select+ 160mm", shock: "RockShox Super Deluxe Select+ - 160mm", drivetrain: "SRAM GX Transmission", brakes: "SRAM Code Bronze", wheelset: "Bontrager Line Comp 30", tires: "Bontrager SE6 / SE5 2.5" },
           { name: "8", price: 7699, material: "Alpha Platinum Aluminum", motor: "Bosch CX", battery: "800Wh", fork: "RockShox ZEB Select 160mm", shock: "RockShox Super Deluxe Select - 160mm", drivetrain: "Shimano XT M8100", brakes: "Shimano M6120 4-piston", wheelset: "Bontrager Line Comp 30", tires: "Bontrager SE6 / SE5 2.5" }
+        ]
+      },
+      {
+        name: "Fuel EXe",
+        image: "/bikes/Trek Fuel EXe.png",
+        builds: [
+          { name: "9.9 X0 AXS", price: 8500, material: "Carbon", motor: "TQ-HPR50", battery: "360Wh", fork: "RockShox Lyrik Ultimate 150mm", shock: "RockShox Super Deluxe Ultimate - 140mm", drivetrain: "SRAM X0 Eagle AXS", brakes: "SRAM Code Silver", wheelset: "Bontrager Line Pro 30 Carbon", tires: "Bontrager SE5 Team Issue", wheels: "29\"" },
+          { name: "9.8 GX AXS", price: 7500, material: "Carbon", motor: "TQ-HPR50", battery: "360Wh", fork: "RockShox Lyrik Select+ 150mm", shock: "RockShox Super Deluxe Select+ - 140mm", drivetrain: "SRAM GX AXS", brakes: "SRAM Code Bronze", wheelset: "Bontrager Line Elite 30 Carbon", tires: "Bontrager SE5 Team Issue", wheels: "29\"" },
+          { name: "8 XT", price: 6999, material: "Alloy", motor: "TQ-HPR50", battery: "360Wh", fork: "Fox 36 Rhythm 150mm", shock: "Fox Float X Performance - 140mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano Deore 4-Piston", wheelset: "Bontrager Line Comp 30", tires: "Bontrager XR5 Team Issue", wheels: "29\"" }
+        ]
+      }
+    ]
+  },
+  {
+    brand: "Cube",
+    logo: "https://placehold.co/200x100/ffffff/000000?text=CUBE",
+    models: [
+      {
+        name: "Stereo Hybrid ONE77",
+        image: "/bikes/Cube Stereo Hybrid.png",
+        builds: [
+          { name: "HPC TM 800", price: 6500, material: "Carbon/Alloy", motor: "Bosch CX", battery: "800Wh", fork: "Fox 38 Float GRIP 170mm", shock: "Fox Float X2 Performance - 170mm", drivetrain: "SRAM GX Eagle AXS", brakes: "Magura MT7 4-Piston", wheelset: "Newmen Beskar 30", tires: "Schwalbe Magic Mary / Tacky Chan", wheels: "Mullet" },
+          { name: "HPC SLX 800", price: 5500, material: "Carbon/Alloy", motor: "Bosch CX", battery: "800Wh", fork: "Fox 38 Rhythm 170mm", shock: "Fox Float X Performance - 170mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano XT 4-Piston", wheelset: "Newmen Performance 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" }
+        ]
+      }
+    ]
+  },
+  {
+    brand: "Focus",
+    logo: "https://placehold.co/200x100/ffffff/000000?text=FOCUS",
+    models: [
+      {
+        name: "JAM2",
+        image: "/bikes/Focus JAM2.png",
+        builds: [
+          { name: "6.8", price: 7999, material: "Alloy", motor: "Bosch CX", battery: "800Wh", fork: "Fox 36 Rhythm 160mm", shock: "Fox Float DPS - 150mm", drivetrain: "Shimano XT 12-Speed", brakes: "Magura MT5", wheelset: "RaceFace AR30", tires: "Maxxis Minion DHF / DHR II", wheels: "29\"" },
+          { name: "6.7", price: 6499, material: "Alloy", motor: "Bosch CX", battery: "800Wh", fork: "SR Suntour Zeron 36 150mm", shock: "RockShox Deluxe Select - 150mm", drivetrain: "Shimano CUES 10-Speed", brakes: "Tektro Gemini SL", wheelset: "WTB ST i30", tires: "Maxxis Minion DHF / DHR II", wheels: "29\"" }
         ]
       }
     ]
@@ -163,6 +222,19 @@ export const eMTBData = [
     ]
   },
   {
+    brand: "Ibis",
+    logo: "https://placehold.co/200x100/ffffff/000000?text=Ibis",
+    models: [
+      {
+        name: "Oso",
+        image: "/bikes/Ibis Oso.png",
+        builds: [
+          { name: "GX Transmission", price: 7999, material: "Carbon", motor: "Bosch CX", battery: "750Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X2 Performance Elite - 155mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "Shimano XT 4-Piston", wheelset: "Blackbird Send Alloy", tires: "Maxxis Assegai / Minion DHR II", wheels: "Mullet" }
+        ]
+      }
+    ]
+  },
+  {
     brand: "Canyon",
     logo: "https://www.logo.wine/a/logo/Canyon_Bicycles/Canyon_Bicycles-Logo.wine.svg",
     models: [
@@ -202,6 +274,14 @@ export const eMTBData = [
           { name: "Carbon X0 AXS", price: 9999, material: "Carbon", motor: "Fazua Ride 60", battery: "430Wh", fork: "RockShox Lyrik Ultimate 160mm", shock: "RockShox Super Deluxe Ultimate - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "DT Swiss XM 481", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
           { name: "Carbon GX", price: 6999, material: "Carbon", motor: "Fazua Ride 60", battery: "430Wh", fork: "Fox 36 Performance 160mm", shock: "Fox Float X Performance - 170mm", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code Bronze", wheelset: "Race Face Aeffect R", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
           { name: "Alloy GX", price: 6799, material: "Alloy", motor: "Fazua Ride 60", battery: "430Wh", fork: "Fox 36 Performance 160mm", shock: "Fox Float X Performance - 170mm", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "Race Face Aeffect R", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
+        ]
+      },
+      {
+        name: "Repeater PT",
+        image: "/bikes/Transition Repeater.png",
+        builds: [
+          { name: "X0 AXS", price: 10499, material: "Carbon", motor: "SRAM Eagle Powertrain 90Nm", battery: "720Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Code Silver", wheelset: "Crankbrothers Synthesis Alloy", tires: "Maxxis Assegai / Minion DHR II", wheels: "29\"" },
+          { name: "GX AXS", price: 8499, material: "Carbon", motor: "SRAM Eagle Powertrain 90Nm", battery: "720Wh", fork: "RockShox ZEB Select 170mm", shock: "RockShox Vivid Air - 170mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code Bronze", wheelset: "Novatec/WTB ST i30", tires: "Maxxis Assegai / Minion DHR II", wheels: "29\"" }
         ]
       }
     ]
@@ -264,6 +344,15 @@ export const eMTBData = [
           { name: "Team XX Transmission", price: 14499, material: "Carbon", motor: "Bosch CX Race Edition", battery: "800Wh", fork: "Fox 36 Factory 160mm", shock: "Fox Float X Factory - 148mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "SRAM Maven Ultimate", wheelset: "DT Swiss HXC1501 Carbon", tires: "Maxxis Minion DHF 2.5 / DHR II 2.4" },
           { name: "Pro X0 Transmission", price: 11999, material: "Carbon", motor: "Bosch CX Race Edition", battery: "800Wh", fork: "RockShox ZEB Ultimate 160mm", shock: "RockShox Super Deluxe Ultimate - 148mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "DT Swiss HX1501", tires: "Maxxis Minion DHF 2.5 / DHR II 2.4" },
           { name: "Ride", price: 8499, material: "Carbon", motor: "Bosch CX Gen 5", battery: "800Wh", fork: "RockShox Lyrik Select+ 160mm", shock: "RockShox Super Deluxe Select - 148mm", drivetrain: "SRAM Eagle Mechanical", brakes: "SRAM DB8", wheelset: "DT Swiss E532", tires: "Maxxis Minion DHF 2.5 / DHR II 2.4" }
+        ]
+      },
+      {
+        name: "Shuttle LT",
+        image: "/bikes/Pivot Shuttle LT.png",
+        builds: [
+          { name: "Team XX Transmission", price: 14999, material: "Carbon", motor: "Bosch CX Race", battery: "750Wh", fork: "Fox 38 Factory 170mm", shock: "Fox Float X2 Factory - 160mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "Shimano XTR 4-Piston", wheelset: "DT Swiss Hybrid HX1501", tires: "Continental Kryptotal 2.4", wheels: "Mullet" },
+          { name: "Pro X0 Transmission", price: 12599, material: "Carbon", motor: "Bosch CX Race", battery: "750Wh", fork: "Fox 38 Factory 170mm", shock: "Fox Float X2 Factory - 160mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "Shimano XT 4-Piston", wheelset: "DT Swiss Hybrid HX1501", tires: "Maxxis Assegai 2.5", wheels: "Mullet" },
+          { name: "Ride SLX/XT", price: 8999, material: "Carbon", motor: "Bosch CX", battery: "750Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano SLX/XT 12-Speed", brakes: "Shimano SLX 4-Piston", wheelset: "DT Swiss Hybrid H1900", tires: "Maxxis Assegai 2.5", wheels: "Mullet" }
         ]
       }
     ]
@@ -432,3 +521,23 @@ export const eMTBData = [
     ]
   }
 ];
+
+function inferWheelsFromWheelset(ws?: string): string | undefined {
+  if (!ws) return undefined;
+  const s = ws.toLowerCase();
+  if (s.includes('29/27') || s.includes('29/27.5') || s.includes('29/27') || s.includes('29/27.5') || s.includes('29/27.5')) return 'Mullet';
+  if (s.includes('29')) return '29"';
+  if (s.includes('27.5') || s.includes('27.5"') || s.includes('27.5')) return '27.5"';
+  return undefined;
+}
+
+export const eMTBData = RAW_EMTB.map(brand => ({
+  ...brand,
+  models: brand.models.map(model => ({
+    ...model,
+    builds: model.builds.map(build => ({
+      ...build,
+      wheels: build.wheels ?? inferWheelsFromWheelset(build.wheelset)
+    }))
+  }))
+}));

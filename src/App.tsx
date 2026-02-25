@@ -2,6 +2,11 @@ import { useState, useMemo } from 'react';
 import { ChevronLeft, ArrowRight, Scale, Calculator, Bike, Filter, X, Star } from 'lucide-react';
 import { eMTBData } from './bikeData';
 
+// Optional: build interface includes optional `wheels` so bikeData can add this property later
+interface BuildOptionalWheels {
+  wheels?: string;
+}
+
 const BIKES = eMTBData.flatMap(brand => 
   brand.models.map(model => ({
     id: `${brand.brand}-${model.name}`.toLowerCase().replace(/\s+/g, '-'),
@@ -35,6 +40,7 @@ export default function App() {
   const [selectedBuildId, setSelectedBuildId] = useState<string | null>(null);
   const [selectedBrandFilters, setSelectedBrandFilters] = useState<string[]>([]);
   const [selectedMotorFilters, setSelectedMotorFilters] = useState<string[]>([]);
+  const [selectedWheelFilters, setSelectedWheelFilters] = useState<string[]>([]);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showGarage, setShowGarage] = useState(false);
@@ -67,9 +73,10 @@ export default function App() {
       }
       const matchesBrand = selectedBrandFilters.length === 0 || selectedBrandFilters.includes(bike.brand);
       const matchesMotor = selectedMotorFilters.length === 0 || bike.builds.some(build => selectedMotorFilters.includes(build.motor));
-      return matchesBrand && matchesMotor;
+      const matchesWheels = selectedWheelFilters.length === 0 || bike.builds.some(build => build.wheels && selectedWheelFilters.includes(build.wheels));
+      return matchesBrand && matchesMotor && matchesWheels;
     }).sort((a, b) => a.brand.localeCompare(b.brand));
-  }, [selectedBrandFilters, selectedMotorFilters, showGarage, favorites]);
+  }, [selectedBrandFilters, selectedMotorFilters, selectedWheelFilters, showGarage, favorites]);
 
   const toggleFavorite = (buildId: string) => {
     setFavorites(prev => 
@@ -80,6 +87,7 @@ export default function App() {
   const clearFilters = () => {
     setSelectedBrandFilters([]);
     setSelectedMotorFilters([]);
+    setSelectedWheelFilters([]);
   };
 
   const formatPrice = (price: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(price);
@@ -156,13 +164,21 @@ export default function App() {
             {!showGarage && (
               <>
                 <div className="sticky top-16 z-20 bg-slate-50/90 backdrop-blur-md py-3 border-b border-slate-200 -mx-4 px-4 sm:mx-0 sm:px-0">
-                  <button 
-                    onClick={() => setIsFilterModalOpen(true)}
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
-                  >
-                    <Filter size={16} className="text-emerald-600" />
-                    Filter Rigs {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0) && <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs">{selectedBrandFilters.length + selectedMotorFilters.length}</span>}
-                  </button>
+                  <div className="flex items-center gap-4">
+                    <button 
+                      onClick={() => setIsFilterModalOpen(true)}
+                      className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
+                    >
+                      <Filter size={16} className="text-emerald-600" />
+                      Filter Rigs {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs">{selectedBrandFilters.length + selectedMotorFilters.length + selectedWheelFilters.length}</span>}
+                    </button>
+
+                    {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && (
+                      <button onClick={clearFilters} className="text-slate-500 hover:text-slate-800 font-medium">
+                        Clear Filters
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {isFilterModalOpen && (
@@ -225,6 +241,33 @@ export default function App() {
                                     }}
                                   />
                                   <span className="text-slate-700 font-medium">{motor}</span>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div className="space-y-4">
+                          <label className="text-sm font-bold text-slate-900 uppercase tracking-wider">WHEELS</label>
+                          <div className="space-y-3">
+                            {['29"', '27.5"', 'Mullet'].map(w => {
+                              const isSelected = selectedWheelFilters.includes(w);
+                              return (
+                                <label key={w} className="flex items-center gap-3 cursor-pointer group">
+                                  <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300 group-hover:border-emerald-500'}`}>
+                                    {isSelected && <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                                  </div>
+                                  <input
+                                    type="checkbox"
+                                    className="hidden"
+                                    checked={isSelected}
+                                    onChange={() => {
+                                      setSelectedWheelFilters(prev =>
+                                        isSelected ? prev.filter(x => x !== w) : [...prev, w]
+                                      );
+                                    }}
+                                  />
+                                  <span className="text-slate-700 font-medium">{w}</span>
                                 </label>
                               );
                             })}
