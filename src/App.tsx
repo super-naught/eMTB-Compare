@@ -2,11 +2,6 @@ import { useState, useMemo } from 'react';
 import { ChevronLeft, ArrowRight, Scale, Calculator, Bike, Filter, X, Star } from 'lucide-react';
 import { eMTBData } from './bikeData';
 
-// Optional: build interface includes optional `wheels` so bikeData can add this property later
-interface BuildOptionalWheels {
-  wheels?: string;
-}
-
 const BIKES = eMTBData.flatMap(brand => 
   brand.models.map(model => ({
     id: `${brand.brand}-${model.name}`.toLowerCase().replace(/\s+/g, '-'),
