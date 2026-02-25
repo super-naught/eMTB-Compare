@@ -45,7 +45,7 @@ const RAW_EMTB = [
      models: [
       {
         name: "Reign E+",
-        image: "/bikes/Giant Reign E+.png",
+        image: "/bikes/Giant Reign E.png",
         builds: [
           { name: "Advanced 1", price: 8499, material: "Carbon", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 38 Performance Elite 170mm", shock: "Fox Float X2 Performance Elite - 160mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "Shimano Deore XT 4-Piston", wheelset: "Giant TRX 2 Carbon", tires: "Maxxis Minion DHF / High Roller II", wheels: "Mullet" },
           { name: "2", price: 6500, material: "Alloy", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 38 Rhythm 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano SLX 12-Speed", brakes: "Shimano SLX 4-Piston", wheelset: "Giant AM 30", tires: "Maxxis Minion DHF / High Roller II", wheels: "Mullet" }
@@ -53,7 +53,7 @@ const RAW_EMTB = [
       },
       {
         name: "Trance X E+",
-        image: "/bikes/Giant Trance X E+.png",
+        image: "/bikes/Giant Trance X E.png",
         builds: [
           { name: "Advanced Elite 1", price: 10000, material: "Carbon", motor: "SyncDrive Pro 85Nm", battery: "400Wh", fork: "Fox 36 Factory 150mm", shock: "Fox Float X Factory - 140mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code R", wheelset: "Giant TRX 2 Carbon", tires: "Maxxis Minion DHF / Dissector 2.6", wheels: "29\"" },
           { name: "2", price: 6999, material: "Alloy", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 36 Rhythm 150mm", shock: "Fox Float DPS Performance - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "Shimano Deore 4-Piston", wheelset: "Giant AM 30", tires: "Maxxis Minion DHF / Dissector 2.6", wheels: "29\"" }
