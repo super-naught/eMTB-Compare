@@ -73,6 +73,15 @@ export default function App() {
     }).sort((a, b) => a.brand.localeCompare(b.brand));
   }, [selectedBrandFilters, selectedMotorFilters, selectedWheelFilters, showGarage, favorites]);
 
+  const groupedBikes = useMemo(() => {
+    const map = new Map<string, typeof BIKES>();
+    filteredBikes.forEach(bike => {
+      if (!map.has(bike.brand)) map.set(bike.brand, [] as typeof BIKES);
+      map.get(bike.brand)!.push(bike);
+    });
+    return Array.from(map.entries()).map(([brand, bikes]) => ({ brand, bikes })).sort((a, b) => a.brand.localeCompare(b.brand));
+  }, [filteredBikes]);
+
   const toggleFavorite = (buildId: string) => {
     setFavorites(prev => 
       prev.includes(buildId) ? prev.filter(id => id !== buildId) : [...prev, buildId]
@@ -290,40 +299,48 @@ export default function App() {
               </>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredBikes.map(bike => (
-                <div 
-                  key={bike.id} 
-                  onClick={() => {
-                    setSelectedBikeId(bike.id);
-                    setView('builds');
-                  }}
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:border-emerald-300 transition-all cursor-pointer group flex flex-col"
-                >
-                  <div className="w-full aspect-[4/3] bg-slate-100 overflow-hidden relative shrink-0">
-                    <img 
-                      src={bike.image} 
-                      alt={bike.model} 
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      crossOrigin="anonymous"
-                    />
-                  </div>
-                  <div className="p-6 flex-1 flex flex-col justify-center min-w-0">
-                    <div className="text-xs font-semibold text-emerald-600 tracking-wide uppercase mb-1 truncate">{bike.brand}</div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-4 truncate">{bike.model}</h3>
-                    <div className="mt-auto flex items-center justify-between">
-                      <div>
-                        <div className="text-[10px] text-slate-500 uppercase tracking-wider font-medium">Starting at</div>
-                        <div className="text-lg font-bold text-slate-900">{formatPrice(bike.startingPrice)}</div>
+            {groupedBikes.map(group => (
+              <section key={group.brand} className="w-full">
+                <div className="w-full">
+                  <h2 className="text-6xl md:text-8xl font-bold italic uppercase tracking-tight text-black/5 select-none border-b-2 border-gray-200 pb-2 mb-6 md:mb-8">{group.brand}</h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {group.bikes.map(bike => (
+                    <div 
+                      key={bike.id} 
+                      onClick={() => {
+                        setSelectedBikeId(bike.id);
+                        setView('builds');
+                      }}
+                      className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:border-emerald-300 transition-all cursor-pointer group flex flex-col"
+                    >
+                      <div className="w-full aspect-[4/3] bg-slate-100 overflow-hidden relative shrink-0">
+                        <img 
+                          src={bike.image} 
+                          alt={bike.model} 
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          crossOrigin="anonymous"
+                        />
                       </div>
-                      <div className="text-slate-400 group-hover:text-emerald-600 transition-colors">
-                        <ArrowRight size={20} />
+                      <div className="p-6 flex-1 flex flex-col justify-center min-w-0">
+                        <div className="text-xs font-semibold text-emerald-600 tracking-wide uppercase mb-1 truncate">{bike.brand}</div>
+                        <h3 className="text-xl font-bold text-slate-900 mb-4 truncate">{bike.model}</h3>
+                        <div className="mt-auto flex items-center justify-between">
+                          <div>
+                            <div className="text-[10px] text-slate-500 uppercase tracking-wider font-medium">Starting at</div>
+                            <div className="text-lg font-bold text-slate-900">{formatPrice(bike.startingPrice)}</div>
+                          </div>
+                          <div className="text-slate-400 group-hover:text-emerald-600 transition-colors">
+                            <ArrowRight size={20} />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </section>
+            ))}
           </div>
         )}
 
