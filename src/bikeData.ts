@@ -209,6 +209,30 @@ const RAW_EMTB = [
     ]
   },
   {
+      brand: "Nukeproof",
+      logo: "/logos/Nukeproof.png",
+      models: [
+        {
+          name: "Megawatt Carbon",
+          image: "/bikes/Nukeproof Megawatt Carbon.png",
+          builds: [
+            { name: "RS", price: 10899, material: "Carbon", motor: "SRAM Powertrain", battery: "720Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Code RSC", wheelset: "Nukeproof Horizon Pro", tires: "Continental Kryptotal DH", wheels: "Mullet" },
+            { name: "Pro", price: 9899, material: "Carbon", motor: "SRAM Powertrain", battery: "720Wh", fork: "RockShox ZEB Select+ 170mm", shock: "RockShox Vivid Select+ - 170mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM G2 RE", wheelset: "Nukeproof Horizon V2", tires: "Continental Kryptotal DH", wheels: "Mullet" }
+          ]
+        },
+        {
+          name: "Megawatt Alloy",
+          image: "/bikes/Nukeproof Megawatt Alloy.png",
+          builds: [
+            { name: "RS", price: 9599, material: "Aluminum", motor: "Shimano EP8", battery: "630Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Super Deluxe Ultimate - 170mm", drivetrain: "SRAM X01 Eagle", brakes: "SRAM Code RSC", wheelset: "Nukeproof Horizon V2", tires: "Maxxis Assegai / High Roller II", wheels: "Mullet" },
+            { name: "Factory", price: 8599, material: "Aluminum", motor: "Shimano EP8", battery: "630Wh", fork: "Fox 38 Factory 170mm", shock: "Fox Float X2 Factory - 170mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano XT 4-Piston", wheelset: "Nukeproof Horizon V2", tires: "Maxxis Assegai / High Roller II", wheels: "Mullet" },
+            { name: "Elite", price: 7799, material: "Aluminum", motor: "Shimano EP8", battery: "630Wh", fork: "Fox 38 Performance Elite 170mm", shock: "Fox Float X2 Performance - 170mm", drivetrain: "Shimano SLX 12-Speed", brakes: "Shimano SLX 4-Piston", wheelset: "Nukeproof Horizon V2", tires: "Maxxis Assegai / High Roller II", wheels: "Mullet" },
+            { name: "Comp", price: 6099, material: "Aluminum", motor: "Shimano EP8", battery: "504Wh", fork: "RockShox ZEB Select 170mm", shock: "RockShox Super Deluxe Select R - 170mm", drivetrain: "Shimano Deore 12-Speed", brakes: "Shimano Deore 4-Piston", wheelset: "Sun-Ringle Duroc SD37", tires: "Maxxis Assegai / High Roller II", wheels: "Mullet" }
+          ]
+        }
+      ]
+    },
+  {
     brand: "Forbidden",
     logo: "https://placehold.co/200x100/ffffff/000000?text=FORBIDDEN",
     models: [
@@ -218,7 +242,16 @@ const RAW_EMTB = [
         builds: [
           { name: "CorE 3 MX", price: 9299, material: "Carbon", motor: "DJI Avinox", battery: "800Wh", fork: "RockShox ZEB Select+ 160mm", shock: "RockShox Vivid Select+ - 130mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Maven 4-Piston", wheelset: "Race Face ARC Offset", tires: "Maxxis High Roller / Minion DHR II 2.4" }
         ]
-      }
+      },
+      {
+          name: "Druid Lite",
+          image: "/bikes/Forbidden Druid Lite.png",
+          builds: [
+            { name: "Lite 1", price: 11499, material: "Carbon", motor: "DJI Avinox", battery: "600Wh", fork: "RockShox Lyrik Ultimate 150mm", shock: "RockShox Super Deluxe Ultimate - 140mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Ultimate 4-Piston", wheelset: "Crankbrothers Synthesis E-Bike Carbon", tires: "Maxxis Assegai / Minion DHR II", wheels: "Mullet" },
+            { name: "Lite 2", price: 9599, material: "Carbon", motor: "DJI Avinox", battery: "600Wh", fork: "RockShox Lyrik Select+ 150mm", shock: "RockShox Super Deluxe Select+ - 140mm", drivetrain: "SRAM GX Eagle Transmission AXS", brakes: "SRAM Maven Silver 4-Piston", wheelset: "Crankbrothers Synthesis E-Bike Alloy", tires: "Maxxis Assegai / Minion DHR II", wheels: "Mullet" },
+            { name: "Lite 3", price: 8599, material: "Carbon", motor: "DJI Avinox", battery: "600Wh", fork: "RockShox Lyrik Select+ 150mm", shock: "RockShox Super Deluxe Select+ - 140mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "SRAM Maven 4-Piston", wheelset: "Race Face ARC Offset", tires: "Maxxis Assegai / Minion DHR II", wheels: "Mullet" }
+          ]
+        }
     ]
   },
   {
@@ -574,6 +607,35 @@ const RAW_EMTB = [
       }
     ]
   },
+  {
+      brand: "Rocky Mountain",
+      logo: "/logos/Rocky Mountain.png",
+      models: [
+        {
+          name: "Instinct Powerplay SL",
+          image: "/bikes/Rocky Mountain Instinct Powerplay SL.png",
+          builds: [
+            { name: "Carbon 90", price: 11999, material: "Carbon", motor: "Dyname S4 Lite", battery: "480Wh", fork: "Fox 36 Factory GRIP X2 150mm", shock: "Fox Float X Factory - 145mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Code Ultimate Stealth", wheelset: "TBD", tires: "TBD", wheels: "29\"" },
+            { name: "Carbon 70", price: 9699, material: "Carbon", motor: "Dyname S4 Lite", battery: "480Wh", fork: "Fox 36 Performance Elite GRIP X 150mm", shock: "Fox Float X Performance Elite - 145mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code Silver Stealth", wheelset: "TBD", tires: "TBD", wheels: "29\"" },
+            { name: "Carbon 50", price: 7999, material: "Carbon", motor: "Dyname S4 Lite", battery: "480Wh", fork: "RockShox Lyrik Select 150mm", shock: "RockShox Super Deluxe Select+ - 145mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano XT 4-Piston", wheelset: "TBD", tires: "TBD", wheels: "29\"" },
+            { name: "Alloy 70 BC Edition", price: 7999, material: "Aluminum", motor: "Dyname S4 Lite", battery: "480Wh", fork: "RockShox Lyrik Select+ 150mm", shock: "RockShox Super Deluxe Select+ - 145mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code Bronze Stealth", wheelset: "TBD", tires: "TBD", wheels: "29\"" },
+            { name: "Alloy 50", price: 6999, material: "Aluminum", motor: "Dyname S4 Lite", battery: "480Wh", fork: "RockShox Lyrik Select 150mm", shock: "RockShox Super Deluxe Select - 145mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano MT6120 4-Piston", wheelset: "TBD", tires: "TBD", wheels: "29\"" },
+            { name: "Alloy 30", price: 5499, material: "Aluminum", motor: "Dyname S4 Lite", battery: "480Wh", fork: "RockShox Psylo Gold RC 150mm", shock: "RockShox Deluxe Select+ - 145mm", drivetrain: "Shimano Deore 12-Speed", brakes: "Shimano MT4120 4-Piston", wheelset: "WTB ST i30 TCS", tires: "Maxxis Minion DHF / DHR II", wheels: "29\"" }
+          ]
+        },
+        {
+          name: "Altitude Powerplay",
+          image: "/bikes/Rocky Mountain Altitude Powerplay.png",
+          builds: [
+            { name: "Carbon 90 Rally Edition", price: 11399, material: "Carbon", motor: "Dyname 4.0", battery: "720Wh", fork: "Fox 38 Factory GRIP2 170mm", shock: "Fox DHX2 Factory Coil - 160mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano XT Trail 4-Piston", wheelset: "Race Face ARC HD 30 / DT 350", tires: "Maxxis Minion DHF / Aggressor DD", wheels: "29\"" },
+            { name: "Carbon 70", price: 9999, material: "Carbon", motor: "Dyname 4.0", battery: "720Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X2 Performance - 160mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano XT Trail 4-Piston", wheelset: "TBD", tires: "TBD", wheels: "29\"" },
+            { name: "Alloy 70", price: 8499, material: "Aluminum", motor: "Dyname 4.0", battery: "720Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano XT Trail 4-Piston", wheelset: "TBD", tires: "TBD", wheels: "29\"" },
+            { name: "Alloy 50", price: 7599, material: "Aluminum", motor: "Dyname 4.0", battery: "720Wh", fork: "RockShox Zeb Select RC 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano MT6120 4-Piston", wheelset: "TBD", tires: "TBD", wheels: "29\"" },
+            { name: "Alloy 30 Coil", price: 6199, material: "Aluminum", motor: "Dyname 4.0", battery: "720Wh", fork: "RockShox Domain RC 170mm", shock: "Marzocchi Bomber CR Coil - 160mm", drivetrain: "Shimano Deore 12-Speed", brakes: "Shimano MT4120 4-Piston", wheelset: "TBD", tires: "TBD", wheels: "29\"" }
+          ]
+        }
+      ]
+    },
   {
     brand: "Propain",
     logo: "https://placehold.co/200x100/ffffff/000000?text=PROPAIN",
