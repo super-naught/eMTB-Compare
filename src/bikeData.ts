@@ -48,15 +48,16 @@ const RAW_EMTB = [
         image: "/bikes/Giant Reign E.png",
         builds: [
           { name: "Advanced 1", price: 8499, material: "Carbon", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 38 Performance Elite 170mm", shock: "Fox Float X2 Performance Elite - 160mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "Shimano Deore XT 4-Piston", wheelset: "Giant TRX 2 Carbon", tires: "Maxxis Minion DHF / High Roller II", wheels: "Mullet" },
-          { name: "2", price: 6500, material: "Alloy", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 38 Rhythm 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano SLX 12-Speed", brakes: "Shimano SLX 4-Piston", wheelset: "Giant AM 30", tires: "Maxxis Minion DHF / High Roller II", wheels: "Mullet" }
+          { name: "Advanced 2", price: 6500, material: "Alloy", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 38 Rhythm 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano SLX 12-Speed", brakes: "Shimano SLX 4-Piston", wheelset: "Giant AM 30", tires: "Maxxis Minion DHF / High Roller II", wheels: "Mullet" }
         ]
       },
       {
         name: "Trance X E+",
         image: "/bikes/Giant Trance X E.png",
         builds: [
+          { name: "Advanced Elite 0", price: 13500, material: "Carbon", motor: "SyncDrive Pro 3", battery: "560Wh", fork: "180mm (Check Spec)", shock: "Maestro 170mm (Check Spec)", drivetrain: "TBD", brakes: "TBD", wheelset: "TBD", tires: "TBD", wheels: "Mullet" },
           { name: "Advanced Elite 1", price: 10000, material: "Carbon", motor: "SyncDrive Pro 85Nm", battery: "400Wh", fork: "Fox 36 Factory 150mm", shock: "Fox Float X Factory - 140mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code R", wheelset: "Giant TRX 2 Carbon", tires: "Maxxis Minion DHF / Dissector 2.6", wheels: "29\"" },
-          { name: "2", price: 6999, material: "Alloy", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 36 Rhythm 150mm", shock: "Fox Float DPS Performance - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "Shimano Deore 4-Piston", wheelset: "Giant AM 30", tires: "Maxxis Minion DHF / Dissector 2.6", wheels: "29\"" }
+          { name: "Advanced Elite 2", price: 6999, material: "Alloy", motor: "SyncDrive Pro 85Nm", battery: "800Wh", fork: "Fox 36 Rhythm 150mm", shock: "Fox Float DPS Performance - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "Shimano Deore 4-Piston", wheelset: "Giant AM 30", tires: "Maxxis Minion DHF / Dissector 2.6", wheels: "29\"" }
         ]
       }
     ]
@@ -228,10 +229,19 @@ const RAW_EMTB = [
         name: "Timp Peak",
         image: "/bikes/ARI Timp.png",
         builds: [
-          { name: "Team", price: 12999, material: "Carbon", motor: "Shimano EP801", battery: "635Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "SRAM Maven Ultimate", wheelset: "Crankbrothers Synthesis Carbon", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "Pro", price: 10499, material: "Carbon", motor: "Shimano EP801", battery: "635Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "Crankbrothers Synthesis Alloy", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "Elite", price: 9499, material: "Carbon", motor: "Shimano EP801", battery: "635Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "Crankbrothers Synthesis Alloy", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "Comp", price: 7799, material: "Carbon", motor: "Shimano EP801", battery: "635Wh", fork: "RockShox ZEB Rush RC 170mm", shock: "RockShox Super Deluxe - 170mm", drivetrain: "Shimano Deore M6100", brakes: "TRP Trail EVO", wheelset: "DT Swiss H1900 Spline", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
+          { name: "Team", price: 10995, material: "Carbon", motor: "Shimano EP801", battery: "635Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "SRAM Maven Ultimate", wheelset: "Crankbrothers Synthesis Carbon", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "Pro", price: 9495, material: "Carbon", motor: "Shimano EP801", battery: "635Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "Crankbrothers Synthesis Alloy", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "Elite", price: 8495, material: "Carbon", motor: "Shimano EP801", battery: "635Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "Crankbrothers Synthesis Alloy", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "Comp", price: 6995, material: "Carbon", motor: "Shimano EP801", battery: "635Wh", fork: "RockShox ZEB Rush RC 170mm", shock: "RockShox Super Deluxe - 170mm", drivetrain: "Shimano Deore M6100", brakes: "TRP Trail EVO", wheelset: "DT Swiss H1900 Spline", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
+        ]
+      },
+      {
+        name: "Wire Peak",
+        image: "/bikes/ARI Wire Peak.png",
+        builds: [
+          { name: "Pro", price: 5895, material: "Aluminum", motor: "Shimano EP800", battery: "635Wh", fork: "Fox Float 36 Performance Elite 160mm", shock: "Fox Float X Performance Elite - 145mm", drivetrain: "Shimano XT Linkglide 11-Speed", brakes: "TRP Trail EVO", wheelset: "DT Swiss H 1900 Spline", tires: "Maxxis Minion DHF / Dissector 2.4", wheels: "29\"" },
+          { name: "Elite", price: 4995, material: "Aluminum", motor: "Shimano EP800", battery: "635Wh", fork: "DVO Diamond E3 160mm", shock: "DVO Opal - 145mm", drivetrain: "Shimano SLX 12-Speed", brakes: "SRAM DB8", wheelset: "Stans Flow S2", tires: "Maxxis Minion DHF / Dissector 2.4", wheels: "29\"" },
+          { name: "Comp", price: 3995, material: "Aluminum", motor: "Shimano E7000", battery: "635Wh", fork: "RockShox Recon Silver RL 150mm", shock: "X-Fusion 02 Pro RL - 145mm", drivetrain: "SRAM SX Eagle", brakes: "TRP Slate Evo", wheelset: "WTB ST i30 TCS", tires: "Maxxis Minion DHF / Dissector 2.4", wheels: "29\"" }
         ]
       }
     ]
@@ -313,6 +323,79 @@ const RAW_EMTB = [
           builds: [
             { name: "Carbon X0 AXS", price: 10499, material: "Carbon", motor: "SRAM Powertrain", battery: "720Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Code Silver", wheelset: "Crankbrothers Synthesis Alloy", tires: "Maxxis Assegai / Minion DHR II", wheels: "29\"" },
             { name: "Carbon GX AXS", price: 8499, material: "Carbon", motor: "SRAM Powertrain", battery: "720Wh", fork: "RockShox ZEB Select 170mm", shock: "RockShox Vivid Air - 170mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code Bronze", wheelset: "Novatec/WTB ST i30", tires: "Maxxis Assegai / Minion DHR II", wheels: "29\"" }
+          ]
+        }
+      ]
+    },
+    {
+      brand: "Polygon",
+      logo: "/logos/Polygon.png",
+      models: [
+        {
+          name: "Collosus NE",
+          image: "/bikes/Polygon Collosus NE.png",
+          builds: [
+            { name: "N8XE", price: 5199, material: "Aluminum", motor: "Shimano EP801", battery: "630Wh", fork: "Fox 38 Float Factory 160mm", shock: "Fox Float X2 Factory - 160mm", drivetrain: "Shimano XT Di2 12-Speed", brakes: "Shimano XT M8120 4-Piston", wheelset: "Entity XL2", tires: "Schwalbe Magic Mary 29x2.6", wheels: "29\"" },
+            { name: "N8E", price: 4999, material: "Aluminum", motor: "Shimano EP801", battery: "630Wh", fork: "Fox 38 Float Performance 160mm", shock: "Fox Float X2 Performance - 160mm", drivetrain: "Shimano Deore/XT 12-Speed", brakes: "Shimano XT M8120 4-Piston", wheelset: "Entity XL2", tires: "Schwalbe Magic Mary 29x2.6", wheels: "29\"" }
+          ]
+        },
+        {
+          name: "Collosus TE",
+          image: "/bikes/Polygon Collosus TE.png",
+          builds: [
+            { name: "TE 0 AXS", price: 8999, material: "Carbon", motor: "Bosch CX", battery: "800Wh", fork: "RockShox Lyrik Ultimate 160mm", shock: "RockShox Super Deluxe Select+ - 150mm", drivetrain: "SRAM XX Eagle T-Type AXS", brakes: "Magura MT7", wheelset: "DT Swiss 370 / MT9", tires: "Maxxis Dissector 29x2.4", wheels: "29\"" },
+            { name: "TE 8 AXS", price: 7499, material: "Carbon", motor: "Bosch CX", battery: "800Wh", fork: "Marzocchi Bomber Z1 160mm", shock: "Marzocchi Bomber Air - 150mm", drivetrain: "SRAM GX Eagle T-Type AXS", brakes: "Magura MT7", wheelset: "DT Swiss 370 / MT9", tires: "Maxxis Dissector 29x2.4", wheels: "29\"" }
+          ]
+        },
+        {
+          name: "Siskiu TE",
+          image: "/bikes/Polygon Siskiu TE.png",
+          builds: [
+            { name: "T7E", price: 3999, material: "Aluminum", motor: "Shimano EP801", battery: "630Wh", fork: "SR Suntour Aion 35 Boost 150mm", shock: "SR Suntour Triair2 - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "SRAM Code R", wheelset: "Entity XL3", tires: "Schwalbe Hans Dampf 29x2.6", wheels: "29\"" },
+            { name: "TE with Bosch", price: 4799, material: "Aluminum", motor: "Bosch CX", battery: "625Wh", fork: "RockShox Lyrik Select 150mm", shock: "RockShox Super Deluxe Select+ - 140mm", drivetrain: "SRAM SX Eagle 12-Speed", brakes: "SRAM Code R", wheelset: "Entity XL3", tires: "Maxxis Dissector 29x2.4", wheels: "29\"" }
+          ]
+        }
+      ]
+    },
+    {
+      brand: "Scott",
+      logo: "/logos/Scott.png",
+      models: [
+        {
+          name: "Lumen eRIDE",
+          image: "/bikes/Scott Lumen eRIDE.png",
+          builds: [
+            { name: "900 TR", price: 9999, material: "Carbon", motor: "TQ-HPR50", battery: "360Wh", fork: "FOX 34 Float Performance Elite 130mm", shock: "FOX NUDE 5T EVOL - 130mm", drivetrain: "SRAM GX Eagle AXS", brakes: "Shimano XT 4-Piston", wheelset: "Syncros Silverton 1.5-30", tires: "Schwalbe Wicked Will 29x2.4", wheels: "29\"" }
+          ]
+        },
+        {
+          name: "Voltage eRIDE",
+          image: "/bikes/Scott Voltage eRIDE.png",
+          builds: [
+            { name: "900 Tuned", price: 10999, material: "Carbon", motor: "TQ-HPR50", battery: "360Wh", fork: "FOX 36 Float Factory Grip 2 160mm", shock: "FOX Float X NUDE Factory - 155mm", drivetrain: "SRAM GX Eagle AXS Transmission", brakes: "SRAM Code Silver Stealth", wheelset: "Syncros Revelstoke 1.0-30", tires: "Maxxis Assegai / Dissector 29x2.6", wheels: "29\"" }
+          ]
+        }
+      ]
+    },
+    {
+      brand: "Marin",
+      logo: "/logos/Marin.png",
+      models: [
+        {
+          name: "Alpine Trail E",
+          image: "/bikes/Marin Alpine Trail E.png",
+          builds: [
+            { name: "E2", price: 5279, material: "TBD", motor: "TBD", battery: "TBD", fork: "TBD", shock: "TBD", drivetrain: "TBD", brakes: "TBD", wheelset: "TBD", tires: "TBD", wheels: "TBD" },
+            { name: "E1", price: 4559, material: "TBD", motor: "TBD", battery: "TBD", fork: "TBD", shock: "TBD", drivetrain: "TBD", brakes: "TBD", wheelset: "TBD", tires: "TBD", wheels: "TBD" }
+          ]
+        },
+        {
+          name: "Rift Zone E",
+          image: "/bikes/Marin Rift Zone E.png",
+          builds: [
+            { name: "EL XR", price: 7699, material: "TBD", motor: "TBD", battery: "TBD", fork: "TBD", shock: "TBD", drivetrain: "TBD", brakes: "TBD", wheelset: "TBD", tires: "TBD", wheels: "TBD" },
+            { name: "E2", price: 6499, material: "TBD", motor: "TBD", battery: "TBD", fork: "TBD", shock: "TBD", drivetrain: "TBD", brakes: "TBD", wheelset: "TBD", tires: "TBD", wheels: "TBD" },
+            { name: "E1", price: 5199, material: "TBD", motor: "TBD", battery: "TBD", fork: "TBD", shock: "TBD", drivetrain: "TBD", brakes: "TBD", wheelset: "TBD", tires: "TBD", wheels: "TBD" }
           ]
         }
       ]
@@ -483,6 +566,7 @@ const RAW_EMTB = [
         name: "Notch",
         image: "/bikes/Salsa Notch.png",
         builds: [
+          { name: "Carbon GX Eagle", price: 8699, material: "Carbon", motor: "Bosch CX", battery: "625Wh", fork: "RockShox ZEB Ultimate 180mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Maven Ultimate Stealth", wheelset: "WTB CZR Carbon i30", tires: "Teravail Kessel 29x2.5", wheels: "29\"" },
           { name: "Carbon Deore 12", price: 6999, material: "Carbon", motor: "Bosch CX", battery: "625Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano Deore 12", brakes: "Shimano Deore 4-Piston", wheelset: "WTB KOM Tough i30", tires: "Teravail Kessel 2.5" },
           { name: "Alloy Deore 12", price: 5999, material: "Alloy", motor: "Bosch CX", battery: "500Wh", fork: "RockShox Domain Gold RC 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano Deore 12", brakes: "Shimano Deore 4-Piston", wheelset: "WTB ST i30 Tough", tires: "Teravail Kessel / Warwick 2.6" },
           { name: "Alloy Cues 10", price: 4999, material: "Alloy", motor: "Bosch CX", battery: "500Wh", fork: "SR Suntour ZERON36 160mm", shock: "RockShox Deluxe Select - 160mm", drivetrain: "Shimano CUES 10", brakes: "Shimano 4-Piston", wheelset: "WTB ST i30 Tough", tires: "Teravail Kessel / Warwick 2.6" }
@@ -495,6 +579,34 @@ const RAW_EMTB = [
     logo: "https://placehold.co/200x100/ffffff/000000?text=PROPAIN",
     models: [
       {
+          name: "Sresh SL",
+          image: "/bikes/Propain Sresh SL.png",
+          builds: [
+            { name: "Factory", price: 10193, material: "Carbon", motor: "TQ-HPR50", battery: "360Wh", fork: "Fox 36 Float Factory 160mm", shock: "Fox Float X Factory - 150mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "NEWMEN Advanced SL A.30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
+            { name: "Signature 2", price: 8299, material: "Carbon", motor: "TQ-HPR50", battery: "580Wh", fork: "RockShox Lyrik Ultimate 160mm", shock: "RockShox Super Deluxe Ultimate - 150mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "NEWMEN Beskar 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
+            { name: "Signature 1", price: 6999, material: "Carbon", motor: "TQ-HPR50", battery: "580Wh", fork: "Marzocchi Bomber Z1 160mm", shock: "Marzocchi Bomber Air - 150mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "Magura MT5", wheelset: "Crankbrothers E-Bike Alloy", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
+            { name: "Base", price: 5999, material: "Carbon", motor: "TQ-HPR50", battery: "360Wh", fork: "RockShox Psylo 160mm", shock: "RockShox Deluxe Select - 150mm", drivetrain: "SRAM NX Eagle", brakes: "SRAM DB8", wheelset: "NEWMEN Performance 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" }
+          ]
+        },
+        {
+          name: "Sresh CF",
+          image: "/bikes/Propain Sresh CF.png",
+          builds: [
+            { name: "Factory", price: 9584, material: "Carbon", motor: "Shimano EP801", battery: "626Wh", fork: "Fox 38 Factory 160mm", shock: "Fox DHX2 Factory - 150mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "Magura MT7 Pro", wheelset: "NEWMEN Advanced SL A.30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
+            { name: "Ultimate Enduro", price: 7529, material: "Carbon", motor: "Shimano EP801", battery: "626Wh", fork: "RockShox ZEB Ultimate 160mm", shock: "RockShox Vivid Ultimate - 150mm", drivetrain: "SRAM GX Eagle", brakes: "Formula Cura 4", wheelset: "NEWMEN Evolution E.G", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
+            { name: "Base", price: 6299, material: "Carbon", motor: "Shimano EP801", battery: "626Wh", fork: "RockShox Lyrik Base RC 160mm", shock: "RockShox Deluxe - 150mm", drivetrain: "SRAM GX Eagle", brakes: "SRAM DB8", wheelset: "NEWMEN Performance 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" }
+          ]
+        },
+        {
+          name: "Ekano 2 AL",
+          image: "/bikes/Propain Ekano 2 AL.png",
+          builds: [
+            { name: "Goldrush", price: 8999, material: "Aluminum", motor: "Shimano EP801", battery: "626Wh", fork: "Fox 38 Factory Grip2 180mm", shock: "Fox DHX2 Factory - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "Magura MT7", wheelset: "Crankbrothers Synthesis E-Bike Carbon i9", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
+            { name: "Shred²", price: 7579, material: "Aluminum", motor: "Shimano EP801", battery: "626Wh", fork: "RockShox ZEB Ultimate 190mm", shock: "RockShox Super Deluxe Ultimate RCT Air TR - 170mm", drivetrain: "SRAM GX Eagle Transmission AXS", brakes: "SRAM Code RSC", wheelset: "NEWMEN Evo EG 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
+            { name: "Price2Ride", price: 5889, material: "Aluminum", motor: "Shimano EP801", battery: "626Wh", fork: "RockShox ZEB Select+ 180mm", shock: "RockShox SDLX Select Coil-R - 170mm", drivetrain: "SRAM GX Eagle", brakes: "Formula Cura 4", wheelset: "NEWMEN Evo EG 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" }
+          ]
+        },
+        {
         name: "Ekano 2 CF",
         image: "/bikes/PROPAIN Ekano.png",
         builds: [
@@ -510,6 +622,7 @@ const RAW_EMTB = [
     logo: "https://placehold.co/200x100/ffffff/000000?text=MONDRAKER",
     models: [
       {
+        
         name: "Scree",
         image: "/bikes/Mondraker Scree.png",
         builds: [
