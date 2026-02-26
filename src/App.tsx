@@ -156,7 +156,7 @@ export default function App() {
                     clearFilters();
                   }
                 }}
-                className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all ${showGarage ? 'bg-white/30 text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
+                className={`flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all ${showGarage ? 'bg-white/30 text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
               >
                 <Star size={16} className={showGarage ? 'fill-white text-white' : 'text-white'} />
                 <span className="hidden sm:inline">{showGarage ? 'Exit Garage' : 'My Garage'}</span>
@@ -164,10 +164,10 @@ export default function App() {
               </button>
               <button 
                 onClick={() => {
-                  setShowGarage(false);
+                  setShowGarage>false;
                   setView('compare');
                 }}
-                className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all bg-white/20 text-white hover:bg-white/30"
+                className="flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all bg-white/20 text-white hover:bg-white/30"
               >
                 <Scale size={16} className="text-white" />
                 <span className="hidden sm:inline">Compare Rigs</span>
@@ -204,29 +204,29 @@ export default function App() {
                   <div className="w-full bg-slate-50 text-slate-900 pt-6 pb-2">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-8">
                       <div className="md:w-1/2 space-y-6">
-                        <h1 className="text-5xl sm:text-6xl font-extrabold uppercase tracking-tight">
+                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold uppercase tracking-tight">
                           FIND YOUR NEXT <span className="text-[#0071BC]">DREAM RIG</span>
                         </h1>
                         <p className="text-lg text-slate-600 max-w-xl">
                           TRAIL MATH is the world's first and largest definitive catalog & comparison tool...
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-4 text-center">
-                            <div className="text-2xl font-bold text-[#0071BC]">{totalBrands}</div>
-                            <div className="text-sm uppercase text-slate-500">BRANDS</div>
+                        <div className="grid grid-cols-3 gap-2 md:flex md:flex-row md:gap-4 mt-8">
+                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-2 md:p-6 text-center">
+                            <div className="text-2xl md:text-4xl font-bold text-[#0071BC]">{totalBrands}</div>
+                            <div className="text-[10px] md:text-sm uppercase text-slate-500">BRANDS</div>
                           </div>
-                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-4 text-center">
-                            <div className="text-2xl font-bold text-[#0071BC]">{totalModels}</div>
-                            <div className="text-sm uppercase text-slate-500">MODELS</div>
+                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-2 md:p-6 text-center">
+                            <div className="text-2xl md:text-4xl font-bold text-[#0071BC]">{totalModels}</div>
+                            <div className="text-[10px] md:text-sm uppercase text-slate-500">MODELS</div>
                           </div>
-                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-4 text-center">
-                            <div className="text-2xl font-bold text-[#0071BC]">{totalBuilds}</div>
-                            <div className="text-sm uppercase text-slate-500">BUILDS</div>
+                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-2 md:p-6 text-center">
+                            <div className="text-2xl md:text-4xl font-bold text-[#0071BC]">{totalBuilds}</div>
+                            <div className="text-[10px] md:text-sm uppercase text-slate-500">BUILDS</div>
                           </div>
                         </div>
                       </div>
                       <div className="md:w-1/2">
-                        <img src="/hero-emtb.jpg" alt="eMTB Action Shot" className="rounded-xl shadow-lg w-full h-auto object-cover" />
+                        <img src="/hero-emtb.jpg" alt="eMTB Action Shot" className="rounded-xl shadow-lg w-full h-auto object-cover mt-4 md:mt-0" />
                       </div>
                     </div>
                   </div>
