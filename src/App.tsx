@@ -40,6 +40,7 @@ export default function App() {
   const [selectedTorqueFilters, setSelectedTorqueFilters] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showGarage, setShowGarage] = useState(false);
+  const [priceTier, setPriceTier] = useState<string>('all');
 
   // Accordion open state for filter categories (default closed)
   const [isBrandOpen, setIsBrandOpen] = useState(false);
@@ -83,6 +84,14 @@ export default function App() {
     });
   }, []);
 
+  // Stats for hero
+  const totalBrands = eMTBData.length;
+  const totalModels = eMTBData.reduce((acc, b) => acc + b.models.length, 0);
+  const totalBuilds = eMTBData.reduce(
+    (acc, b) => acc + b.models.reduce((macc, m) => macc + m.builds.length, 0),
+    0
+  );
+
   const filteredBikes = useMemo(() => {
     return BIKES.filter(bike => {
       if (showGarage) {
@@ -91,9 +100,15 @@ export default function App() {
       const matchesBrand = selectedBrandFilters.length === 0 || selectedBrandFilters.includes(bike.brand);
       const matchesMotor = selectedMotorFilters.length === 0 || bike.builds.some(build => selectedMotorFilters.includes(build.motor));
       const matchesWheels = selectedWheelFilters.length === 0 || bike.builds.some(build => build.wheels && selectedWheelFilters.includes(build.wheels));
-      return matchesBrand && matchesMotor && matchesWheels;
+      let matchesPrice = true;
+      const price = bike.startingPrice;
+      if (priceTier === 'up-to-5k') matchesPrice = price <= 5000;
+      else if (priceTier === 'up-to-6k') matchesPrice = price <= 6000;
+      else if (priceTier === 'up-to-7k') matchesPrice = price <= 7000;
+      else if (priceTier === 'up-to-8k') matchesPrice = price <= 8000;
+      return matchesBrand && matchesMotor && matchesWheels && matchesPrice;
     }).sort((a, b) => a.brand.localeCompare(b.brand));
-  }, [selectedBrandFilters, selectedMotorFilters, selectedWheelFilters, showGarage, favorites]);
+  }, [selectedBrandFilters, selectedMotorFilters, selectedWheelFilters, showGarage, favorites, priceTier]);
 
   const groupedBikes = useMemo(() => {
     const map = new Map<string, typeof BIKES>();
@@ -119,18 +134,17 @@ export default function App() {
 
   const formatPrice = (price: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(price);
 
+  const randomizedBrands = useMemo(() => [...eMTBData].sort(() => Math.random() - 0.5), []);
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900">
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
+      <header className="bg-[#0071BC] border-b border-[#0071BC] sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div 
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => setView('showroom')}
           >
-            <div className="bg-emerald-600 text-white p-1.5 rounded-lg group-hover:bg-emerald-700 transition-colors">
-              <Bike size={20} />
-            </div>
-            <span className="font-bold text-xl tracking-tight">eMTB<span className="text-emerald-600">Compare</span></span>
+            <img src="/trail-math-logo-horizontal-white.png" alt="Trail Math" className="h-10 w-auto" />
           </div>
           
           {view === 'showroom' && (
@@ -142,9 +156,9 @@ export default function App() {
                     clearFilters();
                   }
                 }}
-                className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all ${showGarage ? 'bg-emerald-100 text-emerald-700' : 'text-slate-600 bg-slate-100 hover:bg-slate-200 hover:text-slate-900'}`}
+                className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all ${showGarage ? 'bg-white/30 text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
               >
-                <Star size={16} className={showGarage ? 'fill-emerald-600 text-emerald-600' : ''} />
+                <Star size={16} className={showGarage ? 'fill-white text-white' : 'text-white'} />
                 <span className="hidden sm:inline">{showGarage ? 'Exit Garage' : 'My Garage'}</span>
                 <span className="sm:hidden">{showGarage ? 'Exit' : 'Garage'}</span>
               </button>
@@ -153,9 +167,9 @@ export default function App() {
                   setShowGarage(false);
                   setView('compare');
                 }}
-                className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 hover:text-slate-900 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all"
+                className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all bg-white/20 text-white hover:bg-white/30"
               >
-                <Scale size={16} />
+                <Scale size={16} className="text-white" />
                 <span className="hidden sm:inline">Compare Rigs</span>
                 <span className="sm:hidden">Compare</span>
               </button>
@@ -175,36 +189,110 @@ export default function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {view === 'showroom' && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="text-center max-w-2xl mx-auto space-y-4">
-              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
-                {showGarage ? (
-                  <>Your <span className="text-emerald-600">Dream Garage</span></>
-                ) : (
-                  <>Find Your Next <br className="sm:hidden" /> <span className="text-emerald-500">Dream Rig</span></>
-                )}
-              </h1>
-              <p className="text-lg text-slate-600">
-                {showGarage ? 'The rigs you have saved for later.' : 'Compare the latest 2026 eMTBs, spec by spec, and run the numbers to see whats in budget to make a smart purchase.'}
-              </p>
-            </div>
+            {showGarage ? (
+              <div className="text-center max-w-2xl mx-auto space-y-4">
+                <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
+                  Your <span className="text-emerald-600">Dream Garage</span>
+                </h1>
+                <p className="text-lg text-slate-600">
+                  The rigs you have saved for later.
+                </p>
+              </div>
+            ) : (
+              <>
+                  {/* redesigned dark hero */}
+                  <div className="w-full bg-slate-50 text-slate-900 pt-6 pb-2">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-8">
+                      <div className="md:w-1/2 space-y-6">
+                        <h1 className="text-5xl sm:text-6xl font-extrabold uppercase tracking-tight">
+                          FIND YOUR NEXT <span className="text-[#0071BC]">DREAM RIG</span>
+                        </h1>
+                        <p className="text-lg text-slate-600 max-w-xl">
+                          TRAIL MATH is the world's first and largest definitive catalog & comparison tool...
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-4 text-center">
+                            <div className="text-2xl font-bold text-[#0071BC]">{totalBrands}</div>
+                            <div className="text-sm uppercase text-slate-500">BRANDS</div>
+                          </div>
+                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-4 text-center">
+                            <div className="text-2xl font-bold text-[#0071BC]">{totalModels}</div>
+                            <div className="text-sm uppercase text-slate-500">MODELS</div>
+                          </div>
+                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-4 text-center">
+                            <div className="text-2xl font-bold text-[#0071BC]">{totalBuilds}</div>
+                            <div className="text-sm uppercase text-slate-500">BUILDS</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="md:w-1/2">
+                        <img src="/hero-emtb.jpg" alt="eMTB Action Shot" className="rounded-xl shadow-lg w-full h-auto object-cover" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* light logo strip with fade edges */}
+                  <div className="w-full mb-20 [mask-image:_linear-gradient(to_right,transparent_0,_black_10%,_black_90%,transparent_100%)]">
+                    <div className="w-full bg-white border-y border-slate-200 py-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                      <div className="flex items-center space-x-8 px-4 w-max animate-[scroll_30s_linear_infinite] hover:[animation-play-state:paused]">
+                        {randomizedBrands.map(b => (
+                          b.logo && (
+                            <img
+                              key={`${b.brand}-1`}
+                              src={b.logo}
+                              alt={b.brand}
+                              className="h-6 md:h-8 max-w-[120px] md:max-w-[140px] w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                            />
+                          )
+                        ))}
+                        {randomizedBrands.map(b => (
+                          b.logo && (
+                            <img
+                              key={`${b.brand}-2`}
+                              src={b.logo}
+                              alt={b.brand}
+                              className="h-6 md:h-8 max-w-[120px] md:max-w-[140px] w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                            />
+                          )
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+              </>
+            )}
 
             {!showGarage && (
               <>
                 <div className="sticky top-16 z-20 bg-slate-50/90 backdrop-blur-md py-3 border-b border-slate-200 -mx-4 px-4 sm:mx-0 sm:px-0">
-                  <div className="flex items-center gap-4">
-                    <button 
-                      onClick={() => setIsFilterModalOpen(true)}
-                      className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
-                    >
-                      <Filter size={16} className="text-emerald-600" />
-                      Filter Rigs {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs">{selectedBrandFilters.length + selectedMotorFilters.length + selectedWheelFilters.length}</span>}
-                    </button>
-
-                    {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && (
-                      <button onClick={clearFilters} className="text-slate-500 hover:text-slate-800 font-medium">
-                        Clear Filters
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="flex items-center gap-4">
+                      <button 
+                        onClick={() => setIsFilterModalOpen(true)}
+                        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
+                      >
+                        <Filter size={16} className="text-emerald-600" />
+                        Filter Rigs {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs">{selectedBrandFilters.length + selectedMotorFilters.length + selectedWheelFilters.length}</span>}
                       </button>
-                    )}
+
+                      {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && (
+                        <button onClick={clearFilters} className="text-slate-500 hover:text-slate-800 font-medium">
+                          Clear Filters
+                        </button>
+                      )}
+                    </div>
+                    <div>
+                      <select
+                        value={priceTier}
+                        onChange={e => setPriceTier(e.target.value)}
+                        className="bg-white border border-slate-200 text-slate-700 rounded-lg px-3 py-2 text-sm"
+                      >
+                        <option value="all">SHOW ALL</option>
+                        <option value="up-to-5k">Up to $5K</option>
+                        <option value="up-to-6k">Up to $6K</option>
+                        <option value="up-to-7k">Up to $7K</option>
+                        <option value="up-to-8k">Up to $8K</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
 
