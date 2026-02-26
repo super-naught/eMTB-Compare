@@ -164,7 +164,7 @@ export default function App() {
               </button>
               <button 
                 onClick={() => {
-                  setShowGarage>false;
+                  setShowGarage(false);
                   setView('compare');
                 }}
                 className="flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all bg-white/20 text-white hover:bg-white/30"
