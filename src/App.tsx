@@ -128,7 +128,7 @@ export default function App() {
   const randomizedBrands = useMemo(() => [...eMTBData].sort(() => Math.random() - 0.5), []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div 
@@ -149,7 +149,7 @@ export default function App() {
                 }}
                 className={`flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all ${showGarage ? 'bg-slate-100 text-slate-900' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}
               >
-                <Star size={16} className={showGarage ? 'fill-emerald-600 text-emerald-600' : 'text-slate-600'} />
+                <Star size={16} className={showGarage ? 'fill-blue-600 text-blue-600' : 'text-slate-600'} />
                 <span className="hidden sm:inline">{showGarage ? 'Exit Garage' : 'My Garage'}</span>
                 <span className="sm:hidden">{showGarage ? 'Exit' : 'Garage'}</span>
               </button>
@@ -169,7 +169,7 @@ export default function App() {
           {view !== 'showroom' && (
             <button 
               onClick={() => setView('showroom')}
-              className="text-sm font-medium text-emerald-600 hover:text-emerald-700 flex items-center gap-1"
+              className="text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1"
             >
               Back to Showroom
             </button>
@@ -183,7 +183,7 @@ export default function App() {
             {showGarage ? (
               <div className="text-center max-w-2xl mx-auto space-y-4">
                 <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
-                  Your <span className="text-emerald-600">Dream Garage</span>
+                  Your <span className="text-blue-600">Dream Garage</span>
                 </h1>
                 <p className="text-lg text-slate-600">
                   The rigs you have saved for later.
@@ -261,8 +261,8 @@ export default function App() {
                         onClick={() => setIsFilterModalOpen(true)}
                         className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
                       >
-                        <Filter size={16} className="text-emerald-600" />
-                        Filter Rigs {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs">{selectedBrandFilters.length + selectedMotorFilters.length + selectedWheelFilters.length}</span>}
+                        <Filter size={16} className="text-blue-600" />
+                        Filter Rigs {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">{selectedBrandFilters.length + selectedMotorFilters.length + selectedWheelFilters.length}</span>}
                       </button>
 
                       {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && (
@@ -315,7 +315,7 @@ export default function App() {
                                 const isSelected = selectedBrandFilters.includes(brand);
                                 return (
                                   <label key={brand} className="flex items-center gap-3 cursor-pointer">
-                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300'}`}>
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}`}>
                                       {isSelected && <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                                     </div>
                                     <input type="checkbox" className="hidden" checked={isSelected} onChange={() => setSelectedBrandFilters(prev => isSelected ? prev.filter(b => b !== brand) : [...prev, brand])} />
@@ -343,7 +343,7 @@ export default function App() {
                                 const isSelected = selectedMotorFilters.includes(motor);
                                 return (
                                   <label key={motor} className="flex items-center gap-3 cursor-pointer">
-                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300'}`}>
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}`}>
                                       {isSelected && <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                                     </div>
                                     <input type="checkbox" className="hidden" checked={isSelected} onChange={() => setSelectedMotorFilters(prev => isSelected ? prev.filter(m => m !== motor) : [...prev, motor])} />
@@ -371,7 +371,7 @@ export default function App() {
                                 const isSelected = selectedTorqueFilters.includes(tq);
                                 return (
                                   <label key={tq} className="flex items-center gap-3 cursor-pointer">
-                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300'}`}>
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}`}>
                                       {isSelected && <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                                     </div>
                                     <input type="checkbox" className="hidden" checked={isSelected} onChange={() => setSelectedTorqueFilters(prev => isSelected ? prev.filter(x => x !== tq) : [...prev, tq])} />
@@ -399,7 +399,7 @@ export default function App() {
                                 const isSelected = selectedWheelFilters.includes(w);
                                 return (
                                   <label key={w} className="flex items-center gap-3 cursor-pointer">
-                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300'}`}>
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}`}>
                                       {isSelected && <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                                     </div>
                                     <input type="checkbox" className="hidden" checked={isSelected} onChange={() => setSelectedWheelFilters(prev => isSelected ? prev.filter(x => x !== w) : [...prev, w])} />
@@ -414,7 +414,7 @@ export default function App() {
 
                       <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50 shrink-0 flex gap-4">
                         <button onClick={clearFilters} className="flex-1 bg-white border border-slate-300 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors">Clear Filters</button>
-                        <button onClick={() => setIsFilterModalOpen(false)} className="flex-1 bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-sm shadow-emerald-200 hover:bg-emerald-700 transition-colors">Apply Filters</button>
+                        <button onClick={() => setIsFilterModalOpen(false)} className="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl shadow-sm shadow-blue-200 hover:bg-blue-700 transition-colors">Apply Filters</button>
                       </div>
                     </div>
                   </div>
@@ -436,19 +436,19 @@ export default function App() {
                         setSelectedBikeId(bike.id);
                         setView('builds');
                       }}
-                      className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:border-emerald-300 transition-all cursor-pointer group flex flex-col"
+                      className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-300 transition-all cursor-pointer group flex flex-col"
                     >
-                      <div className="w-full aspect-[4/3] bg-slate-100 overflow-hidden relative shrink-0">
+                      <div className="w-full p-0 h-64 overflow-hidden relative shrink-0">
                         <img 
                           src={bike.image} 
                           alt={bike.model} 
-                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-contain scale-110 group-hover:scale-125 transition-transform duration-500 mix-blend-multiply"
                           crossOrigin="anonymous"
                         />
                       </div>
                       <div className="p-6 flex-1 flex flex-col justify-center min-w-0">
                         <div className="flex justify-between items-center text-xs uppercase mb-1">
-                          <div className="text-xs font-semibold text-emerald-600 tracking-wide truncate">{bike.brand}</div>
+                          <div className="text-xs font-bold text-slate-900 tracking-wide truncate">{bike.brand}</div>
                           <span className="text-gray-400 font-medium">{(bike as any).suspension || 'TBD'}</span>
                         </div>
                         <h3 className="text-xl font-bold text-slate-900 mb-4 truncate">{bike.model}</h3>
@@ -457,7 +457,7 @@ export default function App() {
                             <div className="text-[10px] text-slate-500 uppercase tracking-wider font-medium">Starting at</div>
                             <div className="text-lg font-bold text-slate-900">{formatPrice(bike.startingPrice)}</div>
                           </div>
-                          <div className="text-slate-400 group-hover:text-emerald-600 transition-colors">
+                          <div className="text-slate-400 group-hover:text-blue-600 transition-colors">
                             <ArrowRight size={20} />
                           </div>
                         </div>
@@ -491,7 +491,7 @@ export default function App() {
                       crossOrigin="anonymous" 
                     />
                   )}
-                  <h2 className="text-4xl font-extrabold text-slate-900 mb-6">{selectedBike.model}</h2>
+                  <h2 className="text-4xl font-extrabold text-slate-300 mb-6">{selectedBike.model}</h2>
                   <img 
                     src={selectedBike.image} 
                     alt={selectedBike.model} 
@@ -509,12 +509,12 @@ export default function App() {
                 {selectedBike.builds.filter(b => showGarage ? favorites.includes(b.id) : true).map(build => (
                   <div 
                     key={build.id}
-                    className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:border-emerald-300 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-6"
+                    className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:border-blue-300 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-6"
                   >
                     <div className="flex-1">
                       <div className="flex items-baseline justify-between sm:justify-start gap-4 mb-2">
                         <h4 className="text-xl font-bold text-slate-900">{build.name}</h4>
-                        <span className="text-lg font-semibold text-emerald-700">{formatPrice(build.price)}</span>
+                        <span className="text-lg font-semibold text-blue-700">{formatPrice(build.price)}</span>
                       </div>
                       <p className="text-slate-600 text-sm mt-2">{build.motor}, {build.battery} Battery, {(build as any).torque || 'TBD'}, {build.material} Frame</p>
                     </div>
@@ -524,7 +524,7 @@ export default function App() {
                         className="p-2 rounded-full hover:bg-slate-100 transition-colors"
                         title="Save to Garage"
                       >
-                        <Star size={20} className={favorites.includes(build.id) ? 'fill-emerald-500 text-emerald-500' : 'text-slate-400'} />
+                        <Star size={20} className={favorites.includes(build.id) ? 'fill-blue-500 text-blue-500' : 'text-slate-400'} />
                       </button>
                       <button 
                         onClick={() => {
@@ -568,7 +568,7 @@ export default function App() {
                   <select 
                     value={rigAId}
                     onChange={(e) => setRigAId(e.target.value)}
-                    className="w-full bg-white border border-slate-300 text-slate-900 text-base rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3 shadow-sm"
+                    className="w-full bg-white border border-slate-300 text-slate-900 text-base rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 shadow-sm"
                   >
                     {ALL_BUILDS.map(b => (
                       <option key={b.id} value={b.id}>{b.fullName} - {formatPrice(b.price)}</option>
@@ -580,7 +580,7 @@ export default function App() {
                       <img src={rigA.image} alt={rigA.fullName} className="w-full h-48 object-contain mb-4" crossOrigin="anonymous" />
                       
                       <div className="text-center">
-                        <div className="text-sm font-semibold text-emerald-600 uppercase tracking-wider">{rigA.brand}</div>
+                        <div className="text-sm font-semibold text-blue-600 uppercase tracking-wider">{rigA.brand}</div>
                         <h3 className="text-2xl font-bold text-slate-900">{rigA.model} {rigA.name}</h3>
                         <div className="text-xl font-bold text-slate-700 mt-2">{formatPrice(rigA.price)}</div>
                       </div>
@@ -605,7 +605,7 @@ export default function App() {
                   <select 
                     value={rigBId}
                     onChange={(e) => setRigBId(e.target.value)}
-                    className="w-full bg-white border border-slate-300 text-slate-900 text-base rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3 shadow-sm"
+                    className="w-full bg-white border border-slate-300 text-slate-900 text-base rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 shadow-sm"
                   >
                     {ALL_BUILDS.map(b => (
                       <option key={b.id} value={b.id}>{b.fullName} - {formatPrice(b.price)}</option>
@@ -617,7 +617,7 @@ export default function App() {
                       <img src={rigB.image} alt={rigB.fullName} className="w-full h-48 object-contain mb-4" crossOrigin="anonymous" />
                       
                       <div className="text-center">
-                        <div className="text-sm font-semibold text-emerald-600 uppercase tracking-wider">{rigB.brand}</div>
+                        <div className="text-sm font-semibold text-blue-600 uppercase tracking-wider">{rigB.brand}</div>
                         <h3 className="text-2xl font-bold text-slate-900">{rigB.model} {rigB.name}</h3>
                         <div className="text-xl font-bold text-slate-700 mt-2">{formatPrice(rigB.price)}</div>
                       </div>
@@ -657,7 +657,7 @@ function SpecRow({ label, value }: { label: string, value: string }) {
 const STATE_TAX_RATES: Record<string, number> = { 'None': 0, 'AL': 0.04, 'AK': 0, 'AZ': 0.056, 'AR': 0.065, 'CA': 0.0725, 'CO': 0.029, 'CT': 0.0635, 'DE': 0, 'FL': 0.06, 'GA': 0.04, 'HI': 0.04, 'ID': 0.06, 'IL': 0.0625, 'IN': 0.07, 'IA': 0.06, 'KS': 0.065, 'KY': 0.06, 'LA': 0.0445, 'ME': 0.055, 'MD': 0.06, 'MA': 0.0625, 'MI': 0.06, 'MN': 0.06875, 'MS': 0.07, 'MO': 0.04225, 'MT': 0, 'NE': 0.055, 'NV': 0.0685, 'NH': 0, 'NJ': 0.06625, 'NM': 0.05125, 'NY': 0.04, 'NC': 0.0475, 'ND': 0.05, 'OH': 0.0575, 'OK': 0.045, 'OR': 0, 'PA': 0.06, 'RI': 0.07, 'SC': 0.06, 'SD': 0.045, 'TN': 0.07, 'TX': 0.0625, 'UT': 0.061, 'VT': 0.06, 'VA': 0.053, 'WA': 0.065, 'WV': 0.06, 'WI': 0.05, 'WY': 0.04 };
 
 function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack: () => void }) {
-  const [downPayment, setDownPayment] = useState(1000);
+  const [downPayment, setDownPayment] = useState<number | string>(1000);
   const [promo, setPromo] = useState('none');
   const [standardTerm, setStandardTerm] = useState(36);
   const [standardApr, setStandardApr] = useState(7.99);
@@ -668,7 +668,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
   const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
     const taxAmount = build.price * (STATE_TAX_RATES[buyerState] ?? 0);
     const totalFinanced = build.price + taxAmount;
-    const p = Math.max(0, totalFinanced - downPayment);
+    const p = Math.max(0, totalFinanced - (Number(downPayment) || 0));
     
     if (promo === '6mo' || promo === '12mo') {
       const t = promo === '6mo' ? 6 : 12;
@@ -714,7 +714,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
     <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-300">
       <button 
         onClick={onBack}
-        className="flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors"
+        className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
       >
         <ChevronLeft size={20} />
         Back to Builds
@@ -722,64 +722,84 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         <div className="w-full space-y-6">
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-            <img src={build.image || bike.image} alt={build.name} className="w-full h-64 md:h-80 object-contain mb-6" crossOrigin="anonymous" />
-            <div className="text-center mb-6">
-              <div className="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-1">{bike.brand}</div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">{bike.model} {build.name}</h2>
-              <div className="text-2xl font-medium text-slate-600">{formatMoney(price)}</div>
-            </div>
+          {/* --- SELECTED BIKE SUMMARY CARD --- */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col w-full border border-gray-100">
             
-            <div className="grid grid-cols-2 gap-x-4 gap-y-6 pt-6 border-t border-slate-100">
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">MATERIAL</span>
-                <span className="font-medium text-slate-800">{build.material || bike.material || 'TBD'}</span>
+            {/* 1. TRUE EDGE-TO-EDGE IMAGE (Zero Padding, Absolute Fill) */}
+            <div className="w-full h-64 sm:h-72 bg-slate-50 relative m-0 p-0 overflow-hidden flex items-center justify-center">
+              <img 
+                src={bike.image} 
+                alt={bike.model} 
+                className="absolute inset-0 w-full h-full object-contain mix-blend-multiply scale-110"
+              />
+            </div>
+
+            {/* 2. TEXT CONTENT (Generous Padding applied ONLY here) */}
+            <div className="p-8 flex flex-col">
+              
+              {/* Header: Logo, Name, Price */}
+              <div className="flex flex-col items-center pb-6 border-b border-gray-100 gap-1">
+                <img 
+                  src={eMTBData.find(b => b.brand === bike.brand)?.logo} 
+                  alt={bike.brand} 
+                  className="h-10 object-contain mb-2" 
+                />
+                <h2 className="text-lg font-bold text-slate-900 text-center leading-snug">
+                  {bike.model} - {build.name} build
+                </h2>
+                <p className="text-2xl font-black text-blue-600">
+                  {formatMoney(price)}
+                </p>
               </div>
 
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">DRIVETRAIN</span>
-                <span className="font-medium text-slate-800">{build.drivetrain || bike.drivetrain || 'TBD'}</span>
-              </div>
+              {/* 3. Specs Grid (Perfect 2-Column Layout) */}
+    <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-6">
+      
+      {/* Row 1: Frame & Travel */}
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Material</span>
+        <span className="text-sm font-medium text-slate-800">{build.material || bike.material || 'TBD'}</span>
+      </div>
 
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">MOTOR</span>
-                <span className="font-medium text-slate-800">{build.motor || bike.motor || 'TBD'}</span>
-              </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Suspension</span>
+        <span className="text-sm font-medium text-slate-800">{bike.suspension}</span>
+      </div>
 
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">TORQUE</span>
-                <span className="font-medium text-slate-800">{build.torque || (() => { const s = new Set(bike.builds.map((b: any) => (b as any).torque || 'TBD')); return s.size === 1 ? Array.from(s)[0] : 'Various'; })()}</span>
-              </div>
+      {/* Row 2: Suspension Details */}
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Fork</span>
+        <span className="text-sm font-medium text-slate-800">{build.fork || bike.fork || 'TBD'}</span>
+      </div>
 
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">BATTERY</span>
-                <span className="font-medium text-slate-800">{build.battery || bike.battery || 'TBD'}</span>
-              </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Shock</span>
+        <span className="text-sm font-medium text-slate-800">{build.shock || bike.shock || 'TBD'}</span>
+      </div>
 
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">BRAKES</span>
-                <span className="font-medium text-slate-800">{build.brakes || bike.brakes || 'TBD'}</span>
-              </div>
+      {/* Row 3: E-Bike System */}
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Motor</span>
+        <span className="text-sm font-medium text-slate-800">{build.motor || bike.motor || 'TBD'}</span>
+      </div>
 
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">FRONT / FORK</span>
-                <span className="font-medium text-slate-800">{build.fork || bike.fork || 'TBD'}</span>
-              </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Battery</span>
+        <span className="text-sm font-medium text-slate-800">{build.battery || bike.battery || 'TBD'}</span>
+      </div>
 
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">REAR / SHOCK</span>
-                <span className="font-medium text-slate-800">{build.shock || bike.shock || 'TBD'}</span>
-              </div>
+      {/* Row 4: Drivetrain & Brakes */}
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Drivetrain</span>
+        <span className="text-sm font-medium text-slate-800">{build.drivetrain || bike.drivetrain || 'TBD'}</span>
+      </div>
 
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">WHEELSET</span>
-                <span className="font-medium text-slate-800">{build.wheelset || bike.wheelset || 'TBD'}</span>
-              </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Brakes</span>
+        <span className="text-sm font-medium text-slate-800">{build.brakes || bike.brakes || 'TBD'}</span>
+      </div>
 
-              <div className="flex flex-col">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">TIRES</span>
-                <span className="font-medium text-slate-800">{build.tires || bike.tires || 'TBD'}</span>
-              </div>
+    </div>
             </div>
           </div>
         </div>
@@ -794,7 +814,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
                 <div className="text-6xl font-extrabold text-white tracking-tight">
                   {formatMoney(monthlyPayment)}<span className="text-2xl text-slate-500 font-medium">/mo</span>
                 </div>
-                <div className="text-emerald-400 text-sm font-medium mt-2">
+                <div className="text-blue-400 text-sm font-medium mt-2">
                   For {activeTerm} months
                 </div>
               </div>
@@ -812,7 +832,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400">Down Payment</span>
-                  <span className="font-semibold text-emerald-400">-{formatMoney(downPayment)}</span>
+                  <span className="font-semibold text-blue-400">-{formatMoney(Number(downPayment) || 0)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400">Total Interest</span>
@@ -835,7 +855,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
 
           <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
             <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2 mb-6">
-              <Calculator size={24} className="text-emerald-600" />
+              <Calculator size={24} className="text-blue-600" />
               Trail Math
             </h3>
             
@@ -843,12 +863,16 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">Down Payment ($)</label>
                 <input 
-                  type="number" 
-                  min="0"
-                  max={price}
+                  type="text" 
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   value={downPayment}
-                  onChange={(e) => setDownPayment(Number(e.target.value))}
-                  className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3 transition-colors"
+                  onChange={(e) => {
+                    const raw = String(e.target.value).replace(/\D/g, '');
+                    const sanitized = raw.replace(/^0+/, '');
+                    setDownPayment(sanitized === '' ? '' : Number(sanitized));
+                  }}
+                  className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 transition-colors"
                 />
                 <div className="flex justify-between text-xs text-slate-500 mt-2 font-medium">
                   <span>Financing: {formatMoney(principal)}</span>
@@ -864,7 +888,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
                       onClick={() => setPromo(p)}
                       className={`py-3 px-2 rounded-xl text-sm font-bold transition-all border ${
                         promo === p 
-                          ? 'bg-emerald-50 border-emerald-500 text-emerald-700 shadow-sm' 
+                          ? 'bg-blue-50 border-blue-500 text-blue-700 shadow-sm' 
                           : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
                       }`}
                     >
@@ -896,7 +920,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
                     step="12"
                     value={standardTerm}
                     onChange={(e) => setStandardTerm(Number(e.target.value))}
-                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                   />
                   <div className="text-center font-bold text-slate-700 mt-2">{standardTerm} Months</div>
                 </div>
@@ -909,7 +933,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
                     step="0.1"
                     value={standardApr}
                     onChange={(e) => setStandardApr(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-3 transition-colors"
+                    className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 transition-colors"
                   />
                 </div>
               </div>
