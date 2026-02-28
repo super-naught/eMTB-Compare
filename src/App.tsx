@@ -7,6 +7,7 @@ const BIKES = eMTBData.flatMap(brand =>
     id: `${brand.brand}-${model.name}`.toLowerCase().replace(/\s+/g, '-'),
     brand: brand.brand,
     model: model.name,
+      suspension: (model as any).suspension || 'TBD',
     startingPrice: Math.min(...model.builds.map(b => b.price)),
     image: model.image,
     builds: model.builds.map(build => ({
@@ -70,18 +71,7 @@ export default function App() {
   }, []);
 
   const torques = useMemo(() => {
-    const all = new Set<string>();
-    BIKES.forEach(bike => bike.builds.forEach(build => all.add((build as any).torque || 'TBD')));
-    return Array.from(all).sort((a, b) => {
-      if (a === 'TBD') return 1;
-      if (b === 'TBD') return -1;
-      const na = parseInt(String(a), 10);
-      const nb = parseInt(String(b), 10);
-      if (!isNaN(na) && !isNaN(nb)) return na - nb;
-      if (!isNaN(na)) return -1;
-      if (!isNaN(nb)) return 1;
-      return String(a).localeCompare(String(b));
-    });
+    return ['50Nm','55Nm','60Nm','65Nm','85Nm','90Nm','105Nm','108Nm','TBD'];
   }, []);
 
   // Stats for hero
@@ -100,15 +90,16 @@ export default function App() {
       const matchesBrand = selectedBrandFilters.length === 0 || selectedBrandFilters.includes(bike.brand);
       const matchesMotor = selectedMotorFilters.length === 0 || bike.builds.some(build => selectedMotorFilters.includes(build.motor));
       const matchesWheels = selectedWheelFilters.length === 0 || bike.builds.some(build => build.wheels && selectedWheelFilters.includes(build.wheels));
+      const matchesTorque = selectedTorqueFilters.length === 0 || bike.builds.some(build => selectedTorqueFilters.includes(((build as any).torque) || 'TBD'));
       let matchesPrice = true;
       const price = bike.startingPrice;
       if (priceTier === 'up-to-5k') matchesPrice = price <= 5000;
       else if (priceTier === 'up-to-6k') matchesPrice = price <= 6000;
       else if (priceTier === 'up-to-7k') matchesPrice = price <= 7000;
       else if (priceTier === 'up-to-8k') matchesPrice = price <= 8000;
-      return matchesBrand && matchesMotor && matchesWheels && matchesPrice;
+      return matchesBrand && matchesMotor && matchesWheels && matchesTorque && matchesPrice;
     }).sort((a, b) => a.brand.localeCompare(b.brand));
-  }, [selectedBrandFilters, selectedMotorFilters, selectedWheelFilters, showGarage, favorites, priceTier]);
+  }, [selectedBrandFilters, selectedMotorFilters, selectedWheelFilters, selectedTorqueFilters, showGarage, favorites, priceTier]);
 
   const groupedBikes = useMemo(() => {
     const map = new Map<string, typeof BIKES>();
@@ -138,13 +129,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900">
-      <header className="bg-[#0071BC] border-b border-[#0071BC] sticky top-0 z-10">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div 
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => setView('showroom')}
           >
-            <img src="/trail-math-logo-horizontal-white.png" alt="Trail Math" className="h-10 w-auto" />
+            <img src="/trail-math-logo-color-horizontal.svg" alt="Trail Math" className="h-10 w-auto" />
           </div>
           
           {view === 'showroom' && (
@@ -156,9 +147,9 @@ export default function App() {
                     clearFilters();
                   }
                 }}
-                className={`flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all ${showGarage ? 'bg-white/30 text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
+                className={`flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all ${showGarage ? 'bg-slate-100 text-slate-900' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}
               >
-                <Star size={16} className={showGarage ? 'fill-white text-white' : 'text-white'} />
+                <Star size={16} className={showGarage ? 'fill-emerald-600 text-emerald-600' : 'text-slate-600'} />
                 <span className="hidden sm:inline">{showGarage ? 'Exit Garage' : 'My Garage'}</span>
                 <span className="sm:hidden">{showGarage ? 'Exit' : 'Garage'}</span>
               </button>
@@ -167,9 +158,9 @@ export default function App() {
                   setShowGarage(false);
                   setView('compare');
                 }}
-                className="flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all bg-white/20 text-white hover:bg-white/30"
+                className="flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all bg-slate-100 text-slate-900 hover:bg-slate-200"
               >
-                <Scale size={16} className="text-white" />
+                <Scale size={16} className="text-slate-600" />
                 <span className="hidden sm:inline">Compare Rigs</span>
                 <span className="sm:hidden">Compare</span>
               </button>
@@ -208,7 +199,7 @@ export default function App() {
                           FIND YOUR NEXT <span className="text-[#0071BC]">DREAM RIG</span>
                         </h1>
                         <p className="text-lg text-slate-600 max-w-xl">
-                          TRAIL MATH is the world's first and largest definitive catalog & comparison tool...
+                          TRAIL MATH is the world's first and largest definitive catalog & comparison tool for current gen eMTBs
                         </p>
                         <div className="grid grid-cols-3 gap-2 md:flex md:flex-row md:gap-4 mt-8">
                           <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-2 md:p-6 text-center">
@@ -458,9 +449,7 @@ export default function App() {
                       <div className="p-6 flex-1 flex flex-col justify-center min-w-0">
                         <div className="flex justify-between items-center text-xs uppercase mb-1">
                           <div className="text-xs font-semibold text-emerald-600 tracking-wide truncate">{bike.brand}</div>
-                          <span className="text-gray-400 font-medium">
-                            {(() => { const s = new Set(bike.builds.map((b: any) => (b as any).torque || 'TBD')); return s.size === 1 ? Array.from(s)[0] : 'Various'; })()}
-                          </span>
+                          <span className="text-gray-400 font-medium">{(bike as any).suspension || 'TBD'}</span>
                         </div>
                         <h3 className="text-xl font-bold text-slate-900 mb-4 truncate">{bike.model}</h3>
                         <div className="mt-auto flex items-center justify-between">
@@ -527,7 +516,7 @@ export default function App() {
                         <h4 className="text-xl font-bold text-slate-900">{build.name}</h4>
                         <span className="text-lg font-semibold text-emerald-700">{formatPrice(build.price)}</span>
                       </div>
-                      <p className="text-slate-600 text-sm mt-2">{build.motor}, {build.battery} Battery, {build.material} Frame</p>
+                      <p className="text-slate-600 text-sm mt-2">{build.motor}, {build.battery} Battery, {(build as any).torque || 'TBD'}, {build.material} Frame</p>
                     </div>
                     <div className="flex items-center gap-3 justify-end mt-4 w-full sm:mt-0 sm:w-auto">
                       <button
