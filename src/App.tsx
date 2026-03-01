@@ -657,7 +657,7 @@ function SpecRow({ label, value }: { label: string, value: string }) {
 const STATE_TAX_RATES: Record<string, number> = { 'None': 0, 'AL': 0.04, 'AK': 0, 'AZ': 0.056, 'AR': 0.065, 'CA': 0.0725, 'CO': 0.029, 'CT': 0.0635, 'DE': 0, 'FL': 0.06, 'GA': 0.04, 'HI': 0.04, 'ID': 0.06, 'IL': 0.0625, 'IN': 0.07, 'IA': 0.06, 'KS': 0.065, 'KY': 0.06, 'LA': 0.0445, 'ME': 0.055, 'MD': 0.06, 'MA': 0.0625, 'MI': 0.06, 'MN': 0.06875, 'MS': 0.07, 'MO': 0.04225, 'MT': 0, 'NE': 0.055, 'NV': 0.0685, 'NH': 0, 'NJ': 0.06625, 'NM': 0.05125, 'NY': 0.04, 'NC': 0.0475, 'ND': 0.05, 'OH': 0.0575, 'OK': 0.045, 'OR': 0, 'PA': 0.06, 'RI': 0.07, 'SC': 0.06, 'SD': 0.045, 'TN': 0.07, 'TX': 0.0625, 'UT': 0.061, 'VT': 0.06, 'VA': 0.053, 'WA': 0.065, 'WV': 0.06, 'WI': 0.05, 'WY': 0.04 };
 
 function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack: () => void }) {
-  const [downPayment, setDownPayment] = useState<number | string>(1000);
+  const [downPayment, setDownPayment] = useState<number | string>('');
   const [promo, setPromo] = useState('none');
   const [standardTerm, setStandardTerm] = useState(36);
   const [standardApr, setStandardApr] = useState(7.99);
@@ -665,10 +665,17 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
 
   const price = build.price;
   
-  const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
+const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
     const taxAmount = build.price * (STATE_TAX_RATES[buyerState] ?? 0);
-    const totalFinanced = build.price + taxAmount;
-    const p = Math.max(0, totalFinanced - (Number(downPayment) || 0));
+    
+    // 1. Safely convert the downPayment to a real number (or 0 if it's blank)
+    const downPaymentValue = Number(downPayment) || 0;
+    
+    // 2. Calculate the true financed amount (Price + Tax - Down Payment)
+    const totalFinanced = build.price + taxAmount - downPaymentValue;
+    
+    // 3. The principal is just the totalFinanced, no need to subtract twice!
+    const p = Math.max(0, totalFinanced);
     
     if (promo === '6mo' || promo === '12mo') {
       const t = promo === '6mo' ? 6 : 12;
@@ -677,7 +684,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
         activeTerm: t,
         monthlyPayment: p / t,
         totalInterest: 0,
-        totalCost: totalFinanced,
+        totalCost: totalFinanced, // Notice totalCost and totalFinanced are now perfectly accurate
         taxAmount,
         totalFinanced
       };
@@ -726,11 +733,11 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col w-full border border-gray-100">
             
             {/* 1. TRUE EDGE-TO-EDGE IMAGE (Zero Padding, Absolute Fill) */}
-            <div className="w-full h-64 sm:h-72 bg-slate-50 relative m-0 p-0 overflow-hidden flex items-center justify-center">
+            <div className="w-full h-64 sm:h-72 bg-[#F3F3F3] relative m-0 p-0 overflow-hidden flex items-center justify-center">
               <img 
                 src={bike.image} 
                 alt={bike.model} 
-                className="absolute inset-0 w-full h-full object-contain mix-blend-multiply scale-110"
+                className="absolute inset-0 w-full h-full object-contain scale-110"
               />
             </div>
 
@@ -747,7 +754,7 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
                 <h2 className="text-lg font-bold text-slate-900 text-center leading-snug">
                   {bike.model} - {build.name} build
                 </h2>
-                <p className="text-2xl font-black text-blue-600">
+                <p className="text-2xl font-medium text-blue-600">
                   {formatMoney(price)}
                 </p>
               </div>
@@ -862,18 +869,24 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">Down Payment ($)</label>
-                <input 
-                  type="text" 
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  value={downPayment}
-                  onChange={(e) => {
-                    const raw = String(e.target.value).replace(/\D/g, '');
-                    const sanitized = raw.replace(/^0+/, '');
-                    setDownPayment(sanitized === '' ? '' : Number(sanitized));
-                  }}
-                  className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 transition-colors"
-                />
+                  <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg pointer-events-none">
+                    $
+                  </span>
+                  <input 
+                    type="text" 
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={downPayment}
+                    placeholder="0"
+                    onChange={(e) => {
+                      const raw = String(e.target.value).replace(/\D/g, '');
+                      const sanitized = raw.replace(/^0+/, '');
+                      setDownPayment(sanitized === '' ? '' : Number(sanitized));
+                    }}
+                    className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 pl-9 transition-colors placeholder:text-slate-400"
+                  />
+                </div>
                 <div className="flex justify-between text-xs text-slate-500 mt-2 font-medium">
                   <span>Financing: {formatMoney(principal)}</span>
                 </div>
@@ -898,19 +911,23 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
                 </div>
               </div>
 
-              <div className={`space-y-6 transition-opacity duration-300 ${promo !== 'none' ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">State</label>
-                  <select
-                    value={buyerState}
-                    onChange={(e) => setBuyerState(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl p-3"
-                  >
-                    {Object.keys(STATE_TAX_RATES).map(s => (
-                      <option key={s} value={s}>{s}</option>
-                    ))}
-                  </select>
-                </div>
+{/* 1. STATE DROPDOWN (Moved OUTSIDE the disabled wrapper so it always works) */}
+      <div className="mb-6">
+        <label className="block text-sm font-bold text-slate-700 mb-2">State</label>
+            <select
+                value={buyerState}
+                onChange={(e) => setBuyerState(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl p-3"
+                >
+               {Object.keys(STATE_TAX_RATES).map(s => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
+      </div>
+
+{/* 2. THE DISABLED WRAPPER (For standard terms/APR that should fade out) */}
+<div className={`space-y-6 transition-opacity duration-300 ${promo !== 'none' ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}>
+               
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">Standard Term (Months)</label>
                   <input 
