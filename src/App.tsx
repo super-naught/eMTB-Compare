@@ -91,7 +91,7 @@ const absoluteMaxPrice = useMemo(() => {
   // --- NEW SCROLL PRESERVATION CODE ---
   const showroomScrollRef = useRef(0);
 
-// --- CAROUSEL LOGIC ---
+  // --- CAROUSEL LOGIC ---
   const [heroImageIndex, setHeroImageIndex] = useState(0);
   const heroImages = [
     "/hero-emtb.jpg",
@@ -865,14 +865,12 @@ const absoluteMaxPrice = useMemo(() => {
   );
 }
 
-const STATE_TAX_RATES: Record<string, number> = { 'None': 0, 'AL': 0.04, 'AK': 0, 'AZ': 0.056, 'AR': 0.065, 'CA': 0.0725, 'CO': 0.029, 'CT': 0.0635, 'DE': 0, 'FL': 0.06, 'GA': 0.04, 'HI': 0.04, 'ID': 0.06, 'IL': 0.0625, 'IN': 0.07, 'IA': 0.06, 'KS': 0.065, 'KY': 0.06, 'LA': 0.0445, 'ME': 0.055, 'MD': 0.06, 'MA': 0.0625, 'MI': 0.06, 'MN': 0.06875, 'MS': 0.07, 'MO': 0.04225, 'MT': 0, 'NE': 0.055, 'NV': 0.0685, 'NH': 0, 'NJ': 0.06625, 'NM': 0.05125, 'NY': 0.04, 'NC': 0.0475, 'ND': 0.05, 'OH': 0.0575, 'OK': 0.045, 'OR': 0, 'PA': 0.06, 'RI': 0.07, 'SC': 0.06, 'SD': 0.045, 'TN': 0.07, 'TX': 0.0625, 'UT': 0.061, 'VT': 0.06, 'VA': 0.053, 'WA': 0.065, 'WV': 0.06, 'WI': 0.05, 'WY': 0.04 };
-
 function CalculatorView({ bike, build, onBack, isFavorite, onToggleFavorite }: { bike: any, build: any, onBack: () => void, isFavorite: boolean, onToggleFavorite: () => void }) {
   const [downPayment, setDownPayment] = useState<number | string>('');
   const [promo, setPromo] = useState('none');
   const [standardTerm, setStandardTerm] = useState(36);
   const [standardApr, setStandardApr] = useState(7.99);
-  const [buyerState, setBuyerState] = useState<string>('None');
+  const [taxRate, setTaxRate] = useState<number>(0);
 
 useEffect(() => {
     window.scrollTo(0, 0);
@@ -880,9 +878,9 @@ useEffect(() => {
   
   const price = build.price;
   
-const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
-    const taxAmount = build.price * (STATE_TAX_RATES[buyerState] ?? 0);
-    
+    const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
+    const taxAmount = build.price * (taxRate / 100);
+
     // 1. Safely convert the downPayment to a real number (or 0 if it's blank)
     const downPaymentValue = Number(downPayment) || 0;
     
@@ -928,7 +926,7 @@ const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmou
       taxAmount,
       totalFinanced
     };
-  }, [price, downPayment, promo, standardTerm, standardApr, buyerState]);
+  }, [price, downPayment, promo, standardTerm, standardApr, taxRate]);
 
   const formatMoney = (val: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
 
@@ -1155,19 +1153,29 @@ const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmou
                 </div>
               </div>
 
-{/* 1. STATE DROPDOWN (Moved OUTSIDE the disabled wrapper so it always works) */}
-      <div className="mb-6">
-        <label className="block text-sm font-bold text-slate-700 mb-2">State</label>
-            <select
-                value={buyerState}
-                onChange={(e) => setBuyerState(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg rounded-xl p-3"
-                >
-               {Object.keys(STATE_TAX_RATES).map(s => (
-            <option key={s} value={s}>{s}</option>
-          ))}
-        </select>
-      </div>
+{/* --- TAX INPUT --- */}
+              <div>
+                <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Estimated Sales Tax (%)
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.1"
+                    value={taxRate}
+                    onChange={(e) => setTaxRate(parseFloat(e.target.value) || 0)}
+                    className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-lg font-bold rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-4 shadow-sm"
+                    placeholder="e.g. 9.5"
+                  />
+                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                    <span className="text-slate-400 font-bold">%</span>
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-2 font-medium uppercase tracking-wider">
+                  Include state, county, and city taxes for accurate math
+                </p>
+              </div>
 
 {/* 2. THE DISABLED WRAPPER (For standard terms/APR that should fade out) */}
 <div className={`space-y-6 transition-opacity duration-300 ${promo !== 'none' ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}>
