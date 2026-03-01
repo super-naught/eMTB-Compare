@@ -436,13 +436,13 @@ export default function App() {
                         setSelectedBikeId(bike.id);
                         setView('builds');
                       }}
-                      className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-300 transition-all cursor-pointer group flex flex-col"
+                      className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-600 transition-all cursor-pointer group flex flex-col"
                     >
                       <div className="w-full p-0 h-64 overflow-hidden relative shrink-0">
                         <img 
                           src={bike.image} 
                           alt={bike.model} 
-                          className="w-full h-full object-contain scale-110 group-hover:scale-125 transition-transform duration-500 mix-blend-multiply"
+                          className="w-full h-full object-contain scale-110 group-hover:scale-125 transition-transform duration-500"
                           crossOrigin="anonymous"
                         />
                       </div>
@@ -474,7 +474,7 @@ export default function App() {
           <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-300">
             <button 
               onClick={() => setView('showroom')}
-              className="flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors"
+              className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
             >
               <ChevronLeft size={20} />
               Back to Models
@@ -491,7 +491,7 @@ export default function App() {
                       crossOrigin="anonymous" 
                     />
                   )}
-                  <h2 className="text-4xl font-extrabold text-slate-300 mb-6">{selectedBike.model}</h2>
+                  <h2 className="text-4xl font-medium text-slate-300 mb-6">{selectedBike.model}</h2>
                   <img 
                     src={selectedBike.image} 
                     alt={selectedBike.model} 
