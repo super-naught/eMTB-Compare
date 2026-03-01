@@ -279,20 +279,26 @@ const absoluteMaxPrice = useMemo(() => {
               <>
                 <div className="sticky top-16 z-20 bg-slate-50/90 backdrop-blur-md py-3 border-b border-slate-200 -mx-4 px-4 sm:mx-0 sm:px-0">
                   <div className="flex justify-between items-center mb-6">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center flex-wrap sm:flex-nowrap gap-3 sm:gap-4 w-full sm:w-auto">
                       <button 
                         onClick={() => setIsFilterModalOpen(true)}
-                        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
                       >
                         <Filter size={16} className="text-blue-600" />
-                        Filter Rigs {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">{selectedBrandFilters.length + selectedMotorFilters.length + selectedWheelFilters.length}</span>}
+                        Filter Rigs {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0 || selectedTorqueFilters.length > 0) && <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">{selectedBrandFilters.length + selectedMotorFilters.length + selectedWheelFilters.length + selectedTorqueFilters.length}</span>}
                       </button>
 
-                      {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0) && (
-                        <button onClick={clearFilters} className="text-slate-500 hover:text-slate-800 font-medium">
-                          Clear Filters
-                        </button>
-                      )}
+                      <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+                        <span className="text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg">
+                          {filteredBikes.length} {filteredBikes.length === 1 ? 'bike match' : 'bike matches'}
+                        </span>
+
+                        {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0 || selectedTorqueFilters.length > 0 || priceFilter !== absoluteMaxPrice) && (
+                          <button onClick={clearFilters} className="text-sm text-slate-500 hover:text-slate-800 font-medium whitespace-nowrap">
+                            Clear Filters
+                          </button>
+                        )}
+                      </div>
                     </div>
                     <div className="flex flex-col items-end min-w-[150px] sm:min-w-[200px]">
                       <div className="flex justify-between w-full text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
@@ -439,7 +445,9 @@ const absoluteMaxPrice = useMemo(() => {
 
                       <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50 shrink-0 flex gap-4">
                         <button onClick={clearFilters} className="flex-1 bg-white border border-slate-300 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors">Clear Filters</button>
-                        <button onClick={() => setIsFilterModalOpen(false)} className="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl shadow-sm shadow-blue-200 hover:bg-blue-700 transition-colors">Apply Filters</button>
+                        <button onClick={() => setIsFilterModalOpen(false)} className="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl shadow-sm shadow-blue-200 hover:bg-blue-700 transition-colors">
+                          Show {filteredBikes.length} {filteredBikes.length === 1 ? 'Match' : 'Matches'}
+                        </button>
                       </div>
                     </div>
                   </div>
