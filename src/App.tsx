@@ -1,6 +1,8 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star } from 'lucide-react';
 import { eMTBData } from './bikeData';
+import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from "@clerk/clerk-react";
+import { supabase } from './supabaseClient';
 
 const BIKES = eMTBData.flatMap(brand => 
   brand.models.map(model => ({
@@ -39,7 +41,35 @@ export default function App() {
   const [selectedWheelFilters, setSelectedWheelFilters] = useState<string[]>([]);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [selectedTorqueFilters, setSelectedTorqueFilters] = useState<string[]>([]);
+
+// --- SUPABASE GARAGE LOGIC ---
+  const { userId } = useAuth(); // Grabs the logged-in user's ID from Clerk
   const [favorites, setFavorites] = useState<string[]>([]);
+
+  // 1. Fetch the user's saved bikes from Supabase whenever they log in
+  useEffect(() => {
+    const fetchGarage = async () => {
+      if (!userId) {
+        setFavorites([]); // Clear garage if they log out
+        return;
+      }
+      
+      const { data, error } = await supabase
+        .from('user_garage')
+        .select('build_id')
+        .eq('user_id', userId);
+        
+      if (!error && data) {
+        setFavorites(data.map((row: any) => row.build_id));
+      } else if (error) {
+        console.error("Error fetching garage:", error.message);
+      }
+    };
+
+    fetchGarage();
+  }, [userId]);
+  // -----------------------------
+
   const [showGarage, setShowGarage] = useState(false);
 const absoluteMaxPrice = useMemo(() => {
     const allPrices = ALL_BUILDS.map(b => b.price);
@@ -144,10 +174,37 @@ const absoluteMaxPrice = useMemo(() => {
     return Array.from(map.entries()).map(([brand, bikes]) => ({ brand, bikes })).sort((a, b) => a.brand.localeCompare(b.brand));
   }, [filteredBikes]);
 
-  const toggleFavorite = (buildId: string) => {
+  const toggleFavorite = async (buildId: string) => {
+    // 1. Check if they are logged in first!
+    if (!userId) {
+      alert("Sign in to save rigs to your Dream Garage!");
+      return;
+    }
+
+    const isFavorited = favorites.includes(buildId);
+
+    // 2. Optimistic UI Update (Makes the button feel instant)
     setFavorites(prev => 
-      prev.includes(buildId) ? prev.filter(id => id !== buildId) : [...prev, buildId]
+      isFavorited ? prev.filter(id => id !== buildId) : [...prev, buildId]
     );
+
+    // 3. Background Database Sync
+    if (isFavorited) {
+      // If it was already favorited, delete it from Supabase
+      const { error } = await supabase
+        .from('user_garage')
+        .delete()
+        .match({ user_id: userId, build_id: buildId });
+        
+      if (error) console.error("Error removing bike:", error.message);
+    } else {
+      // If it wasn't favorited, insert it into Supabase
+      const { error } = await supabase
+        .from('user_garage')
+        .insert({ user_id: userId, build_id: buildId });
+        
+      if (error) console.error("Error saving bike:", error.message);
+    }
   };
 
   const clearFilters = () => {
@@ -204,6 +261,18 @@ const absoluteMaxPrice = useMemo(() => {
                 <span className="hidden sm:inline">Compare Rigs</span>
                 <span className="sm:hidden">Compare</span>
               </button>
+              <div className="flex items-center gap-4 ml-4 pl-4 border-l border-slate-200">
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className="text-sm font-bold text-slate-700 hover:text-blue-600 transition-colors">
+                  Sign In
+                </button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
+          </div>
             </div>
           )}
           {view !== 'showroom' && (
@@ -1019,6 +1088,20 @@ const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmou
                 <span className="font-bold text-white">{formatMoney(totalCost)}</span>
               </div>
             </div>
+
+{/* --- NEW AFFILIATE CTA (INACTIVE) --- */}
+            <div className="mt-8 pt-8 border-t border-slate-800">
+              <button 
+                onClick={(e) => e.preventDefault()}
+                className="w-full flex items-center justify-center gap-2 bg-slate-800 border border-slate-700 text-slate-400 font-extrabold text-lg py-4 px-6 rounded-xl cursor-not-allowed"
+              >
+                Local Dealer Search (Coming Soon)
+              </button>
+              <p className="text-center text-[10px] text-slate-500 mt-3 uppercase tracking-wider font-semibold">
+                Direct retailer connections launching soon
+              </p>
+            </div>
+            {/* ------------------------- */}
           </div>
 
           <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
