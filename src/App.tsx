@@ -105,7 +105,7 @@ export default function App() {
       }
       const matchesBrand = selectedBrandFilters.length === 0 || selectedBrandFilters.includes(bike.brand);
       const matchesMotor = selectedMotorFilters.length === 0 || bike.builds.some(build => selectedMotorFilters.includes(build.motor));
-      const matchesWheels = selectedWheelFilters.length === 0 || bike.builds.some(build => build.wheels && selectedWheelFilters.includes(build.wheels));
+      const matchesWheels = selectedWheelFilters.length === 0 || bike.builds.some(build => (build as any).wheels && selectedWheelFilters.includes((build as any).wheels));
       const matchesTorque = selectedTorqueFilters.length === 0 || bike.builds.some(build => selectedTorqueFilters.includes(((build as any).torque) || 'TBD'));
       let matchesPrice = true;
       const price = bike.startingPrice;
@@ -618,7 +618,7 @@ export default function App() {
                         <SpecRow label="Shock" value={rigA.shock || 'TBD'} />
                         <SpecRow label="Brakes" value={rigA.brakes || 'TBD'} />
                         <SpecRow label="Wheelset" value={rigA.wheelset || 'TBD'} />
-                        <SpecRow label="Tires" value={rigA.tires || 'TBD'} />
+                        <SpecRow label="Tires" value={(rigA as any).tires || 'TBD'} />
                       </div>
                     </div>
                   )}
@@ -655,7 +655,7 @@ export default function App() {
                         <SpecRow label="Shock" value={rigB.shock || 'TBD'} />
                         <SpecRow label="Brakes" value={rigB.brakes || 'TBD'} />
                         <SpecRow label="Wheelset" value={rigB.wheelset || 'TBD'} />
-                        <SpecRow label="Tires" value={rigB.tires || 'TBD'} />
+                        <SpecRow label="Tires" value={(rigB as any).tires || 'TBD'} />
                       </div>
                     </div>
                   )}
