@@ -61,6 +61,23 @@ const absoluteMaxPrice = useMemo(() => {
   // --- NEW SCROLL PRESERVATION CODE ---
   const showroomScrollRef = useRef(0);
 
+// --- CAROUSEL LOGIC ---
+  const [heroImageIndex, setHeroImageIndex] = useState(0);
+  const heroImages = [
+    "/hero-emtb.jpg",
+    // Add your new dream rig action shots here!
+    "/hero-2.jpg", 
+    "/hero-3.jpg"
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 4000); // Changes image every 4 seconds
+    return () => clearInterval(interval);
+  }, []);
+  // ----------------------
+
   useEffect(() => {
     if (view === 'showroom') {
       // Teleport back to the exact saved scroll position
@@ -147,7 +164,7 @@ const absoluteMaxPrice = useMemo(() => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
 <div 
             className="flex items-center gap-2 cursor-pointer group"
@@ -214,33 +231,64 @@ const absoluteMaxPrice = useMemo(() => {
               </div>
             ) : (
               <>
-                  {/* redesigned dark hero */}
-                  <div className="w-full bg-slate-50 text-slate-900 pt-6 pb-2">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-8">
-                      <div className="md:w-1/2 space-y-6">
-                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold uppercase tracking-tight">
-                          FIND YOUR NEXT <span className="text-[#0071BC]">DREAM RIG</span>
-                        </h1>
-                        <p className="text-lg text-slate-600 max-w-xl">
-                          TRAIL MATH is the world's first and largest definitive catalog & comparison tool for current gen eMTBs
-                        </p>
-                        <div className="grid grid-cols-3 gap-2 md:flex md:flex-row md:gap-4 mt-8">
-                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-2 md:p-6 text-center">
-                            <div className="text-2xl md:text-4xl font-bold text-[#0071BC]">{totalBrands}</div>
-                            <div className="text-[10px] md:text-sm uppercase text-slate-500">BRANDS</div>
+{/* --- PREMIUM FLOATING DARK HERO --- */}
+                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
+                    <div className="relative w-full bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-800">
+                      
+                      {/* Subtle Background Glow Effect */}
+                      <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[40rem] h-[40rem] rounded-full bg-blue-600/10 blur-[80px] pointer-events-none"></div>
+                      
+                      <div className="relative flex flex-col md:flex-row items-center gap-8 lg:gap-12 p-8 sm:p-12 lg:p-16">
+                        
+                        {/* Left Side: Copy & Metrics */}
+                        <div className="md:w-1/2 space-y-8 z-10">
+                          <div className="space-y-4">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-blue-400 text-xs font-bold uppercase tracking-wider">
+                              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                              The eMTB Database
+                            </div>
+                            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold uppercase tracking-tight text-white leading-[1.05]">
+                              FIND YOUR NEXT <br />
+                              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">DREAM RIG</span>
+                            </h1>
                           </div>
-                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-2 md:p-6 text-center">
-                            <div className="text-2xl md:text-4xl font-bold text-[#0071BC]">{totalModels}</div>
-                            <div className="text-[10px] md:text-sm uppercase text-slate-500">MODELS</div>
-                          </div>
-                          <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl p-2 md:p-6 text-center">
-                            <div className="text-2xl md:text-4xl font-bold text-[#0071BC]">{totalBuilds}</div>
-                            <div className="text-[10px] md:text-sm uppercase text-slate-500">BUILDS</div>
+                          
+                          <p className="text-lg text-slate-400 max-w-lg leading-relaxed">
+                            TRAIL MATH is the world's first and largest definitive catalog & comparison tool for current gen eMTBs.
+                          </p>
+                          
+                          {/* Stripped-back premium metric layout */}
+                          <div className="grid grid-cols-3 gap-6 pt-6 border-t border-slate-800/80">
+                            <div>
+                              <div className="text-3xl lg:text-5xl font-black text-white">{totalBrands}</div>
+                              <div className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-slate-500 mt-1">Brands</div>
+                            </div>
+                            <div>
+                              <div className="text-3xl lg:text-5xl font-black text-white">{totalModels}</div>
+                              <div className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-slate-500 mt-1">Models</div>
+                            </div>
+                            <div>
+                              <div className="text-3xl lg:text-5xl font-black text-white">{totalBuilds}</div>
+                              <div className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-slate-500 mt-1">Builds</div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="md:w-1/2">
-                        <img src="/hero-emtb.jpg" alt="eMTB Action Shot" className="rounded-xl shadow-lg w-full h-auto object-cover mt-4 md:mt-0" />
+
+                        {/* Right Side: Endless Carousel */}
+                        <div className="md:w-1/2 w-full mt-8 md:mt-0 relative z-10 aspect-[4/3] sm:aspect-video md:aspect-[4/3] lg:aspect-video rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/50 transform md:-rotate-2 hover:rotate-0 transition-all duration-500 overflow-hidden">
+                          {heroImages.map((src, index) => (
+                            <img 
+                              key={src}
+                              src={src} 
+                              alt={`Dream Rig ${index + 1}`} 
+                              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+                                index === heroImageIndex ? 'opacity-100' : 'opacity-0'
+                              }`} 
+                              crossOrigin="anonymous"
+                            />
+                          ))}
+                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -277,9 +325,11 @@ const absoluteMaxPrice = useMemo(() => {
 
             {!showGarage && (
               <>
-                <div className="sticky top-16 z-20 bg-slate-50/90 backdrop-blur-md py-3 border-b border-slate-200 -mx-4 px-4 sm:mx-0 sm:px-0">
-                  <div className="flex justify-between items-center mb-6">
-                    <div className="flex items-center flex-wrap sm:flex-nowrap gap-3 sm:gap-4 w-full sm:w-auto">
+<div className="sticky top-16 z-20 bg-slate-50/90 backdrop-blur-md py-4 border-b border-slate-200 -mx-4 px-4 sm:mx-0 sm:px-0">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    
+                    {/* Top/Left Side: Filters & Badge */}
+                    <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
                       <button 
                         onClick={() => setIsFilterModalOpen(true)}
                         className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
@@ -288,22 +338,22 @@ const absoluteMaxPrice = useMemo(() => {
                         Filter Rigs {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0 || selectedTorqueFilters.length > 0) && <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">{selectedBrandFilters.length + selectedMotorFilters.length + selectedWheelFilters.length + selectedTorqueFilters.length}</span>}
                       </button>
 
-                      <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
-                        <span className="text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg">
-                          {filteredBikes.length} {filteredBikes.length === 1 ? 'bike match' : 'bike matches'}
-                        </span>
+                      <span className="flex-1 sm:flex-none text-center text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-2.5 rounded-xl">
+                        {filteredBikes.length} {filteredBikes.length === 1 ? 'Match' : 'Matches'}
+                      </span>
 
-                        {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0 || selectedTorqueFilters.length > 0 || priceFilter !== absoluteMaxPrice) && (
-                          <button onClick={clearFilters} className="text-sm text-slate-500 hover:text-slate-800 font-medium whitespace-nowrap">
-                            Clear Filters
-                          </button>
-                        )}
-                      </div>
+                      {(selectedBrandFilters.length > 0 || selectedMotorFilters.length > 0 || selectedWheelFilters.length > 0 || selectedTorqueFilters.length > 0 || priceFilter !== absoluteMaxPrice) && (
+                        <button onClick={clearFilters} className="text-sm text-slate-500 hover:text-slate-800 font-medium whitespace-nowrap px-2">
+                          Clear All
+                        </button>
+                      )}
                     </div>
-                    <div className="flex flex-col items-end min-w-[150px] sm:min-w-[200px]">
-                      <div className="flex justify-between w-full text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+
+                    {/* Bottom/Right Side: Budget Slider */}
+                    <div className="w-full sm:w-auto flex flex-col min-w-[100%] sm:min-w-[240px] bg-white sm:bg-transparent p-4 sm:p-0 rounded-xl border sm:border-0 border-slate-200 shadow-sm sm:shadow-none">
+                      <div className="flex justify-between items-center w-full text-xs font-bold text-slate-700 uppercase tracking-wider mb-3 sm:mb-2">
                         <span>Budget</span>
-                        <span className="text-blue-600">Under ${priceFilter.toLocaleString()}</span>
+                        <span className="text-blue-600 bg-blue-50 sm:bg-transparent px-2 py-0.5 sm:p-0 rounded">Under ${priceFilter.toLocaleString()}</span>
                       </div>
                       <input
                         type="range"
@@ -315,9 +365,9 @@ const absoluteMaxPrice = useMemo(() => {
                         className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all"
                       />
                     </div>
+                    
                   </div>
                 </div>
-
                 {isFilterModalOpen && (
                   <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
                     <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setIsFilterModalOpen(false)} />
@@ -506,76 +556,119 @@ const absoluteMaxPrice = useMemo(() => {
           </div>
         )}
 
-        {view === 'builds' && selectedBike && (
+{view === 'builds' && selectedBike && (
           <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-300">
             <button 
               onClick={() => setView('showroom')}
-              className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
+              className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors"
             >
               <ChevronLeft size={20} />
-              Back to Models
+              Back to Showroom
             </button>
 
             <div className="flex flex-col lg:flex-row gap-8 items-start">
+              {/* --- LEFT COLUMN: Bike Summary --- */}
               <div className="w-full lg:w-1/3 lg:sticky lg:top-24">
-                <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 p-6 text-center">
-                  {eMTBData.find(b => b.brand === selectedBike.brand)?.logo && (
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 flex flex-col">
+                  {/* Edge-to-edge image matching the Calculator view */}
+                  <div className="w-full h-64 sm:h-72 bg-[#F3F3F3] relative m-0 p-0 overflow-hidden flex items-center justify-center">
                     <img 
-                      src={eMTBData.find(b => b.brand === selectedBike.brand)?.logo} 
-                      alt={selectedBike.brand} 
-                      className="h-12 w-auto object-contain mx-auto mb-4" 
-                      crossOrigin="anonymous" 
+                      src={selectedBike.image} 
+                      alt={selectedBike.model} 
+                      className="absolute inset-0 w-full h-full object-contain scale-110"
+                      crossOrigin="anonymous"
                     />
-                  )}
-                  <h2 className="text-4xl font-medium text-slate-300 mb-6">{selectedBike.model}</h2>
-                  <img 
-                    src={selectedBike.image} 
-                    alt={selectedBike.model} 
-                    className="w-full object-contain mb-6"
-                    crossOrigin="anonymous"
-                  />
-                  <p className="text-slate-600">
-                    Select a build to see the specs and run the trail math.
-                  </p>
+                  </div>
+                  <div className="p-8 text-center flex flex-col items-center">
+                    {eMTBData.find(b => b.brand === selectedBike.brand)?.logo && (
+                      <img 
+                        src={eMTBData.find(b => b.brand === selectedBike.brand)?.logo} 
+                        alt={selectedBike.brand} 
+                        className="h-10 w-auto object-contain mx-auto mb-4" 
+                        crossOrigin="anonymous" 
+                      />
+                    )}
+                    <h2 className="text-3xl font-extrabold text-slate-900 mb-2">{selectedBike.model}</h2>
+                    <p className="text-slate-500 font-medium">
+                      Select a build below to review specs and calculate payments.
+                    </p>
+                  </div>
                 </div>
               </div>
 
+              {/* --- RIGHT COLUMN: Builds List --- */}
               <div className="w-full lg:w-2/3 space-y-4">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">{showGarage ? 'Favorited Builds' : 'Available Builds'}</h3>
-                {selectedBike.builds.filter(b => showGarage ? favorites.includes(b.id) : true).map(build => (
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+                    {showGarage ? 'Favorited Builds' : 'Available Builds'}
+                  </h3>
+                  <span className="text-sm font-bold text-slate-500 bg-slate-200 px-3 py-1 rounded-full">
+                    {selectedBike.builds.filter(b => showGarage ? favorites.includes(b.id) : true).length} Options
+                  </span>
+                </div>
+                
+{selectedBike.builds.filter(b => showGarage ? favorites.includes(b.id) : true).map(build => (
                   <div 
                     key={build.id}
-                    className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:border-blue-300 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-6"
+                    onClick={() => {
+                      setSelectedBuildId(build.id);
+                      setView('calculator');
+                    }}
+                    className="group bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-600 hover:scale-[1.01] transition-all duration-300 cursor-pointer flex flex-col gap-4 sm:gap-5"
                   >
-                    <div className="flex-1">
-                      <div className="flex items-baseline justify-between sm:justify-start gap-4 mb-2">
-                        <h4 className="text-xl font-bold text-slate-900">{build.name}</h4>
-                        <span className="text-lg font-semibold text-blue-700">{formatPrice(build.price)}</span>
+                    {/* --- HEADER ROW: Title, Price & Buttons --- */}
+                    <div className="flex items-start sm:items-center justify-between gap-4">
+                      
+                      {/* Left: Info Stack */}
+                      <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
+                        <h4 className="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-tight">
+                          {build.name}
+                        </h4>
+                        <span className="text-lg sm:text-xl font-extrabold text-slate-900 bg-slate-50 px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg border border-slate-100 inline-block w-fit">
+                          {formatPrice(build.price)}
+                        </span>
                       </div>
-                      <p className="text-slate-600 text-sm mt-2">{build.motor}, {build.battery} Battery, {(build as any).torque || 'TBD'}, {build.material} Frame</p>
+                      
+                      {/* Right: Action Buttons */}
+                      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFavorite(build.id);
+                          }}
+                          className="p-2 sm:p-3 rounded-full bg-slate-50 hover:bg-slate-100 transition-colors"
+                          title="Save to Garage"
+                        >
+                          <Star size={20} className={favorites.includes(build.id) ? 'fill-blue-500 text-blue-500' : 'text-slate-400'} />
+                        </button>
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+                          <ArrowRight size={18} />
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3 justify-end mt-4 w-full sm:mt-0 sm:w-auto">
-                      <button
-                        onClick={() => toggleFavorite(build.id)}
-                        className="p-2 rounded-full hover:bg-slate-100 transition-colors"
-                        title="Save to Garage"
-                      >
-                        <Star size={20} className={favorites.includes(build.id) ? 'fill-blue-500 text-blue-500' : 'text-slate-400'} />
-                      </button>
-                      <button 
-                        onClick={() => {
-                          setSelectedBuildId(build.id);
-                          setView('calculator');
-                        }}
-                        className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2"
-                      >
-                        Select Build
-                        <ArrowRight size={18} />
-                      </button>
+                    
+                    {/* --- BOTTOM ROW: Mini Spec Grid --- */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-slate-100">
+                      <div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Motor</div>
+                        <div className="text-xs sm:text-sm font-semibold text-slate-700 truncate">{build.motor}</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Battery</div>
+                        <div className="text-xs sm:text-sm font-semibold text-slate-700 truncate">{build.battery}</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Material</div>
+                        <div className="text-xs sm:text-sm font-semibold text-slate-700 truncate">{build.material}</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Torque</div>
+                        <div className="text-xs sm:text-sm font-semibold text-slate-700 truncate">{(build as any).torque || 'TBD'}</div>
+                      </div>
                     </div>
                   </div>
                 ))}
-              </div>
+                </div>
             </div>
           </div>
         )}
@@ -584,115 +677,128 @@ const absoluteMaxPrice = useMemo(() => {
           <CalculatorView 
             bike={selectedBike} 
             build={selectedBuild} 
-            onBack={() => setView('builds')} 
+            onBack={() => setView('builds')}
+            isFavorite={favorites.includes(selectedBuild.id)}
+            onToggleFavorite={() => toggleFavorite(selectedBuild.id)}
           />
         )}
 
-        {view === 'compare' && (
+{view === 'compare' && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-500">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-2 sm:mb-8">
               <div>
                 <h2 className="text-3xl font-bold text-slate-900">Head-to-Head</h2>
                 <p className="text-slate-600 mt-2">Compare specs side-by-side to find your perfect match.</p>
               </div>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
-                <div className="p-6 sm:p-8 bg-slate-50/50">
-                  <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Rig A</label>
-                  <select 
-                    value={rigAId}
-                    onChange={(e) => setRigAId(e.target.value)}
-                    className="w-full bg-white border border-slate-300 text-slate-900 text-base rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 shadow-sm"
-                  >
-                    {ALL_BUILDS.map(b => (
-                      <option key={b.id} value={b.id}>{b.fullName} - {formatPrice(b.price)}</option>
-                    ))}
-                  </select>
-
+            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-lg border border-slate-200 overflow-hidden flex flex-col">
+              
+              {/* --- TOP HEADERS: Dropdowns & Images --- */}
+              <div className="grid grid-cols-2 divide-x divide-slate-200">
+                
+                {/* RIG A */}
+                <div className="flex flex-col">
+                  <div className="p-3 sm:p-6 bg-white border-b border-slate-100 z-10">
+                    <label className="block text-[10px] sm:text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">Rig A</label>
+                    <select 
+                      value={rigAId}
+                      onChange={(e) => setRigAId(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm font-semibold rounded-lg sm:rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-2 sm:p-3 truncate"
+                    >
+                      {ALL_BUILDS.map(b => (
+                        <option key={b.id} value={b.id}>{b.brand} {b.model} {b.name}</option>
+                      ))}
+                    </select>
+                  </div>
                   {rigA && (
-                    <div className="mt-8 space-y-6 animate-in fade-in">
-                      <img src={rigA.image} alt={rigA.fullName} className="w-full h-48 object-contain mb-4" crossOrigin="anonymous" />
-                      
-                      <div className="text-center">
-                        <div className="text-sm font-semibold text-blue-600 uppercase tracking-wider">{rigA.brand}</div>
-                        <h3 className="text-2xl font-bold text-slate-900">{rigA.model} {rigA.name}</h3>
-                        <div className="text-xl font-bold text-slate-700 mt-2">{formatPrice(rigA.price)}</div>
+                    <>
+                      <div className="w-full aspect-[4/3] sm:aspect-video bg-[#F3F3F3] relative overflow-hidden flex items-center justify-center">
+                        <img src={rigA.image} alt={rigA.fullName} className="absolute inset-0 w-full h-full object-contain scale-110 sm:scale-125" crossOrigin="anonymous" />
                       </div>
-
-                      <div className="space-y-4 pt-6 border-t border-slate-200">
-                        <SpecRow label="Material" value={rigA.material} />
-                        <SpecRow label="Motor" value={rigA.motor} />
-                        <SpecRow label="Battery" value={rigA.battery} />
-                        <SpecRow label="Drivetrain" value={rigA.drivetrain || 'TBD'} />
-                        <SpecRow label="Fork" value={rigA.fork || 'TBD'} />
-                        <SpecRow label="Shock" value={rigA.shock || 'TBD'} />
-                        <SpecRow label="Brakes" value={rigA.brakes || 'TBD'} />
-                        <SpecRow label="Wheelset" value={rigA.wheelset || 'TBD'} />
-                        <SpecRow label="Tires" value={(rigA as any).tires || 'TBD'} />
+                      <div className="p-4 sm:p-8 text-center bg-white border-b border-slate-200 flex-1 flex flex-col justify-center">
+                        <h3 className="text-sm sm:text-2xl font-extrabold text-slate-900 leading-tight mb-1 sm:mb-2">{rigA.model} <br className="sm:hidden" />{rigA.name}</h3>
+                        <div className="text-sm sm:text-xl font-bold text-blue-600">{formatPrice(rigA.price)}</div>
                       </div>
-                    </div>
+                    </>
                   )}
                 </div>
 
-                <div className="p-6 sm:p-8 bg-slate-50/50">
-                  <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Rig B</label>
-                  <select 
-                    value={rigBId}
-                    onChange={(e) => setRigBId(e.target.value)}
-                    className="w-full bg-white border border-slate-300 text-slate-900 text-base rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 shadow-sm"
-                  >
-                    {ALL_BUILDS.map(b => (
-                      <option key={b.id} value={b.id}>{b.fullName} - {formatPrice(b.price)}</option>
-                    ))}
-                  </select>
-
+                {/* RIG B */}
+                <div className="flex flex-col">
+                  <div className="p-3 sm:p-6 bg-white border-b border-slate-100 z-10">
+                    <label className="block text-[10px] sm:text-xs font-bold text-emerald-600 uppercase tracking-wider mb-2">Rig B</label>
+                    <select 
+                      value={rigBId}
+                      onChange={(e) => setRigBId(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm font-semibold rounded-lg sm:rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-2 sm:p-3 truncate"
+                    >
+                      {ALL_BUILDS.map(b => (
+                        <option key={b.id} value={b.id}>{b.brand} {b.model} {b.name}</option>
+                      ))}
+                    </select>
+                  </div>
                   {rigB && (
-                    <div className="mt-8 space-y-6 animate-in fade-in">
-                      <img src={rigB.image} alt={rigB.fullName} className="w-full h-48 object-contain mb-4" crossOrigin="anonymous" />
-                      
-                      <div className="text-center">
-                        <div className="text-sm font-semibold text-blue-600 uppercase tracking-wider">{rigB.brand}</div>
-                        <h3 className="text-2xl font-bold text-slate-900">{rigB.model} {rigB.name}</h3>
-                        <div className="text-xl font-bold text-slate-700 mt-2">{formatPrice(rigB.price)}</div>
+                    <>
+                      <div className="w-full aspect-[4/3] sm:aspect-video bg-[#F3F3F3] relative overflow-hidden flex items-center justify-center">
+                        <img src={rigB.image} alt={rigB.fullName} className="absolute inset-0 w-full h-full object-contain scale-110 sm:scale-125" crossOrigin="anonymous" />
                       </div>
-
-                      <div className="space-y-4 pt-6 border-t border-slate-200">
-                        <SpecRow label="Material" value={rigB.material} />
-                        <SpecRow label="Motor" value={rigB.motor} />
-                        <SpecRow label="Battery" value={rigB.battery} />
-                        <SpecRow label="Drivetrain" value={rigB.drivetrain || 'TBD'} />
-                        <SpecRow label="Fork" value={rigB.fork || 'TBD'} />
-                        <SpecRow label="Shock" value={rigB.shock || 'TBD'} />
-                        <SpecRow label="Brakes" value={rigB.brakes || 'TBD'} />
-                        <SpecRow label="Wheelset" value={rigB.wheelset || 'TBD'} />
-                        <SpecRow label="Tires" value={(rigB as any).tires || 'TBD'} />
+                      <div className="p-4 sm:p-8 text-center bg-white border-b border-slate-200 flex-1 flex flex-col justify-center">
+                        <h3 className="text-sm sm:text-2xl font-extrabold text-slate-900 leading-tight mb-1 sm:mb-2">{rigB.model} <br className="sm:hidden" />{rigB.name}</h3>
+                        <div className="text-sm sm:text-xl font-bold text-emerald-600">{formatPrice(rigB.price)}</div>
                       </div>
-                    </div>
+                    </>
                   )}
                 </div>
+
               </div>
+
+              {/* --- BOTTOM SPECS: Strict Row Grid --- */}
+              {rigA && rigB && (
+                <div className="bg-slate-50 divide-y divide-slate-200">
+                  {[
+                    { label: 'Material', a: rigA.material, b: rigB.material },
+                    { label: 'Motor', a: rigA.motor, b: rigB.motor },
+                    { label: 'Torque', a: (rigA as any).torque || 'TBD', b: (rigB as any).torque || 'TBD' },
+                    { label: 'Battery', a: rigA.battery, b: rigB.battery },
+                    { label: 'Drivetrain', a: rigA.drivetrain || 'TBD', b: rigB.drivetrain || 'TBD' },
+                    { label: 'Fork', a: rigA.fork || 'TBD', b: rigB.fork || 'TBD' },
+                    { label: 'Shock', a: rigA.shock || 'TBD', b: rigB.shock || 'TBD' },
+                    { label: 'Brakes', a: rigA.brakes || 'TBD', b: rigB.brakes || 'TBD' },
+                    { label: 'Wheelset', a: rigA.wheelset || 'TBD', b: rigB.wheelset || 'TBD' },
+                    { label: 'Tires', a: (rigA as any).tires || 'TBD', b: (rigB as any).tires || 'TBD' },
+                  ].map((spec, idx) => (
+                    <div key={idx} className="hover:bg-white transition-colors">
+                      {/* Desktop/Tablet Row Layout */}
+                      <div className="hidden sm:grid grid-cols-3 items-center py-4 px-6">
+                        <div className="text-right pr-6 font-semibold text-slate-900 text-sm">{spec.a}</div>
+                        <div className="text-center text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-100 py-1 rounded-md">{spec.label}</div>
+                        <div className="text-left pl-6 font-semibold text-slate-900 text-sm">{spec.b}</div>
+                      </div>
+                      
+                      {/* Mobile Row Layout */}
+                      <div className="sm:hidden flex flex-col py-3 px-4">
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center mb-1">{spec.label}</div>
+                        <div className="grid grid-cols-2 gap-4 divide-x divide-slate-200">
+                          <div className="text-center text-xs font-semibold text-slate-900 pr-2">{spec.a}</div>
+                          <div className="text-center text-xs font-semibold text-slate-900 pl-2">{spec.b}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
             </div>
           </div>
-        )}
-      </main>
-    </div>
-  );
-}
-
-function SpecRow({ label, value }: { label: string, value: string }) {
-  return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2 border-b border-slate-100 last:border-0">
-      <span className="text-sm text-slate-500 uppercase tracking-wider font-medium">{label}</span>
-      <span className="text-base font-semibold text-slate-900 text-right">{value}</span>
+        )}      </main>
     </div>
   );
 }
 
 const STATE_TAX_RATES: Record<string, number> = { 'None': 0, 'AL': 0.04, 'AK': 0, 'AZ': 0.056, 'AR': 0.065, 'CA': 0.0725, 'CO': 0.029, 'CT': 0.0635, 'DE': 0, 'FL': 0.06, 'GA': 0.04, 'HI': 0.04, 'ID': 0.06, 'IL': 0.0625, 'IN': 0.07, 'IA': 0.06, 'KS': 0.065, 'KY': 0.06, 'LA': 0.0445, 'ME': 0.055, 'MD': 0.06, 'MA': 0.0625, 'MI': 0.06, 'MN': 0.06875, 'MS': 0.07, 'MO': 0.04225, 'MT': 0, 'NE': 0.055, 'NV': 0.0685, 'NH': 0, 'NJ': 0.06625, 'NM': 0.05125, 'NY': 0.04, 'NC': 0.0475, 'ND': 0.05, 'OH': 0.0575, 'OK': 0.045, 'OR': 0, 'PA': 0.06, 'RI': 0.07, 'SC': 0.06, 'SD': 0.045, 'TN': 0.07, 'TX': 0.0625, 'UT': 0.061, 'VT': 0.06, 'VA': 0.053, 'WA': 0.065, 'WV': 0.06, 'WI': 0.05, 'WY': 0.04 };
 
-function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack: () => void }) {
+function CalculatorView({ bike, build, onBack, isFavorite, onToggleFavorite }: { bike: any, build: any, onBack: () => void, isFavorite: boolean, onToggleFavorite: () => void }) {
   const [downPayment, setDownPayment] = useState<number | string>('');
   const [promo, setPromo] = useState('none');
   const [standardTerm, setStandardTerm] = useState(36);
@@ -759,13 +865,28 @@ const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmou
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-300">
-      <button 
-        onClick={onBack}
-        className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
-      >
-        <ChevronLeft size={20} />
-        Back to Builds
-      </button>
+      <div className="flex justify-between items-center w-full">
+        <button 
+          onClick={onBack}
+          className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors"
+        >
+          <ChevronLeft size={20} />
+          Back to Builds
+        </button>
+        
+        <button 
+          onClick={onToggleFavorite}
+          className={`flex items-center gap-2 px-4 py-2 sm:px-6 sm:py-2.5 rounded-full font-bold transition-all shadow-sm ${
+            isFavorite 
+              ? 'bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100' 
+              : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-blue-300'
+          }`}
+        >
+          <Star size={18} className={isFavorite ? 'fill-blue-600 text-blue-600' : 'text-slate-400'} />
+          <span className="hidden sm:inline">{isFavorite ? 'Saved to Garage' : 'Save to Garage'}</span>
+          <span className="sm:hidden">{isFavorite ? 'Saved' : 'Save'}</span>
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         <div className="w-full space-y-6">
