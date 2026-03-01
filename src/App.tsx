@@ -41,7 +41,13 @@ export default function App() {
   const [selectedTorqueFilters, setSelectedTorqueFilters] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showGarage, setShowGarage] = useState(false);
-  const [priceTier, setPriceTier] = useState<string>('all');
+const absoluteMaxPrice = useMemo(() => {
+    const allPrices = ALL_BUILDS.map(b => b.price);
+    const max = Math.max(...allPrices, 0);
+    return Math.ceil(max / 1000) * 1000;
+  }, []);
+
+  const [priceFilter, setPriceFilter] = useState<number>(absoluteMaxPrice);
 
   // Accordion open state for filter categories (default closed)
   const [isBrandOpen, setIsBrandOpen] = useState(false);
@@ -107,15 +113,10 @@ export default function App() {
       const matchesMotor = selectedMotorFilters.length === 0 || bike.builds.some(build => selectedMotorFilters.includes(build.motor));
       const matchesWheels = selectedWheelFilters.length === 0 || bike.builds.some(build => (build as any).wheels && selectedWheelFilters.includes((build as any).wheels));
       const matchesTorque = selectedTorqueFilters.length === 0 || bike.builds.some(build => selectedTorqueFilters.includes(((build as any).torque) || 'TBD'));
-      let matchesPrice = true;
-      const price = bike.startingPrice;
-      if (priceTier === 'up-to-5k') matchesPrice = price <= 5000;
-      else if (priceTier === 'up-to-6k') matchesPrice = price <= 6000;
-      else if (priceTier === 'up-to-7k') matchesPrice = price <= 7000;
-      else if (priceTier === 'up-to-8k') matchesPrice = price <= 8000;
+      const matchesPrice = bike.startingPrice <= priceFilter;
       return matchesBrand && matchesMotor && matchesWheels && matchesTorque && matchesPrice;
     }).sort((a, b) => a.brand.localeCompare(b.brand));
-  }, [selectedBrandFilters, selectedMotorFilters, selectedWheelFilters, selectedTorqueFilters, showGarage, favorites, priceTier]);
+  }, [selectedBrandFilters, selectedMotorFilters, selectedWheelFilters, selectedTorqueFilters, showGarage, favorites, priceFilter]);
 
   const groupedBikes = useMemo(() => {
     const map = new Map<string, typeof BIKES>();
@@ -137,6 +138,7 @@ export default function App() {
     setSelectedMotorFilters([]);
     setSelectedWheelFilters([]);
     setSelectedTorqueFilters([]);
+    setPriceFilter(absoluteMaxPrice);
   };
 
   const formatPrice = (price: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(price);
@@ -292,18 +294,20 @@ export default function App() {
                         </button>
                       )}
                     </div>
-                    <div>
-                      <select
-                        value={priceTier}
-                        onChange={e => setPriceTier(e.target.value)}
-                        className="bg-white border border-slate-200 text-slate-700 rounded-lg px-3 py-2 text-sm"
-                      >
-                        <option value="all">SHOW ALL</option>
-                        <option value="up-to-5k">Up to $5K</option>
-                        <option value="up-to-6k">Up to $6K</option>
-                        <option value="up-to-7k">Up to $7K</option>
-                        <option value="up-to-8k">Up to $8K</option>
-                      </select>
+                    <div className="flex flex-col items-end min-w-[150px] sm:min-w-[200px]">
+                      <div className="flex justify-between w-full text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                        <span>Budget</span>
+                        <span className="text-blue-600">Under ${priceFilter.toLocaleString()}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max={absoluteMaxPrice}
+                        step="500"
+                        value={priceFilter}
+                        onChange={(e) => setPriceFilter(parseInt(e.target.value))}
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all"
+                      />
                     </div>
                   </div>
                 </div>
