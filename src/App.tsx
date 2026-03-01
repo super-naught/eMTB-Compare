@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star } from 'lucide-react';
 import { eMTBData } from './bikeData';
 
@@ -663,6 +663,10 @@ function CalculatorView({ bike, build, onBack }: { bike: any, build: any, onBack
   const [standardApr, setStandardApr] = useState(7.99);
   const [buyerState, setBuyerState] = useState<string>('None');
 
+useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const price = build.price;
   
 const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
