@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star } from 'lucide-react';
 import { eMTBData } from './bikeData';
 
@@ -51,6 +51,22 @@ export default function App() {
 
   const [rigAId, setRigAId] = useState(ALL_BUILDS[0].id);
   const [rigBId, setRigBId] = useState(ALL_BUILDS[1].id);
+
+  // --- NEW SCROLL PRESERVATION CODE ---
+  const showroomScrollRef = useRef(0);
+
+  useEffect(() => {
+    if (view === 'showroom') {
+      // Teleport back to the exact saved scroll position
+      setTimeout(() => {
+        window.scrollTo(0, showroomScrollRef.current);
+      }, 10);
+    } else {
+      // If going to ANY other page (Builds, Compare, etc), snap to the top
+      window.scrollTo(0, 0);
+    }
+  }, [view]);
+  // ------------------------------------
 
   const selectedBike = BIKES.find(b => b.id === selectedBikeId);
   const selectedBuild = selectedBike?.builds.find(b => b.id === selectedBuildId);
@@ -131,9 +147,12 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div 
+<div 
             className="flex items-center gap-2 cursor-pointer group"
-            onClick={() => setView('showroom')}
+            onClick={() => {
+              showroomScrollRef.current = 0; // Reset bookmark
+              setView('showroom');
+            }}
           >
             <img src="/trail-math-logo-color-horizontal.svg" alt="Trail Math" className="h-10 w-auto" />
           </div>
@@ -155,6 +174,8 @@ export default function App() {
               </button>
               <button 
                 onClick={() => {
+                  // Save the bookmark before leaving!
+                  showroomScrollRef.current = window.scrollY;
                   setShowGarage(false);
                   setView('compare');
                 }}
@@ -428,21 +449,24 @@ export default function App() {
                   <h2 className="text-6xl md:text-8xl font-bold italic uppercase tracking-tight text-black/5 select-none border-b-2 border-gray-200 pb-2 mb-6 md:mb-8">{group.brand}</h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {group.bikes.map(bike => (
                     <div 
                       key={bike.id} 
                       onClick={() => {
+                        // Save the bookmark before leaving!
+                        showroomScrollRef.current = window.scrollY;
                         setSelectedBikeId(bike.id);
                         setView('builds');
                       }}
-                      className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-600 transition-all cursor-pointer group flex flex-col"
+                      className="bg-[slate-50] rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:scale-[1.02] hover:border-blue-600 transition-all duration-300 cursor-pointer group flex flex-col"
                     >
-                      <div className="w-full p-0 h-64 overflow-hidden relative shrink-0">
+                      <div className="w-full p-0 h-100 overflow-hidden relative shrink-0">
                         <img 
                           src={bike.image} 
                           alt={bike.model} 
-                          className="w-full h-full object-contain scale-110 group-hover:scale-125 transition-transform duration-500"
+                          // Removed group-hover:scale-125 and transition classes so the image stays still
+                          className="w-full h-full object-contain scale-110"
                           crossOrigin="anonymous"
                         />
                       </div>
