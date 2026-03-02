@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star } from 'lucide-react';
+import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star, Plus, Minus } from 'lucide-react';
 import { eMTBData } from './bikeData';
 import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from "@clerk/clerk-react";
 import { supabase } from './supabaseClient';
@@ -63,6 +63,41 @@ const ALL_BUILDS = typedData.flatMap(brand =>
     }))
   )
 );
+
+// --- CUSTOM BRANDED STEPPER COMPONENT ---
+function BrandedStepper({ label, value, onChange, step = 1, suffix = "" }: { label: string, value: number, onChange: (val: number) => void, step?: number, suffix?: string }) {
+  return (
+    <div>
+      <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{label}</label>
+      <div className="relative flex items-center bg-[#0B1121] border border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 transition-colors">
+        <button 
+          type="button"
+          onClick={() => onChange(Math.max(0, Number((value - step).toFixed(2))))}
+          className="p-3 text-blue-500 hover:bg-slate-800 transition-colors shrink-0"
+        >
+          <Minus size={18} strokeWidth={3} />
+        </button>
+        
+        <input 
+          type="number" 
+          value={value || ''} 
+          onChange={(e) => onChange(parseFloat(e.target.value) || 0)} 
+          className="w-full bg-transparent border-none text-white text-center text-lg font-bold focus:ring-0 p-3 placeholder:text-slate-600 outline-none" 
+          placeholder="0.0"
+        />
+        {suffix && <span className="absolute right-14 text-slate-600 font-black pointer-events-none">{suffix}</span>}
+
+        <button 
+          type="button"
+          onClick={() => onChange(Number((value + step).toFixed(2)))}
+          className="p-3 text-blue-500 hover:bg-slate-800 transition-colors shrink-0"
+        >
+          <Plus size={18} strokeWidth={3} />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function App() {
   const [view, setView] = useState<string>('showroom');
@@ -278,13 +313,12 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-8 sm:pb-12 relative z-10">
-        
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-8 sm:pb-12 relative z-10">        
         {/* --- SHOWROOM VIEW --- */}
         {view === 'showroom' && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {showGarage ? (
-              <div className="w-full pb-2 sm:pb-4 mt-4 sm:mt-8">
+              <div className="w-full pb-2 sm:pb-4">
                 <div className="relative w-full bg-[#0B1121] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-800 p-8 sm:p-12 lg:p-16 flex flex-col items-center justify-center text-center">
                   <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PHBhdGggZD0iTTAgMGgyMHYyMEgwVjB6bTEgMWgxOHYxOEgxdjE4eiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+')] opacity-50"></div>
                   <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[40rem] h-[40rem] rounded-full bg-blue-600/20 blur-[100px] pointer-events-none"></div>
@@ -469,23 +503,37 @@ export default function App() {
         {/* --- BUILDS VIEW --- */}
         {view === 'builds' && selectedBike && (
           <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-300">
-            <button onClick={() => setView('showroom')} className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors">
-              <ChevronLeft size={20} /> Back to Showroom
-            </button>
+            {/* Standardized Navigation Row */}
+            <div className="flex items-center h-10">
+              <button onClick={() => setView('showroom')} className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors">
+                <ChevronLeft size={20} /> Back to Showroom
+              </button>
+            </div>
+
             <div className="flex flex-col lg:flex-row gap-8 items-start">
               <div className="w-full lg:w-1/3 lg:sticky lg:top-24">
-                <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200 flex flex-col">
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200 flex flex-col relative">
+                  
+                  {/* --- NEW: STAR TOGGLE ON IMAGE CARD --- */}
+                  <button 
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                    }} 
+                    className="absolute top-4 right-4 z-20 p-2.5 bg-white/90 backdrop-blur-sm rounded-full shadow-sm border border-slate-100 text-slate-300 hover:text-blue-500 transition-all opacity-0 pointer-events-none"
+                  >
+                    <Star size={20} />
+                  </button>
+
                   <div className="w-full h-64 sm:h-72 bg-[#F3F3F3] relative m-0 p-0 overflow-hidden flex items-center justify-center">
                     <img src={selectedBike.image} alt={selectedBike.model} className="absolute inset-0 w-full h-full object-contain scale-110" crossOrigin="anonymous" />
                   </div>
                   <div className="p-8 text-center flex flex-col items-center">
                     {eMTBData.find(b => b.brand === selectedBike.brand)?.logo && <img src={eMTBData.find(b => b.brand === selectedBike.brand)?.logo} alt={selectedBike.brand} className="h-10 w-auto object-contain mx-auto mb-4" crossOrigin="anonymous" />}
                     <h2 className="text-3xl font-extrabold text-slate-900 mb-2">{selectedBike.model}</h2>
-                    <p className="text-slate-500 font-medium">Select a build below to review specs and calculate payments.</p>
+                    <p className="text-slate-500 font-medium text-sm">Select a build below to review specs and calculate payments.</p>
                   </div>
                 </div>
               </div>
-
               <div className="w-full lg:w-2/3 space-y-4">
                 <div className="bg-[#0B1121] rounded-2xl p-6 relative overflow-hidden shadow-lg border border-slate-800 flex items-center justify-between mb-6">
                   <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PHBhdGggZD0iTTAgMGgyMHYyMEgwVjB6bTEgMWgxOHYxOEgxdjE4eiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+')] opacity-50 pointer-events-none"></div>
@@ -554,7 +602,8 @@ export default function App() {
                   <div className="p-4 sm:p-8 border-b border-slate-800">
                     <label className="block text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-widest mb-3">Rig A</label>
                     <button onClick={() => { setSelectingRig('A'); setSelectorBrand(rigA ? String(rigA.brand) : brands[0]); }} className="w-full bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-blue-500 text-white text-xs sm:text-sm font-semibold rounded-xl p-3 sm:p-4 text-left flex justify-between items-center transition-all shadow-sm">
-                      <span className="truncate pr-2">{rigA ? `${rigA.brand} ${rigA.model} ${rigA.name}` : 'Select Rig A'}</span><ChevronDown size={16} className="text-slate-400 shrink-0" />
+                    <span className="truncate pr-2">{rigA ? `${rigA.brand} ${rigA.model} ${rigA.name}` : 'Select Rig A'}</span>
+                    <ChevronDown size={18} className="text-blue-500 shrink-0 group-hover:scale-110 transition-transform" />
                     </button>
                   </div>
                   {rigA && (
@@ -573,10 +622,10 @@ export default function App() {
                 <div className="flex flex-col relative w-full">
                   <div className="p-4 sm:p-8 border-b border-slate-800">
                     <label className="block text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3">Rig B</label>
-                    <button onClick={() => { setSelectingRig('B'); setSelectorBrand(rigB ? String(rigB.brand) : brands[0]); }} className="w-full bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-emerald-500 text-white text-xs sm:text-sm font-semibold rounded-xl p-3 sm:p-4 text-left flex justify-between items-center transition-all shadow-sm">
-                      <span className="truncate pr-2">{rigB ? `${rigB.brand} ${rigB.model} ${rigB.name}` : 'Select Rig B'}</span><ChevronDown size={16} className="text-slate-400 shrink-0" />
-                    </button>
-                  </div>
+                  <button onClick={() => { setSelectingRig('B'); setSelectorBrand(rigB ? String(rigB.brand) : brands[0]); }} className="w-full bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-emerald-500 text-white text-xs sm:text-sm font-semibold rounded-xl p-3 sm:p-4 text-left flex justify-between items-center transition-all shadow-sm">
+                  <span className="truncate pr-2">{rigB ? `${rigB.brand} ${rigB.model} ${rigB.name}` : 'Select Rig B'}</span>
+                  <ChevronDown size={18} className="text-blue-500 shrink-0 group-hover:scale-110 transition-transform" />
+                  </button>                  </div>
                   {rigB && (
                     <>
                       <div className="w-full aspect-[4/3] sm:aspect-video relative overflow-hidden flex items-center justify-center p-4">
@@ -639,7 +688,7 @@ export default function App() {
             <div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
               <div>
                 <button onClick={() => setIsBrandOpen(v => !v)} className="w-full flex items-center justify-between gap-4 p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors" aria-expanded={isBrandOpen}>
-                  <span className="text-sm font-bold uppercase tracking-wider text-slate-900">Brand</span><ChevronDown className={`transition-transform ${isBrandOpen ? 'rotate-180' : ''}`} />
+                  <span className="text-sm font-bold uppercase tracking-wider text-slate-900">Brand</span><ChevronDown size={18} className={`text-blue-500 transition-transform duration-300 ${isBrandOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isBrandOpen && (
                   <div className="mt-3 space-y-2">
@@ -838,15 +887,15 @@ function CalculatorView({ bike, build, onBack, isFavorite, onToggleFavorite }: {
   
   const price = build.price;
   
-  const { monthlyPayment, totalInterest, totalCost, principal, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
-    const taxAmount = build.price * (taxRate / 100);
+  const { monthlyPayment, totalInterest, totalCost, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
+    const taxAmt = build.price * (taxRate / 100);
     const downPaymentValue = Number(downPayment) || 0;
-    const totalFinanced = build.price + taxAmount - downPaymentValue;
-    const p = Math.max(0, totalFinanced);
+    const totalFinancedAmt = build.price + taxAmt - downPaymentValue;
+    const p = Math.max(0, totalFinancedAmt);
     
     if (promo === '6mo' || promo === '12mo') {
       const t = promo === '6mo' ? 6 : 12;
-      return { principal: p, activeTerm: t, monthlyPayment: p / t, totalInterest: 0, totalCost: totalFinanced, taxAmount, totalFinanced };
+      return { principal: p, activeTerm: t, monthlyPayment: p / t, totalInterest: 0, totalCost: totalFinancedAmt, taxAmount: taxAmt, totalFinanced: totalFinancedAmt };
     }
 
     const r = standardApr / 100 / 12;
@@ -856,25 +905,33 @@ function CalculatorView({ bike, build, onBack, isFavorite, onToggleFavorite }: {
     if (r === 0) { m = p / t; interest = 0; } 
     else if (p > 0) { m = (p * r) / (1 - Math.pow(1 + r, -t)); interest = (m * t) - p; }
 
-    return { principal: p, activeTerm: t, monthlyPayment: m, totalInterest: interest, totalCost: totalFinanced + interest, taxAmount, totalFinanced };
+    return { principal: p, activeTerm: t, monthlyPayment: m, totalInterest: interest, totalCost: totalFinancedAmt + interest, taxAmount: taxAmt, totalFinanced: totalFinancedAmt };
   }, [price, downPayment, promo, standardTerm, standardApr, taxRate, build.price]);
 
   const formatMoney = (val: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-300">
-      <div className="flex justify-between items-center w-full">
+      {/* Standardized Navigation Row - Fixed Height to match Builds Page */}
+      <div className="flex items-center h-10">
         <button onClick={onBack} className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors">
           <ChevronLeft size={20} /> Back to Builds
-        </button>
-        <button onClick={onToggleFavorite} className={`flex items-center gap-2 px-4 py-2 sm:px-6 sm:py-2.5 rounded-full font-bold transition-all shadow-sm ${isFavorite ? 'bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-blue-300'}`}>
-          <Star size={18} className={isFavorite ? 'fill-blue-600 text-blue-600' : 'text-slate-400'} /><span className="hidden sm:inline">{isFavorite ? 'Saved to Garage' : 'Save to Garage'}</span><span className="sm:hidden">{isFavorite ? 'Saved' : 'Save'}</span>
         </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         <div className="w-full space-y-6">
-          <div className="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col w-full border border-slate-200">
+          <div className="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col w-full border border-slate-200 relative">
+            
+            {/* --- BLUE STAR TOGGLE ON IMAGE CARD --- */}
+            <button 
+              onClick={(e) => { e.stopPropagation(); onToggleFavorite(); }} 
+              className="absolute top-4 right-4 z-20 p-2.5 bg-white/90 backdrop-blur-sm rounded-full shadow-sm border border-slate-100 hover:scale-110 active:scale-95 transition-all group"
+              title={isFavorite ? "Remove from Garage" : "Save to Garage"}
+            >
+              <Star size={22} className={`${isFavorite ? 'fill-blue-500 text-blue-500' : 'text-slate-300 group-hover:text-blue-400'}`} />
+            </button>
+
             <div className="w-full h-64 sm:h-72 bg-[#F3F3F3] relative m-0 p-0 overflow-hidden flex items-center justify-center">
               <img src={bike.image} alt={bike.model} className="absolute inset-0 w-full h-full object-contain scale-110" crossOrigin="anonymous" />
             </div>
@@ -899,7 +956,7 @@ function CalculatorView({ bike, build, onBack, isFavorite, onToggleFavorite }: {
         </div>
 
         <div className="w-full">
-          <div className="bg-[#0B1121] rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-800 flex flex-col gap-8">
+         <div className="bg-[#0B1121] rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-800 flex flex-col gap-8 text-left">
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PHBhdGggZD0iTTAgMGgyMHYyMEgwVjB6bTEgMWgxOHYxOEgxdjE4eiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+')] opacity-50 pointer-events-none"></div>
             <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] pointer-events-none"></div>
             
@@ -933,15 +990,14 @@ function CalculatorView({ bike, build, onBack, isFavorite, onToggleFavorite }: {
                 <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-6"><Calculator size={24} className="text-blue-500" />Trail Math</h3>
                 <div className="space-y-6">
                   <div>
-                    <label className="block text-sm font-bold text-slate-300 mb-2">Down Payment ($)</label>
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Down Payment ($)</label>
                     <div className="relative">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg pointer-events-none">$</span>
-                      <input type="text" inputMode="numeric" pattern="[0-9]*" value={downPayment} placeholder="0" onChange={(e) => { const raw = String(e.target.value).replace(/\D/g, ''); const sanitized = raw.replace(/^0+/, ''); setDownPayment(sanitized === '' ? '' : Number(sanitized)); }} className="w-full bg-[#0B1121] border border-slate-700 text-white text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 pl-9 transition-colors placeholder:text-slate-600" />
+                      <input type="text" inputMode="numeric" pattern="[0-9]*" value={downPayment} placeholder="0" onChange={(e) => { const raw = String(e.target.value).replace(/\D/g, ''); const sanitized = raw.replace(/^0+/, ''); setDownPayment(sanitized === '' ? '' : Number(sanitized)); }} className="w-full bg-[#0B1121] border border-slate-700 text-white text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 pl-9 transition-colors placeholder:text-slate-600 outline-none" />
                     </div>
-                    <div className="flex justify-between text-xs text-slate-500 mt-2 font-medium"><span>Financing: {formatMoney(principal)}</span></div>
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-slate-300 mb-3">0% Promos</label>
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">0% Promos</label>
                     <div className="grid grid-cols-3 gap-3">
                       {['none', '6mo', '12mo'].map(p => (
                         <button key={p} onClick={() => setPromo(p)} className={`py-3 px-2 rounded-xl text-sm font-bold transition-all border ${promo === p ? 'bg-blue-600 border-blue-500 text-white shadow-sm' : 'bg-[#0B1121] border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white'}`}>
@@ -951,19 +1007,17 @@ function CalculatorView({ bike, build, onBack, isFavorite, onToggleFavorite }: {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-slate-300 uppercase tracking-wider mb-2">Estimated Sales Tax (%)</label>
-                    <input type="number" min="0" step="0.1" value={taxRate || ''} onChange={(e) => setTaxRate(parseFloat(e.target.value) || 0)} className="w-full bg-[#0B1121] border border-slate-700 text-white text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 transition-colors placeholder:text-slate-600" placeholder="8.5" />
+                    <BrandedStepper label="Estimated Sales Tax (%)" value={taxRate} onChange={setTaxRate} step={0.1} suffix="%" />
                     <p className="text-[10px] text-slate-500 mt-2 font-medium uppercase tracking-wider">Include state, county, and city taxes for accurate math</p>
                   </div>
                   <div className={`space-y-6 transition-opacity duration-300 ${promo !== 'none' ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}>
                     <div>
-                      <label className="block text-sm font-bold text-slate-300 mb-2">Standard Term (Months)</label>
+                      <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Standard Term (Months)</label>
                       <input type="range" min="12" max="72" step="12" value={standardTerm} onChange={(e) => setStandardTerm(Number(e.target.value))} className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500" />
                       <div className="text-center font-bold text-slate-400 mt-2">{standardTerm} Months</div>
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-slate-300 mb-2">Standard APR (%)</label>
-                      <input type="number" min="0" step="0.1" value={standardApr} onChange={(e) => setStandardApr(Number(e.target.value))} className="w-full bg-[#0B1121] border border-slate-700 text-white text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 transition-colors placeholder:text-slate-600" />
+                      <BrandedStepper label="Standard APR (%)" value={standardApr} onChange={setStandardApr} step={0.1} suffix="%" />
                     </div>
                   </div>
                 </div>
