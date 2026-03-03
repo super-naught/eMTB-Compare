@@ -485,7 +485,7 @@ const toggleFavorite = async (buildId: string) => {
                   <div className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider hidden sm:block">{totalBuilds} Total Builds</div>
                 </div>
 
-                <div className="sticky top-16 sm:top-20 z-30 bg-slate-50/90 backdrop-blur-md py-4 border-b border-slate-200 -mx-4 px-4 sm:mx-0 sm:px-0 transition-all">
+                <div className="sticky top-16 sm:top-20 z-30 bg-slate-50/90 backdrop-blur-md py-4 border-b border-slate-200 -mx-4 px-4 sm:mx-0 sm:px-0 transition-all shadow-[0_1px_3px_rgba(0,0,0,0.05)] shadow-slate-200/50">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
                       <button onClick={() => setIsFilterModalOpen(true)} className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors">
@@ -505,28 +505,38 @@ const toggleFavorite = async (buildId: string) => {
                   </div>
                 </div>
 
-                {groupedBikes.map(group => (
-                  <section key={group.brand} className="w-full">
-                    <div className="w-full"><h2 className="text-6xl md:text-8xl font-bold italic uppercase tracking-tight text-black/5 select-none border-b-2 border-slate-200 pb-2 mb-6 md:mb-8">{group.brand}</h2></div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {group.bikes.map(bike => (
-                        <div key={bike.id} onClick={() => { showroomScrollRef.current = window.scrollY; setSelectedBikeId(bike.id); setView('builds'); }} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:scale-[1.02] hover:border-blue-600 transition-all duration-300 cursor-pointer group flex flex-col">
-                          <div className="w-full p-0 h-100 overflow-hidden relative shrink-0"><img src={bike.image} alt={bike.model} className="w-full h-full object-contain scale-110" crossOrigin="anonymous" /></div>
-                          <div className="p-6 flex-1 flex flex-col justify-center min-w-0">
-                            <div className="flex justify-between items-center text-xs uppercase mb-1">
-                              <div className="text-xs font-bold text-slate-900 tracking-wide truncate">{bike.brand}</div><span className="text-slate-400 font-medium">{bike.suspension}</span>
-                            </div>
-                            <h3 className="text-xl font-bold text-slate-900 mb-4 truncate">{bike.model}</h3>
-                            <div className="mt-auto flex items-center justify-between">
-                              <div><div className="text-[10px] text-slate-500 uppercase tracking-wider font-medium">Starting at</div><div className="text-lg font-bold text-slate-900">{formatPrice(bike.startingPrice)}</div></div>
-                              <div className="text-slate-400 group-hover:text-blue-600 transition-colors"><ArrowRight size={20} /></div>
+{/* The Min-Height Wrapper preventing the scroll-snap */}
+                <div className="min-h-[100vh] pt-6 pb-12 [overflow-anchor:none]">
+                  {groupedBikes.length === 0 && (
+                    <div className="text-center py-20">
+                      <h3 className="text-2xl font-bold text-slate-500">No Rigs Found</h3>
+                      <p className="text-slate-400 mt-2 font-medium">Try raising your budget or clearing filters.</p>
+                    </div>
+                  )}
+                  
+                  {groupedBikes.map(group => (
+                    <section key={group.brand} className="w-full mb-12">
+                      <div className="w-full"><h2 className="text-6xl md:text-8xl font-bold italic uppercase tracking-tight text-black/5 select-none border-b-2 border-slate-200 pb-2 mb-6 md:mb-8">{group.brand}</h2></div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {group.bikes.map(bike => (
+                          <div key={bike.id} onClick={() => { showroomScrollRef.current = window.scrollY; setSelectedBikeId(bike.id); setView('builds'); }} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:scale-[1.02] hover:border-blue-600 transition-all duration-300 cursor-pointer group flex flex-col">
+                            <div className="w-full p-0 h-100 overflow-hidden relative shrink-0"><img src={bike.image} alt={bike.model} className="w-full h-full object-contain scale-110" crossOrigin="anonymous" /></div>
+                            <div className="p-6 flex-1 flex flex-col justify-center min-w-0">
+                              <div className="flex justify-between items-center text-xs uppercase mb-1">
+                                <div className="text-xs font-bold text-slate-900 tracking-wide truncate">{bike.brand}</div><span className="text-slate-400 font-medium">{bike.suspension}</span>
+                              </div>
+                              <h3 className="text-xl font-bold text-slate-900 mb-4 truncate">{bike.model}</h3>
+                              <div className="mt-auto flex items-center justify-between">
+                                <div><div className="text-[10px] text-slate-500 uppercase tracking-wider font-medium">Starting at</div><div className="text-lg font-bold text-slate-900">{formatPrice(bike.startingPrice)}</div></div>
+                                <div className="text-slate-400 group-hover:text-blue-600 transition-colors"><ArrowRight size={20} /></div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-                ))}
+                        ))}
+                      </div>
+                    </section>
+                  ))}
+                </div>
               </>
             )}
           </div>
