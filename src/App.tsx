@@ -675,6 +675,19 @@ export default function App() {
           </div>
         )}
       </main>
+      {/* --- FOOTER --- */}
+      <footer className="w-full bg-slate-900 border-t border-slate-800 py-8 sm:py-12 mt-auto relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col items-center md:items-start gap-2">
+            {/* You can swap this for a text logo if you don't have a dark-mode ready SVG */}
+            <div className="text-xl font-black text-white italic tracking-tighter uppercase">TRAIL<span className="text-blue-500">MATH</span></div>
+            <p className="text-xs text-slate-500 font-medium">&copy; {new Date().getFullYear()} Trail Math. An Infernal Speed LLC project.</p>
+          </div>
+          <div className="max-w-md text-center md:text-right text-[10px] text-slate-500 font-medium leading-relaxed">
+            *Monthly payments, interest rates, and tax calculations are estimates provided for educational purposes only. Final prices, specs, and availability are subject to change by the manufacturer. Estimates exclude dealer fees, setup, and destination charges.
+          </div>
+        </div>
+      </footer>
 
       {/* --- BULLETPROOF FILTER MODAL --- */}
       {isFilterModalOpen && (
