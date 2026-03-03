@@ -908,18 +908,37 @@ const toggleFavorite = async (buildId: string) => {
         </div>
       )}
 
-      {/* --- FOOTER --- */}
-      <footer className="w-full bg-slate-900 border-t border-slate-800 py-8 sm:py-12 mt-auto relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col items-center md:items-start gap-2">
-            <img src="/trail_math_logo_footer.png" alt="Trail Math" className="h-8 sm:h-7 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
-            <p className="text-xs text-slate-500 font-medium">&copy; {new Date().getFullYear()} Trail Math. An Infernal Speed LLC project.</p>
-          </div>
-          <div className="max-w-md text-center md:text-right text-[10px] text-slate-500 font-medium leading-relaxed">
-            *Monthly payments, interest rates, and tax calculations are estimates provided for educational purposes only. Final prices, specs, and availability are subject to change by the manufacturer. Estimates exclude dealer fees, setup, and destination charges.
-          </div>
-        </div>
-      </footer>
+{/* --- FOOTER --- */}
+<footer className="w-full bg-slate-900 border-t border-slate-800 py-8 sm:py-6 mt-auto relative z-10">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+    <div className="flex flex-col items-center md:items-start gap-2">
+      <img src="/trail_math_logo_footer.png" alt="Trail Math" className="h-8 sm:h-7 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
+      <p className="text-xs text-slate-500 font-medium">&copy; {new Date().getFullYear()} Trail Math.</p>
+    </div>
+    
+    <div className="max-w-md text-center md:text-right space-y-3">
+      {/* Required Affiliate Disclosure */}
+      <div className="text-[10px] text-slate-400 font-medium leading-relaxed italic">
+        *Trail Math is reader-supported. When you click links and make a purchase, we may receive an affiliate commission at no extra cost to you.
+      </div>
+      
+      {/* Financial Disclaimer */}
+      <div className="text-[10px] text-slate-500 font-medium leading-relaxed">
+        Monthly payments, interest rates, and tax calculations are estimates provided for educational purposes only. Final prices, specs, and availability are subject to change by the manufacturer. Estimates exclude dealer fees, setup, and destination charges.
+      </div>
+      
+      {/* Privacy Policy Toggle */}
+      <div className="flex justify-center md:justify-end gap-4 pt-1">
+        <button 
+          onClick={() => alert("Privacy Policy: Trail Math does not sell user data. We use Clerk for authentication and Supabase for secure data storage. We track outbound clicks to provide affiliate services.")} 
+          className="text-[10px] text-blue-500 hover:text-blue-400 hover:underline font-bold uppercase tracking-widest transition-colors"
+        >
+          Privacy Policy
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>
     </div>
   );
 }
