@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star, Plus, Minus } from 'lucide-react';
+import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star, Plus, Minus, MapPin, ShoppingCart } from 'lucide-react';
 import { eMTBData } from './bikeData';
 import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from "@clerk/clerk-react";
 import { supabase } from './supabaseClient';
@@ -267,11 +267,15 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col relative">
       <header className="bg-slate-50/90 backdrop-blur-md sticky top-0 z-40 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
-          <div 
+        <div 
             className="flex items-center gap-2 cursor-pointer group"
-            onClick={() => { showroomScrollRef.current = 0; setView('showroom'); }}
+            onClick={() => { 
+              showroomScrollRef.current = 0; 
+              setView('showroom'); 
+              setShowGarage(false); 
+            }}
           >
-            <img src="/trail-math-logo-color-horizontal.svg" alt="Trail Math" className="h-10 w-auto" />
+            <img src="/trail_math_logo_emtb.png" alt="Trail Math" className="h-8 w-auto" />
           </div>
           
           {view === 'showroom' && (
@@ -295,19 +299,28 @@ export default function App() {
                 <span className="hidden sm:inline">Compare Rigs</span>
                 <span className="sm:hidden">Compare</span>
               </button>
-              <div className="flex items-center gap-4 ml-4 pl-4 border-l border-slate-200">
+              <div className="flex items-center gap-2 sm:gap-4 ml-2 pl-2 sm:ml-4 sm:pl-4 border-l border-slate-200">
                 <SignedOut>
                   <SignInButton mode="modal">
-                    <button className="text-sm font-bold text-slate-700 hover:text-blue-600 transition-colors">Sign In</button>
+                    <button className="text-xs sm:text-sm font-bold text-slate-700 hover:text-blue-600 transition-colors">Sign In</button>
                   </SignInButton>
                 </SignedOut>
                 <SignedIn><UserButton afterSignOutUrl="/" /></SignedIn>
-              </div>
-            </div>
+              </div>            </div>
           )}
-          {view !== 'showroom' && (
-            <button onClick={() => setView('showroom')} className="text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1">
-              Back to Showroom
+          {view === 'builds' && (
+            <button onClick={() => setView('showroom')} className="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors">
+              <ChevronLeft size={16} /> Back to Showroom
+            </button>
+          )}
+          {view === 'calculator' && (
+            <button onClick={() => setView('builds')} className="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors">
+              <ChevronLeft size={16} /> Back to Builds
+            </button>
+          )}
+          {view === 'compare' && (
+            <button onClick={() => setView('showroom')} className="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors">
+              <ChevronLeft size={16} /> Back to Showroom
             </button>
           )}
         </div>
@@ -355,8 +368,8 @@ export default function App() {
                               <span className="text-slate-400 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em]">The Definitive Database</span>
                             </div>
                             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[1.05]">
-                              FIND YOUR NEXT <br />
-                              <span className="text-blue-500 mt-1 sm:mt-2 inline-block">DREAM RIG.</span>
+                              FIND YOUR <br />
+                              <span className="text-blue-500 mt-1 sm:mt-2 inline-block">DREAM BIKE</span>
                             </h1>
                           </div>
                           <p className="text-base sm:text-lg text-slate-400 max-w-lg leading-relaxed font-medium">
@@ -396,12 +409,10 @@ export default function App() {
             
                       <div className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Swipe to explore &rarr;</div>
                     </div>
-                    {/* Added pt-4 here to give the hovering cards headroom so the top shadow doesn't clip */}
                     <div className="flex overflow-x-auto gap-4 sm:gap-6 pt-4 pb-6 px-2 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                      {['Vala', 'Levo', 'Altitude', 'Bullit', 'Moterra'].map(m => BIKES.find(b => b.model.includes(m))).filter(Boolean).map(bike => bike && (
+                      {['Vala', 'Levo', 'Wild', 'Meta Power SX Avinox', 'Sight VLT CX'].map(m => BIKES.find(b => b.model.includes(m))).filter(Boolean).map(bike => bike && (
                         <div key={`hot-${bike.id}`} onClick={() => { showroomScrollRef.current = window.scrollY; setSelectedBikeId(bike.id); setView('builds'); }} className="min-w-[75vw] sm:min-w-[320px] md:min-w-[360px] snap-center bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 hover:border-blue-500 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group flex flex-col">
                           
-                          {/* FIX: Added overflow-hidden back, and set starting scale to 95 and hover to 105 */}
                           <div className="w-full h-48 bg-[#F3F3F3] rounded-2xl mb-6 relative overflow-hidden flex items-center justify-center p-4">
                             <img src={bike.image} alt={bike.model} className="w-full h-full object-contain scale-95 group-hover:scale-105 transition-transform duration-500" crossOrigin="anonymous" />
                           </div>
@@ -503,14 +514,7 @@ export default function App() {
         {/* --- BUILDS VIEW --- */}
         {view === 'builds' && selectedBike && (
           <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-300">
-            {/* Standardized Navigation Row */}
-            <div className="flex items-center h-10">
-              <button onClick={() => setView('showroom')} className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors">
-                <ChevronLeft size={20} /> Back to Showroom
-              </button>
-            </div>
-
-            <div className="flex flex-col lg:flex-row gap-8 items-start">
+            <div className="flex flex-col lg:flex-row gap-8 items-start mt-4">
               <div className="w-full lg:w-1/3 lg:sticky lg:top-24">
                 <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200 flex flex-col relative">
                   
@@ -576,13 +580,13 @@ export default function App() {
 
         {/* --- CALCULATOR VIEW --- */}
         {view === 'calculator' && selectedBuild && selectedBike && (
-          <CalculatorView bike={selectedBike} build={selectedBuild} onBack={() => setView('builds')} isFavorite={favorites.includes(selectedBuild.id)} onToggleFavorite={() => toggleFavorite(selectedBuild.id)} />
+          <CalculatorView bike={selectedBike} build={selectedBuild} isFavorite={favorites.includes(selectedBuild.id)} onToggleFavorite={() => toggleFavorite(selectedBuild.id)} />
         )}
 
         {/* --- COMPARE VIEW --- */}
         {view === 'compare' && (
           <div className="animate-in fade-in slide-in-from-bottom-8 duration-500 pb-12 w-full">
-            <div className="bg-[#0B1121] rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl border border-slate-800 overflow-hidden flex flex-col w-full relative">
+            <div className="bg-[#0B1121] rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl border border-slate-800 overflow-hidden flex flex-col w-full relative mt-4">
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PHBhdGggZD0iTTAgMGgyMHYyMEgwVjB6bTEgMWgxOHYxOEgxdjE4eiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+')] opacity-50 pointer-events-none z-0"></div>
               
               <div className="p-8 sm:p-12 lg:p-16 relative flex items-center justify-between border-b border-slate-800 shrink-0 z-10">
@@ -675,19 +679,6 @@ export default function App() {
           </div>
         )}
       </main>
-      {/* --- FOOTER --- */}
-      <footer className="w-full bg-slate-900 border-t border-slate-800 py-8 sm:py-12 mt-auto relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col items-center md:items-start gap-2">
-            {/* You can swap this for a text logo if you don't have a dark-mode ready SVG */}
-            <div className="text-xl font-black text-white italic tracking-tighter uppercase">TRAIL<span className="text-blue-500">MATH</span></div>
-            <p className="text-xs text-slate-500 font-medium">&copy; {new Date().getFullYear()} Trail Math. An Infernal Speed LLC project.</p>
-          </div>
-          <div className="max-w-md text-center md:text-right text-[10px] text-slate-500 font-medium leading-relaxed">
-            *Monthly payments, interest rates, and tax calculations are estimates provided for educational purposes only. Final prices, specs, and availability are subject to change by the manufacturer. Estimates exclude dealer fees, setup, and destination charges.
-          </div>
-        </div>
-      </footer>
 
       {/* --- BULLETPROOF FILTER MODAL --- */}
       {isFilterModalOpen && (
@@ -885,75 +876,71 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* --- FOOTER --- */}
+      <footer className="w-full bg-slate-900 border-t border-slate-800 py-8 sm:py-12 mt-auto relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <img src="/trail_math_logo_footer.png" alt="Trail Math" className="h-8 sm:h-7 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
+            <p className="text-xs text-slate-500 font-medium">&copy; {new Date().getFullYear()} Trail Math. An Infernal Speed LLC project.</p>
+          </div>
+          <div className="max-w-md text-center md:text-right text-[10px] text-slate-500 font-medium leading-relaxed">
+            *Monthly payments, interest rates, and tax calculations are estimates provided for educational purposes only. Final prices, specs, and availability are subject to change by the manufacturer. Estimates exclude dealer fees, setup, and destination charges.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
 
-function CalculatorView({ bike, build, onBack, isFavorite, onToggleFavorite }: { bike: typeof BIKES[0], build: any, onBack: () => void, isFavorite: boolean, onToggleFavorite: () => void }) {
+function CalculatorView({ bike, build, isFavorite, onToggleFavorite }: { bike: typeof BIKES[0], build: any, isFavorite: boolean, onToggleFavorite: () => void }) {
   const [downPayment, setDownPayment] = useState<number | string>('');
   const [promo, setPromo] = useState('none');
   const [standardTerm, setStandardTerm] = useState(36);
   const [standardApr, setStandardApr] = useState(7.99);
   const [taxRate, setTaxRate] = useState<number>(0);
+  
+  // NEW: State for Dealer Search
+  const [showDealerSearch, setShowDealerSearch] = useState(false);
+  const [zipCode, setZipCode] = useState('');
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
   
-  const price = build.price;
-  
-  const { monthlyPayment, totalInterest, totalCost, activeTerm, taxAmount, totalFinanced } = useMemo(() => {
+  const { monthlyPayment, totalInterest, taxAmount, totalFinanced } = useMemo(() => {
     const taxAmt = build.price * (taxRate / 100);
-    const downPaymentValue = Number(downPayment) || 0;
-    const totalFinancedAmt = build.price + taxAmt - downPaymentValue;
+    const downValue = Number(downPayment) || 0;
+    const totalFinancedAmt = build.price + taxAmt - downValue;
     const p = Math.max(0, totalFinancedAmt);
-    
-    if (promo === '6mo' || promo === '12mo') {
+    if (promo !== 'none') {
       const t = promo === '6mo' ? 6 : 12;
-      return { principal: p, activeTerm: t, monthlyPayment: p / t, totalInterest: 0, totalCost: totalFinancedAmt, taxAmount: taxAmt, totalFinanced: totalFinancedAmt };
+      return { activeTerm: t, monthlyPayment: p / t, totalInterest: 0, totalCost: totalFinancedAmt, taxAmount: taxAmt, totalFinanced: totalFinancedAmt };
     }
-
-    const r = standardApr / 100 / 12;
-    const t = standardTerm;
-    let m = 0; let interest = 0;
-
-    if (r === 0) { m = p / t; interest = 0; } 
-    else if (p > 0) { m = (p * r) / (1 - Math.pow(1 + r, -t)); interest = (m * t) - p; }
-
-    return { principal: p, activeTerm: t, monthlyPayment: m, totalInterest: interest, totalCost: totalFinancedAmt + interest, taxAmount: taxAmt, totalFinanced: totalFinancedAmt };
-  }, [price, downPayment, promo, standardTerm, standardApr, taxRate, build.price]);
+    const r = standardApr / 100 / 12; const t = standardTerm;
+    const m = r === 0 ? p / t : (p * r) / (1 - Math.pow(1 + r, -t));
+    const interest = (m * t) - p;
+    return { activeTerm: t, monthlyPayment: m, totalInterest: interest, totalCost: totalFinancedAmt + interest, taxAmount: taxAmt, totalFinanced: totalFinancedAmt };
+  }, [build.price, downPayment, promo, standardTerm, standardApr, taxRate]);
 
   const formatMoney = (val: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-300">
-      {/* Standardized Navigation Row - Fixed Height to match Builds Page */}
-      <div className="flex items-center h-10">
-        <button onClick={onBack} className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors">
-          <ChevronLeft size={20} /> Back to Builds
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mt-4">
         <div className="w-full space-y-6">
           <div className="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col w-full border border-slate-200 relative">
-            
-            {/* --- BLUE STAR TOGGLE ON IMAGE CARD --- */}
-            <button 
-              onClick={(e) => { e.stopPropagation(); onToggleFavorite(); }} 
-              className="absolute top-4 right-4 z-20 p-2.5 bg-white/90 backdrop-blur-sm rounded-full shadow-sm border border-slate-100 hover:scale-110 active:scale-95 transition-all group"
-              title={isFavorite ? "Remove from Garage" : "Save to Garage"}
-            >
+            <button onClick={(e) => { e.stopPropagation(); onToggleFavorite(); }} className="absolute top-4 right-4 z-20 p-2.5 bg-white/90 backdrop-blur-sm rounded-full shadow-sm border border-slate-100 hover:scale-110 active:scale-95 transition-all group">
               <Star size={22} className={`${isFavorite ? 'fill-blue-500 text-blue-500' : 'text-slate-300 group-hover:text-blue-400'}`} />
             </button>
-
             <div className="w-full h-64 sm:h-72 bg-[#F3F3F3] relative m-0 p-0 overflow-hidden flex items-center justify-center">
-              <img src={bike.image} alt={bike.model} className="absolute inset-0 w-full h-full object-contain scale-110" crossOrigin="anonymous" />
+              <img src={bike.image} alt={bike.model} className="absolute inset-0 w-full h-full object-contain scale-125 drop-shadow-2xl" crossOrigin="anonymous" />
             </div>
-            <div className="p-8 flex flex-col">
+            <div className="p-8 flex flex-col border-t border-slate-100">
               <div className="flex flex-col items-center pb-6 border-b border-slate-100 gap-1">
                 {eMTBData.find(b => b.brand === bike.brand)?.logo && <img src={eMTBData.find(b => b.brand === bike.brand)?.logo} alt={bike.brand} className="h-10 object-contain mb-2" crossOrigin="anonymous" />}
                 <h2 className="text-xl font-black text-slate-900 text-center leading-snug">{bike.model} - {build.name}</h2>
-                <p className="text-2xl font-extrabold text-blue-600 mt-2">{formatMoney(price)}</p>
+                <p className="text-2xl font-extrabold text-blue-600 mt-2">{formatMoney(build.price)}</p>
               </div>
+              {/* --- RESTORED COMPONENT BREAKDOWN GRID --- */}
               <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-6">
                 <div className="flex flex-col gap-1"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Material</span><span className="text-sm font-semibold text-slate-800">{build.material || 'TBD'}</span></div>
                 <div className="flex flex-col gap-1"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Suspension</span><span className="text-sm font-semibold text-slate-800">{bike.suspension}</span></div>
@@ -967,46 +954,77 @@ function CalculatorView({ bike, build, onBack, isFavorite, onToggleFavorite }: {
             </div>
           </div>
         </div>
-
         <div className="w-full">
-         <div className="bg-[#0B1121] rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-800 flex flex-col gap-8 text-left">
+          <div className="bg-[#0B1121] rounded-3xl p-8 text-white shadow-xl relative overflow-hidden border border-slate-800 flex flex-col gap-8 text-left">
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PHBhdGggZD0iTTAgMGgyMHYyMEgwVjB6bTEgMWgxOHYxOEgxdjE4eiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+')] opacity-50 pointer-events-none"></div>
             <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] pointer-events-none"></div>
             
             <div className="relative z-10 space-y-8">
-              <div>
-                <h3 className="text-xl font-bold text-slate-300 mb-8">What's the Damage?</h3>
-                <div className="space-y-8">
-                  <div>
-                    <div className="text-sm text-slate-400 font-medium uppercase tracking-wider mb-2">Estimated Monthly</div>
-                    <div className="text-6xl font-extrabold text-white tracking-tight">{formatMoney(monthlyPayment)}<span className="text-2xl text-slate-500 font-medium">/mo</span></div>
-                    <div className="text-blue-400 text-sm font-medium mt-2">For {activeTerm} months</div>
-                  </div>
+              <div className="text-left">
+                <h3 className="text-xl font-black text-slate-400 uppercase tracking-widest mb-8">What's the Damage?</h3>
+                <div className="space-y-6">
+                  <div><div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Monthly Payment</div><div className="text-5xl font-black text-white">{formatMoney(monthlyPayment)}<span className="text-xl text-slate-500 font-medium">/mo</span></div></div>
                   <div className="h-px bg-slate-800 w-full"></div>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center"><span className="text-slate-400 font-medium">Rig Price</span><span className="font-semibold">{formatMoney(price)}</span></div>
-                    <div className="flex justify-between items-center"><span className="text-slate-400 font-medium">Estimated Tax</span><span className="font-semibold">{formatMoney(taxAmount || 0)}</span></div>
-                    <div className="flex justify-between items-center"><span className="text-slate-400 font-medium">Down Payment</span><span className="font-semibold text-blue-400">-{formatMoney(Number(downPayment) || 0)}</span></div>
-                    <div className="flex justify-between items-center"><span className="text-slate-400 font-medium">Total Interest</span><span className="font-semibold text-rose-400">+{formatMoney(totalInterest)}</span></div>
-                    <div className="flex justify-between items-center"><span className="text-slate-400 font-medium">Total Financed</span><span className="font-semibold">{formatMoney(totalFinanced || price)}</span></div>
+                  <div className="space-y-3 font-medium text-sm">
+                    <div className="flex justify-between"><span className="text-slate-400">Rig Price</span><span>{formatMoney(build.price)}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Estimated Tax</span><span>{formatMoney(taxAmount)}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Down Payment</span><span className="text-blue-400">-{formatMoney(Number(downPayment) || 0)}</span></div>
+                    {/* --- RESTORED TOTAL INTEREST --- */}
+                    <div className="flex justify-between"><span className="text-slate-400">Total Interest</span><span className="text-rose-400">+{formatMoney(totalInterest)}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-500 font-bold uppercase tracking-widest">Financed Total</span><span className="font-bold text-white">{formatMoney(totalFinanced)}</span></div>
                   </div>
-                  <div className="h-px bg-slate-800 w-full"></div>
-                  <div className="flex justify-between items-center text-lg"><span className="font-bold text-slate-300">Total Out of Pocket</span><span className="font-bold text-white">{formatMoney(totalCost)}</span></div>
-                </div>
-                <div className="mt-8 pt-8 border-t border-slate-800">
-                  <button onClick={(e) => e.preventDefault()} className="w-full flex items-center justify-center gap-2 bg-slate-800/80 border border-slate-700 hover:bg-slate-700 text-slate-300 font-extrabold text-lg py-4 px-6 rounded-xl transition-colors shadow-sm">Local Dealer Search (Coming Soon)</button>
-                  <p className="text-center text-[10px] text-slate-500 mt-3 uppercase tracking-wider font-semibold">Direct retailer connections launching soon</p>
                 </div>
               </div>
 
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-slate-700">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-6"><Calculator size={24} className="text-blue-500" />Trail Math</h3>
+              {/* --- DUAL-ACTION CHECKOUT ZONE --- */}
+              <div className="mt-8 pt-8 border-t border-slate-800">
+                {!showDealerSearch ? (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <button onClick={() => setShowDealerSearch(true)} className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-base py-4 px-6 rounded-xl transition-colors shadow-lg shadow-blue-900/20">
+                        <MapPin size={18} /> Find Local Dealer
+                      </button>
+                      <a href={`https://www.google.com/search?q=buy+${bike.brand}+${bike.model}+${build.name}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-slate-800 border border-slate-700 hover:bg-slate-700 text-white font-extrabold text-base py-4 px-6 rounded-xl transition-colors shadow-sm">
+                        <ShoppingCart size={18} /> Shop Online
+                      </a>
+                    </div>
+                    <p className="text-center text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Support local shops or buy direct</p>
+                  </div>
+                ) : (
+                  <div className="bg-slate-800/80 backdrop-blur-md rounded-2xl p-6 border border-slate-700 animate-in fade-in slide-in-from-top-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-white font-bold flex items-center gap-2"><MapPin size={18} className="text-blue-500"/> Locate a {bike.brand} Dealer</h4>
+                      <button onClick={() => setShowDealerSearch(false)} className="text-slate-400 hover:text-white transition-colors"><X size={18}/></button>
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <input 
+                        type="text" 
+                        placeholder="Enter Zip Code" 
+                        value={zipCode}
+                        onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
+                        className="flex-1 bg-[#0B1121] border border-slate-600 text-white font-bold text-lg rounded-xl px-4 py-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none placeholder:text-slate-600 placeholder:font-normal"
+                        maxLength={5}
+                      />
+                      <button 
+                        onClick={() => alert(`Dealer search for ${zipCode} coming soon! This will trigger the Google Places API.`)}
+                        className={`bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition-colors w-full sm:w-auto ${zipCode.length < 5 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={zipCode.length < 5}
+                      >
+                        Search
+                      </button>
+                    </div>                  </div>
+                )}
+              </div>
+              
+              {/* --- RESTORED TRAIL MATH BOX --- */}
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-slate-700 space-y-6 text-left">
+                <h3 className="text-lg font-black text-white flex items-center gap-2"><Calculator size={20} className="text-blue-500" />Trail Math</h3>
                 <div className="space-y-6">
                   <div>
                     <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Down Payment ($)</label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg pointer-events-none">$</span>
-                      <input type="text" inputMode="numeric" pattern="[0-9]*" value={downPayment} placeholder="0" onChange={(e) => { const raw = String(e.target.value).replace(/\D/g, ''); const sanitized = raw.replace(/^0+/, ''); setDownPayment(sanitized === '' ? '' : Number(sanitized)); }} className="w-full bg-[#0B1121] border border-slate-700 text-white text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 pl-9 transition-colors placeholder:text-slate-600 outline-none" />
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold pointer-events-none">$</span>
+                      <input type="text" inputMode="numeric" pattern="[0-9]*" value={downPayment} placeholder="0" onChange={(e) => { const raw = String(e.target.value).replace(/\D/g, ''); const sanitized = raw.replace(/^0+/, ''); setDownPayment(sanitized === '' ? '' : Number(sanitized)); }} className="w-full bg-[#0B1121] border border-slate-700 rounded-xl p-3 pl-9 text-white font-bold transition-colors focus:border-blue-500 outline-none" />
                     </div>
                   </div>
                   <div>

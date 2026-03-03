@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2139.59 377.83">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.12em;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        fill: #001f4e;
+      }
+
+      .cls-7 {
+        letter-spacing: -.16em;
+      }
+
+      .cls-7, .cls-8 {
+        fill: #3b82f6;
+      }
+
+      .cls-9 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-2 {
+        font-family: Erbaum-Book, Erbaum;
+        font-size: 83.16px;
+      }
+
+      .cls-8, .cls-4 {
+        letter-spacing: -.06em;
+      }
+
+      .cls-10 {
+        font-family: Erbaum-Black, Erbaum;
+        font-size: 309.73px;
+        font-weight: 800;
+      }
+
+      .cls-11 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        letter-spacing: -.1em;
+      }
+
+      .cls-5 {
+        letter-spacing: -.06em;
+      }
+
+      .cls-12 {
+        letter-spacing: 0em;
+      }
+
+      .cls-13 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-6 {
+        letter-spacing: -.08em;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="231.15" y1="195.2" x2="374.84" y2="195.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#00206f"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0" y1="267.87" x2="270.67" y2="267.87" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <text class="cls-10" transform="translate(405.31 258.75) scale(.97) skewX(-13.04)"><tspan class="cls-4" x="0" y="0">T</tspan><tspan class="cls-1" x="185.83" y="0">R</tspan><tspan class="cls-6" x="389.01" y="0">A</tspan><tspan class="cls-3" x="611.71" y="0">I</tspan><tspan class="cls-5" x="692.23" y="0">L</tspan><tspan class="cls-7" x="864.13" y="0">MA</tspan><tspan class="cls-8" x="1293.41" y="0">TH</tspan></text>
+      <text class="cls-2" transform="translate(453.12 354.05)"><tspan x="0" y="0">eMTB </tspan><tspan class="cls-12" x="270.84" y="0">E</tspan><tspan class="cls-11" x="327.3" y="0">DITION</tspan></text>
+      <path class="cls-13" d="M374.84,42.39v305.63c0,6.04-4.9,10.95-10.95,10.95h-110.97.01s83.5-78.48,83.5-78.48c22.34-22.76,18.94-60.12-7.14-78.48l-98.14-59.14,125.57-108.75c7.1-6.15,18.12-1.11,18.12,8.27Z"/>
+      <path class="cls-9" d="M265.19,250.65l-181.87,108.32H10.98c-10.14,0-14.84-12.6-7.17-19.23l188.18-162.96.02-.02,73.2,55.41c7.29,4,7.28,14.48-.02,18.48Z"/>
+    </g>
+  </g>
+</svg>

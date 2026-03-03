@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2237.7 401.19">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.08em;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        letter-spacing: -.06em;
+      }
+
+      .cls-3 {
+        letter-spacing: -.12em;
+      }
+
+      .cls-6 {
+        font-family: Erbaum-Black, Erbaum;
+        font-size: 330.92px;
+        font-weight: 800;
+      }
+
+      .cls-4 {
+        letter-spacing: -.1em;
+      }
+
+      .cls-7, .cls-8, .cls-9 {
+        fill: #3b82f6;
+      }
+
+      .cls-8 {
+        letter-spacing: -.16em;
+      }
+
+      .cls-5, .cls-9 {
+        letter-spacing: -.06em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <text class="cls-6" transform="translate(384.77 282.55) scale(.97) skewX(-13.04)"><tspan class="cls-5" x="0" y="0">T</tspan><tspan class="cls-3" x="198.55" y="0">R</tspan><tspan class="cls-1" x="415.63" y="0">A</tspan><tspan class="cls-4" x="653.56" y="0">I</tspan><tspan class="cls-2" x="739.59" y="0">L</tspan><tspan class="cls-8" x="923.25" y="0">MA</tspan><tspan class="cls-9" x="1381.9" y="0">TH</tspan></text>
+      <path class="cls-7" d="M256.89,194.46l-70.91-53.67L3.69,298.65c-7.43,6.43-2.88,18.63,6.94,18.63h70.07l176.17-104.93c7.07-3.87,7.08-14.02.02-17.9ZM345.53,2.61l-121.64,105.35,95.07,57.29c25.27,17.78,28.56,53.97,6.91,76.01l-80.89,76.02h107.49c5.86,0,10.62-4.75,10.62-10.61V10.63c0-9.09-10.68-13.97-17.56-8.01Z"/>
+    </g>
+  </g>
+</svg>
