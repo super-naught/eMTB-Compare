@@ -275,7 +275,7 @@ export default function App() {
               setShowGarage(false); 
             }}
           >
-            <img src="/trail_math_logo_emtb.png" alt="Trail Math" className="h-8 w-auto" />
+            <img src="/trail_math_logo_emtb.png" alt="Trail Math" className="h-8 sm:h-10 w-auto max-w-[40vw] sm:max-w-none object-contain" />
           </div>
           
           {view === 'showroom' && (
