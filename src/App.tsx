@@ -2,7 +2,16 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star, Plus, Minus, MapPin, ShoppingCart } from 'lucide-react';
 import { eMTBData } from './bikeData';
 import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from "@clerk/clerk-react";
-import { supabase } from './supabaseClient';
+import { createClient } from '@supabase/supabase-js';
+
+// Helper to create a secure client using the Clerk token
+const createClerkSupabaseClient = (token: string) => {
+  return createClient(
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_ANON_KEY,
+    { global: { headers: { Authorization: `Bearer ${token}` } } }
+  );
+};
 
 // --- STRICT TYPES ---
 interface BuildType {
@@ -125,16 +134,22 @@ export default function App() {
   const [rigAId, setRigAId] = useState(ALL_BUILDS[0].id);
   const [rigBId, setRigBId] = useState(ALL_BUILDS[1].id);
 
-  const { userId } = useAuth();
+  const { userId, getToken } = useAuth();
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showGarage, setShowGarage] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
     const fetchGarage = async () => {
       if (!userId) {
         setFavorites([]);
         return;
       }
+      // Grab the secure token from Clerk
+      const token = await getToken();
+      if (!token) return;
+      
+      // Use the secure client
+      const supabase = createClerkSupabaseClient(token);
       const { data, error } = await supabase
         .from('user_garage')
         .select('build_id')
@@ -147,7 +162,7 @@ export default function App() {
       }
     };
     fetchGarage();
-  }, [userId]);
+  }, [userId, getToken]);
 
   const absoluteMaxPrice = useMemo(() => {
     const allPrices = ALL_BUILDS.map(b => b.price);
@@ -232,11 +247,17 @@ export default function App() {
     return Array.from(map.entries()).map(([brand, bikes]) => ({ brand, bikes })).sort((a, b) => a.brand.localeCompare(b.brand));
   }, [filteredBikes]);
 
-  const toggleFavorite = async (buildId: string) => {
+const toggleFavorite = async (buildId: string) => {
     if (!userId) {
       alert("Sign in to save rigs to your Dream Garage!");
       return;
     }
+    
+    // Grab the secure token from Clerk
+    const token = await getToken();
+    if (!token) return;
+    const supabase = createClerkSupabaseClient(token);
+
     const isFavorited = favorites.includes(buildId);
     setFavorites(prev => isFavorited ? prev.filter(id => id !== buildId) : [...prev, buildId]);
 
