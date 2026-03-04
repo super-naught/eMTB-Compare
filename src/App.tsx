@@ -108,6 +108,141 @@ function BrandedStepper({ label, value, onChange, step = 1, suffix = "" }: { lab
   );
 }
 
+// --- NEW SMART CAROUSEL COMPONENT ---
+// --- NEW SMART CAROUSEL COMPONENT ---
+const TrendingCarousel = ({ BIKES, onSelectBike }: { BIKES: any[], onSelectBike: (id: string) => void }) => {
+  const top5 = useMemo(() => ['Vala', 'Levo', 'Wild', 'Meta Power SX Avinox', 'Sight VLT CX']
+    .map(m => BIKES.find(b => b.model.includes(m)))
+    .filter(Boolean), [BIKES]);
+
+  const displayBikes = useMemo(() => [...top5, ...top5, ...top5, ...top5, ...top5], [top5]);
+  
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(Math.floor(displayBikes.length / 2));
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const container = scrollRef.current;
+    const scrollCenter = container.scrollLeft + container.clientWidth / 2;
+    
+    let closestIndex = activeIndex;
+    let minDistance = Infinity;
+
+    Array.from(container.children).forEach((child, index) => {
+      const childElement = child as HTMLElement;
+      const childCenter = childElement.offsetLeft + childElement.clientWidth / 2;
+      const distance = Math.abs(scrollCenter - childCenter);
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    if (closestIndex !== activeIndex) setActiveIndex(closestIndex);
+  };
+
+  useEffect(() => {
+    if (!scrollRef.current || displayBikes.length === 0) return;
+    const container = scrollRef.current;
+    const middleIndex = Math.floor(displayBikes.length / 2);
+    const middleChild = container.children[middleIndex] as HTMLElement;
+    
+    if (middleChild) {
+      const scrollPos = middleChild.offsetLeft - container.clientWidth / 2 + middleChild.clientWidth / 2;
+      container.scrollTo({ left: scrollPos, behavior: 'auto' });
+    }
+  }, [displayBikes]);
+
+  // NEW: Smooth scroll logic for arrows and side-clicks
+  const scrollToItem = (index: number) => {
+    if (!scrollRef.current) return;
+    const container = scrollRef.current;
+    const item = container.children[index] as HTMLElement;
+    if (item) {
+      const scrollPos = item.offsetLeft - container.clientWidth / 2 + item.clientWidth / 2;
+      container.scrollTo({ left: scrollPos, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    // Added group/carousel so the arrows know when you are hovering over the section
+    <div className="w-screen relative left-1/2 -translate-x-1/2 bg-slate-50 pt-12 pb-4 sm:pt-16 sm:pb-8 mb-12 sm:mb-16 border-t border-slate-200 overflow-hidden group/carousel">
+      <div className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] sm:text-[15vw] font-black text-slate-200/50 select-none pointer-events-none uppercase tracking-tighter w-full text-center whitespace-nowrap z-0">
+        Showroom
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24">
+        {/* Killed the "Swipe to explore" text */}
+        <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tighter uppercase italic text-center sm:text-left leading-none">
+          TRENDING RIGS FOR 2026
+        </h2>
+      </div>
+
+      {/* NEW: Left Arrow */}
+      <button 
+        onClick={() => scrollToItem(activeIndex - 1)}
+        className="absolute left-4 sm:left-12 top-[55%] -translate-y-1/2 z-40 bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-full shadow-lg border border-slate-200 text-slate-400 hover:text-blue-600 hover:scale-110 hover:bg-white transition-all opacity-0 group-hover/carousel:opacity-100 hidden sm:flex disabled:opacity-0"
+        disabled={activeIndex === 0}
+      >
+        <ChevronLeft size={32} />
+      </button>
+      
+      {/* NEW: Right Arrow (Using rotate-180 so we don't need a new import) */}
+      <button 
+        onClick={() => scrollToItem(activeIndex + 1)}
+        className="absolute right-4 sm:right-12 top-[55%] -translate-y-1/2 z-40 bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-full shadow-lg border border-slate-200 text-slate-400 hover:text-blue-600 hover:scale-110 hover:bg-white transition-all opacity-0 group-hover/carousel:opacity-100 hidden sm:flex disabled:opacity-0"
+        disabled={activeIndex === displayBikes.length - 1}
+      >
+        <ChevronLeft size={32} className="rotate-180" />
+      </button>
+
+      <div 
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory px-[30vw] sm:px-[40vw] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      >
+        {displayBikes.map((bike, index) => {
+          const isActive = index === activeIndex;
+          return (
+            <div 
+              key={`carousel-${index}-${bike?.id}`}
+              onClick={() => {
+                // UX FIX: If it's active, go to builds. If it's inactive, scroll it to the center!
+                if (isActive) {
+                  onSelectBike(bike?.id);
+                } else {
+                  scrollToItem(index);
+                }
+              }}
+              className={`min-w-[65vw] sm:min-w-[400px] md:min-w-[500px] snap-center shrink-0 px-2 sm:px-4 cursor-pointer flex flex-col items-center transition-all duration-700 ${isActive ? 'z-30' : 'z-10'}`}
+            >
+              <div className="relative w-full h-64 sm:h-80 md:h-[24rem] flex items-center justify-center">
+                <img 
+                  src={bike?.image} 
+                  alt={bike?.model} 
+                  className={`max-w-full max-h-full object-contain transition-all duration-700 ease-out ${isActive ? 'scale-[1.25] sm:scale-[1.35] opacity-100 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)]' : 'scale-75 opacity-30 hover:opacity-60 drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]'}`} 
+                  crossOrigin="anonymous" 
+                />
+              </div>
+              
+              <div className="text-center mt-10 sm:mt-14">
+                <span className="text-[10px] sm:text-xs font-extrabold text-blue-600 uppercase tracking-widest block mb-1">{bike?.brand}</span>
+                <h3 className={`text-2xl sm:text-4xl font-black uppercase tracking-widest transition-colors duration-500 ${isActive ? 'text-slate-900' : 'text-slate-300'}`}>
+                  {bike?.model}
+                </h3>
+                <button className={`font-bold font-mono text-sm tracking-tighter mt-4 px-6 py-2 rounded-full border transition-all shadow-sm ${isActive ? 'bg-blue-50/50 border-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white' : 'bg-transparent border-slate-200 text-slate-300'}`}>
+                  VIEW BUILDS
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 export default function App() {
   const [view, setView] = useState<string>('showroom');
   const [selectedBikeId, setSelectedBikeId] = useState<string | null>(null);
@@ -375,38 +510,42 @@ const toggleFavorite = async (buildId: string) => {
                 </div>
               </div>
             ) : (
-              <>
+            <>
                   <div className="w-full pb-2 sm:pb-4">
-                    <div className="relative w-full bg-[#0B1121] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-800">
+                    <div className="relative w-full bg-[#0B1121] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden shadow-2xl border border-slate-800">
                       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PHBhdGggZD0iTTAgMGgyMHYyMEgwVjB6bTEgMWgxOHYxOEgxdjE4eiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+')] opacity-50"></div>
-                      <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[40rem] h-[40rem] rounded-full bg-blue-600/20 blur-[100px] pointer-events-none"></div>
-                      <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[30rem] h-[30rem] rounded-full bg-cyan-500/10 blur-[80px] pointer-events-none"></div>
-                      <div className="relative flex flex-col md:flex-row items-center gap-8 lg:gap-12 p-8 sm:p-12 lg:p-16">
-                        <div className="md:w-1/2 space-y-8 z-10">
-                          <div className="space-y-3 sm:space-y-4">
+                      <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[30rem] h-[30rem] rounded-full bg-blue-600/20 blur-[100px] pointer-events-none"></div>
+                      <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[20rem] h-[20rem] rounded-full bg-cyan-500/10 blur-[80px] pointer-events-none"></div>
+                      
+                      {/* Added air back to the tires here: p-10 sm:p-14 lg:p-20 */}
+                      <div className="relative flex flex-col md:flex-row items-center gap-6 lg:gap-8 p-10 sm:p-14 lg:p-20">
+                        <div className="md:w-1/2 space-y-5 lg:space-y-6 z-10">
+                          <div className="space-y-2 sm:space-y-3">
                             <div className="flex items-center gap-3">
-                              <div className="h-[2px] w-8 sm:w-12 bg-blue-500"></div>
-                              <span className="text-slate-400 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em]">The Definitive Database</span>
+                              <div className="h-[2px] w-8 sm:w-10 bg-blue-500"></div>
+                              <span className="text-slate-400 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em]">The Definitive Database</span>
                             </div>
-                            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[1.05]">
+                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-[1.05]">
                               FIND YOUR <br />
-                              <span className="text-blue-500 mt-1 sm:mt-2 inline-block">DREAM BIKE</span>
+                              <span className="text-blue-500 mt-1 inline-block">DREAM BIKE</span>
                             </h1>
                           </div>
-                          <p className="text-base sm:text-lg text-slate-400 max-w-lg leading-relaxed font-medium">
+                          <p className="text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed font-medium">
                             TRAIL MATH is the world's first and largest comparison tool for current gen eMTBs. Compare builds, specs, and calculate exact out-of-pocket costs.
                           </p>
-                          <div className="flex flex-wrap gap-4 pt-2">
-                             <button onClick={() => setIsFilterModalOpen(true)} className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg shadow-blue-900/50 flex items-center justify-center gap-2 w-full sm:w-auto"><Filter size={18} />Start Filtering</button>
-                             <button onClick={() => setView('compare')} className="bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-6 rounded-xl transition-colors border border-slate-700 flex items-center justify-center gap-2 w-full sm:w-auto"><Scale size={18} />Head-to-Head</button>
+                          <div className="flex flex-wrap gap-3 pt-1">
+                             <button onClick={() => setIsFilterModalOpen(true)} className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-5 rounded-xl transition-colors shadow-lg shadow-blue-900/50 flex items-center justify-center gap-2 w-full sm:w-auto text-sm"><Filter size={16} />Start Filtering</button>
+                             <button onClick={() => setView('compare')} className="bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-5 rounded-xl transition-colors border border-slate-700 flex items-center justify-center gap-2 w-full sm:w-auto text-sm"><Scale size={16} />Head-to-Head</button>
                           </div>
-                          <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800/80">
-                            <div><div className="text-3xl lg:text-5xl font-black text-white">{totalBrands}</div><div className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-slate-500 mt-1">Brands</div></div>
-                            <div><div className="text-3xl lg:text-5xl font-black text-white">{totalModels}</div><div className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-slate-500 mt-1">Models</div></div>
-                            <div><div className="text-3xl lg:text-5xl font-black text-white">{totalBuilds}</div><div className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-slate-500 mt-1">Builds</div></div>
+                          
+                          <div className="grid grid-cols-3 gap-4 pt-5 lg:pt-6 border-t border-slate-800/80">
+                            <div><div className="text-2xl lg:text-4xl font-black text-white">{totalBrands}</div><div className="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">Brands</div></div>
+                            <div><div className="text-2xl lg:text-4xl font-black text-white">{totalModels}</div><div className="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">Models</div></div>
+                            <div><div className="text-2xl lg:text-4xl font-black text-white">{totalBuilds}</div><div className="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">Builds</div></div>
                           </div>
                         </div>
-                        <div className="md:w-1/2 w-full mt-8 md:mt-0 relative z-10 aspect-[4/3] sm:aspect-video md:aspect-[4/3] lg:aspect-[4/3] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/50 transform md:-rotate-2 hover:rotate-0 transition-transform duration-500 overflow-hidden ring-1 ring-white/10">
+                        
+                        <div className="md:w-1/2 w-full mt-6 md:mt-0 relative z-10 aspect-video rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/50 transform md:-rotate-2 hover:rotate-0 transition-transform duration-500 overflow-hidden ring-1 ring-white/10">
                           {heroImages.map((src, index) => (
                             <img key={src} src={src} alt={`Dream Rig ${index + 1}`} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === heroImageIndex ? 'opacity-100' : 'opacity-0'}`} crossOrigin="anonymous" />
                           ))}
@@ -415,41 +554,25 @@ const toggleFavorite = async (buildId: string) => {
                     </div>
                   </div>
 
-                  <div className="w-full mb-8 sm:mb-12 [mask-image:_linear-gradient(to_right,transparent_0,_black_10%,_black_90%,transparent_100%)]">
-                    <div className="w-full bg-slate-50 border-y border-slate-200 py-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                      <div className="flex items-center space-x-8 px-4 w-max animate-[scroll_30s_linear_infinite] hover:[animation-play-state:paused]">
-                        {randomizedBrands.map(b => b.logo && <img key={`${b.brand}-1`} src={b.logo} alt={b.brand} className="h-6 md:h-8 max-w-[120px] md:max-w-[140px] w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />)}
-                        {randomizedBrands.map(b => b.logo && <img key={`${b.brand}-2`} src={b.logo} alt={b.brand} className="h-6 md:h-8 max-w-[120px] md:max-w-[140px] w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />)}
+                  {/* Bigger spacer to push the next section out of view: mb-16 sm:mb-24 */}
+                  <div className="w-full mb-16 sm:mb-24 [mask-image:_linear-gradient(to_right,transparent_0,_black_10%,_black_90%,transparent_100%)]">
+                    <div className="w-full bg-slate-50 border-y border-slate-200 py-2 sm:py-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                      <div className="flex items-center space-x-6 sm:space-x-8 px-4 w-max animate-[scroll_30s_linear_infinite] hover:[animation-play-state:paused]">
+                        {randomizedBrands.map(b => b.logo && <img key={`${b.brand}-1`} src={b.logo} alt={b.brand} className="h-5 md:h-7 max-w-[100px] md:max-w-[120px] w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />)}
+                        {randomizedBrands.map(b => b.logo && <img key={`${b.brand}-2`} src={b.logo} alt={b.brand} className="h-5 md:h-7 max-w-[100px] md:max-w-[120px] w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />)}
                       </div>
                     </div>
                   </div>
 
-                  <div className="w-full mb-12 sm:mb-16">
-                    <div className="flex items-center justify-between mb-4 sm:mb-6 px-2">
-                      <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Trending Rigs</h3>
-            
-                      <div className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Swipe to explore &rarr;</div>
-                    </div>
-                    <div className="flex overflow-x-auto gap-4 sm:gap-6 pt-4 pb-6 px-2 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                      {['Vala', 'Levo', 'Wild', 'Meta Power SX Avinox', 'Sight VLT CX'].map(m => BIKES.find(b => b.model.includes(m))).filter(Boolean).map(bike => bike && (
-                        <div key={`hot-${bike.id}`} onClick={() => { showroomScrollRef.current = window.scrollY; setSelectedBikeId(bike.id); setView('builds'); }} className="min-w-[75vw] sm:min-w-[320px] md:min-w-[360px] snap-center bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 hover:border-blue-500 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group flex flex-col">
-                          
-                          <div className="w-full h-48 bg-[#F3F3F3] rounded-2xl mb-6 relative overflow-hidden flex items-center justify-center p-4">
-                            <img src={bike.image} alt={bike.model} className="w-full h-full object-contain scale-95 group-hover:scale-105 transition-transform duration-500" crossOrigin="anonymous" />
-                          </div>
-                          
-                          <div className="flex items-center justify-between mb-3">
-                            <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest">{bike.brand}</span>
-                            <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-md">{bike.suspension}</span>
-                          </div>
-                          <h4 className="text-2xl font-black text-slate-900 mb-2 group-hover:text-blue-600 transition-colors leading-tight">{bike.model}</h4>
-                          <div className="text-sm font-bold text-slate-500 mb-4">Starting at {formatPrice(bike.startingPrice)}</div>
-                          <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-bold text-slate-900 group-hover:text-blue-600">
-                            View Builds <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform text-blue-600" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>                  </div>
+                 {/* --- SCROLLING SHOWROOM COMPONENT --- */}
+                  <TrendingCarousel 
+                    BIKES={BIKES} 
+                    onSelectBike={(id) => { 
+                      showroomScrollRef.current = window.scrollY; 
+                      setSelectedBikeId(id); 
+                      setView('builds'); 
+                    }} 
+                  />
               </>
             )}
 
@@ -516,19 +639,41 @@ const toggleFavorite = async (buildId: string) => {
                   
                   {groupedBikes.map(group => (
                     <section key={group.brand} className="w-full mb-12">
-                      <div className="w-full"><h2 className="text-6xl md:text-8xl font-bold italic uppercase tracking-tight text-black/5 select-none border-b-2 border-slate-200 pb-2 mb-6 md:mb-8">{group.brand}</h2></div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div className="w-full">
+                        <h2 className="text-6xl md:text-8xl font-bold italic uppercase tracking-tight text-black/5 select-none border-b-2 border-slate-200 pb-2 mb-6 md:mb-8">
+                          {group.brand}
+                        </h2>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                         {group.bikes.map(bike => (
-                          <div key={bike.id} onClick={() => { showroomScrollRef.current = window.scrollY; setSelectedBikeId(bike.id); setView('builds'); }} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md hover:scale-[1.02] hover:border-blue-600 transition-all duration-300 cursor-pointer group flex flex-col">
-                            <div className="w-full p-0 h-100 overflow-hidden relative shrink-0"><img src={bike.image} alt={bike.model} className="w-full h-full object-contain scale-110" crossOrigin="anonymous" /></div>
-                            <div className="p-6 flex-1 flex flex-col justify-center min-w-0">
-                              <div className="flex justify-between items-center text-xs uppercase mb-1">
-                                <div className="text-xs font-bold text-slate-900 tracking-wide truncate">{bike.brand}</div><span className="text-slate-400 font-medium">{bike.suspension}</span>
+                          <div 
+                            key={bike.id} 
+                            onClick={() => { showroomScrollRef.current = window.scrollY; setSelectedBikeId(bike.id); setView('builds'); }} 
+                            className="bg-white rounded-[1.5rem] p-4 sm:p-5 shadow-sm border border-slate-200 hover:border-blue-500 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col"
+                          >
+                            <div className="w-full h-48 sm:h-56 bg-[#F3F3F3] rounded-xl mb-5 relative overflow-visible flex items-center justify-center p-4">
+                              <img 
+                                src={bike.image} 
+                                alt={bike.model} 
+                                className="w-[115%] max-w-[115%] h-auto object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)] group-hover:drop-shadow-[0_20px_20px_rgba(37,99,235,0.2)] group-hover:scale-105 transition-all duration-500" 
+                                crossOrigin="anonymous" 
+                              />
+                            </div>
+                            
+                            <div className="flex-1 flex flex-col justify-center min-w-0 px-2 pb-2">
+                              <div className="flex justify-between items-center text-xs uppercase mb-2">
+                                <div className="text-[10px] font-extrabold text-blue-600 tracking-widest truncate pr-2">{bike.brand}</div>
+                                <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-md shrink-0">{bike.suspension}</span>
                               </div>
-                              <h3 className="text-xl font-bold text-slate-900 mb-4 truncate">{bike.model}</h3>
-                              <div className="mt-auto flex items-center justify-between">
-                                <div><div className="text-[10px] text-slate-500 uppercase tracking-wider font-medium">Starting at</div><div className="text-lg font-bold text-slate-900">{formatPrice(bike.startingPrice)}</div></div>
-                                <div className="text-slate-400 group-hover:text-blue-600 transition-colors"><ArrowRight size={20} /></div>
+                              <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 truncate group-hover:text-blue-600 transition-colors">{bike.model}</h3>
+                              <div className="mt-auto flex items-end justify-between pt-4 border-t border-slate-100">
+                                <div>
+                                  <div className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-0.5">Starting at</div>
+                                  <div className="text-lg font-black text-slate-900">{formatPrice(bike.startingPrice)}</div>
+                                </div>
+                                <div className="text-slate-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all">
+                                  <ArrowRight size={20} />
+                                </div>
                               </div>
                             </div>
                           </div>
