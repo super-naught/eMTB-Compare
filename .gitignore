@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Heavy Design & Video Project Files
+*.psd
+*.psb
+*.ai
+*.aep
+*.prproj

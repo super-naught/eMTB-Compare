@@ -212,16 +212,16 @@ export const eMTBData = [
   },
   {
     brand: "Devinci",
-    logo: "/logos/Devinci_logo.svg",
+    logo: "/logos/devinci_logo.svg",
       models: [
         {
           name: "E-Troy Lite",
           image: "/bikes/Devinci E-Troy Lite.png",
           suspension: "160/150",
           builds: [
-            { name: "GX AXS 12S", price: 7999, material: "Aluminum", motor: "Bosch Performance Line SX (55Nm)", battery: "Bosch CompactTube 400Wh", fork: "RockShox Lyrik Ultimate", shock: "RockShox Super Deluxe Ultimate", drivetrain: "SRAM GX Eagle AXS T-Type", brakes: "Magura MT5", wheelset: "RaceFace ARC30" },
-            { name: "GX 12S", price: 6999, material: "Aluminum", motor: "Bosch Performance Line SX (55Nm)", battery: "Bosch CompactTube 400Wh", fork: "Fox 36 Performance", shock: "Fox Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace ARC30" },
-            { name: "NX 12S", price: 5499, material: "Aluminum", motor: "Bosch Performance Line SX (55Nm)", battery: "Bosch CompactTube 400Wh", fork: "RockShox Psylo Gold RL", shock: "RockShox Deluxe Select+", drivetrain: "SRAM NX Eagle", brakes: "SRAM DB8", wheelset: "V2 Comp" }
+            { name: "GX AXS 12S", price: 7999, material: "Aluminum", motor: "Bosch Performance Line SX (Gen 4)", battery: "Bosch CompactTube 400Wh", fork: "RockShox Lyrik Ultimate", shock: "RockShox Super Deluxe Ultimate", drivetrain: "SRAM GX Eagle AXS T-Type", brakes: "Magura MT5", wheelset: "RaceFace ARC30" },
+            { name: "GX 12S", price: 6999, material: "Aluminum", motor: "Bosch Performance Line SX (Gen 4)", battery: "Bosch CompactTube 400Wh", fork: "Fox 36 Performance", shock: "Fox Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace ARC30" },
+            { name: "NX 12S", price: 5499, material: "Aluminum", motor: "Bosch Performance Line SX (Gen 4)", battery: "Bosch CompactTube 400Wh", fork: "RockShox Psylo Gold RL", shock: "RockShox Deluxe Select+", drivetrain: "SRAM NX Eagle", brakes: "SRAM DB8", wheelset: "V2 Comp" }
           ]
         },
         {
@@ -229,10 +229,10 @@ export const eMTBData = [
           image: "/bikes/Devinci E-Troy.png",
           suspension: "160/170",
           builds: [
-            { name: "GX 12S LTD", price: 7999, material: "Aluminum", motor: "Bosch Performance Line CX (85Nm)", battery: "Bosch PowerTube 625Wh", fork: "Fox 38 Performance Elite (170mm)", shock: "Fox Float X Performance Elite", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace Aeffect R30" },
-            { name: "GX 12S", price: 7299, material: "Aluminum", motor: "Bosch Performance Line CX (85Nm)", battery: "Bosch PowerTube 625Wh", fork: "Fox 38 Performance (160mm)", shock: "Fox Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace Aeffect R30" },
-            { name: "NX 12S", price: 6499, material: "Aluminum", motor: "Bosch Performance Line CX (85Nm)", battery: "Bosch PowerTube 625Wh", fork: "RockShox Domain RC (160mm)", shock: "RockShox Super Deluxe Select R", drivetrain: "SRAM NX Eagle", brakes: "SRAM DB8", wheelset: "V2 Comp" },
-            { name: "Deore 12S", price: 6199, material: "Aluminum", motor: "Bosch Performance Line CX (85Nm)", battery: "Bosch PowerTube 625Wh", fork: "RockShox Domain RC (160mm)", shock: "RockShox Super Deluxe Select R", drivetrain: "Shimano Deore M6100", brakes: "Shimano MT520 4-Piston", wheelset: "V2 Comp" }
+            { name: "GX 12S LTD", price: 7999, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "Fox 38 Performance Elite (170mm)", shock: "Fox Float X Performance Elite", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace Aeffect R30" },
+            { name: "GX 12S", price: 7299, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "Fox 38 Performance (160mm)", shock: "Fox Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace Aeffect R30" },
+            { name: "NX 12S", price: 6499, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "RockShox Domain RC (160mm)", shock: "RockShox Super Deluxe Select R", drivetrain: "SRAM NX Eagle", brakes: "SRAM DB8", wheelset: "V2 Comp" },
+            { name: "Deore 12S", price: 6199, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "RockShox Domain RC (160mm)", shock: "RockShox Super Deluxe Select R", drivetrain: "Shimano Deore M6100", brakes: "Shimano MT520 4-Piston", wheelset: "V2 Comp" }
           ]
         }
       ]
