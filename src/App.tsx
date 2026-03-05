@@ -110,19 +110,6 @@ function BrandedStepper({ label, value, onChange, step = 1, suffix = "" }: { lab
   );
 }
 
-// --- PWA UPDATE LISTENER ---
-  const {
-    needRefresh: [needRefresh, setNeedRefresh],
-    updateServiceWorker,
-  } = useRegisterSW({
-    onRegistered(r: any) {
-      console.log('SW Registered:', r);
-    },
-    onRegisterError(error: any) {
-      console.error('SW registration error', error);
-    },
-  });
-
 // --- NEW SMART CAROUSEL COMPONENT ---
 const TrendingCarousel = ({ BIKES, onSelectBike }: { BIKES: any[], onSelectBike: (id: string) => void }) => {
   const top5 = useMemo(() => ['Vala', 'Levo', 'Wild', 'Meta Power SX Avinox', 'Sight VLT CX']
@@ -271,6 +258,19 @@ const formatWheelSetup = (setup?: string) => {
 };
 
 export default function App() {
+  // --- PWA UPDATE LISTENER IS NOW SAFELY INSIDE THE COMPONENT ---
+  const {
+    needRefresh: [needRefresh, setNeedRefresh],
+    updateServiceWorker,
+  } = useRegisterSW({
+    onRegistered(r: any) {
+      console.log('SW Registered:', r);
+    },
+    onRegisterError(error: any) {
+      console.error('SW registration error', error);
+    },
+  });
+
   const [view, setView] = useState<string>('showroom');
   const [selectedBikeId, setSelectedBikeId] = useState<string | null>(null);
   const [selectedBuildId, setSelectedBuildId] = useState<string | null>(null);
@@ -554,7 +554,7 @@ const toggleFavorite = async (buildId: string) => {
                             </div>
                             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-[1.05]">
                               FIND YOUR <br />
-                              <span className="text-blue-500 mt-1 inline-block">DREAM BIKE ⚡</span> 
+                              <span className="text-blue-500 mt-1 inline-block">Super Duper Bike!</span> 
                             </h1>
                           </div>
                           <p className="text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed font-medium">
@@ -1105,6 +1105,29 @@ const toggleFavorite = async (buildId: string) => {
         </div>
       )}
 
+      {/* --- PWA UPDATE PROMPT --- */}
+      {needRefresh && (
+        <div className="fixed bottom-6 right-6 z-[100] bg-slate-800 border border-blue-500 rounded-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col gap-3 max-w-sm animate-in slide-in-from-bottom-8 duration-500">
+          <p className="text-white text-sm font-semibold">
+            A new version of <span className="text-blue-400 font-black tracking-widest">TRAIL MATH</span> is available!
+          </p>
+          <div className="flex gap-3 mt-1">
+            <button
+              onClick={() => updateServiceWorker(true)}
+              className="flex-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all shadow-lg"
+            >
+              Update Now
+            </button>
+            <button
+              onClick={() => setNeedRefresh(false)}
+              className="flex-1 bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
+
 {/* --- FOOTER --- */}
 <footer className="w-full bg-slate-900 border-t border-slate-800 py-8 sm:py-6 mt-auto relative z-10">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
@@ -1304,28 +1327,6 @@ function CalculatorView({ bike, build, isFavorite, onToggleFavorite }: { bike: t
           </div>
         </div>
       </div>
-      {/* --- PWA UPDATE PROMPT --- */}
-      {needRefresh && (
-        <div className="fixed bottom-6 right-6 z-[100] bg-slate-800 border border-blue-500 rounded-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col gap-3 max-w-sm animate-in slide-in-from-bottom-8 duration-500">
-          <p className="text-white text-sm font-semibold">
-            A new version of <span className="text-blue-400 font-black tracking-widest">TRAIL MATH</span> is available!
-          </p>
-          <div className="flex gap-3 mt-1">
-            <button
-              onClick={() => updateServiceWorker(true)}
-              className="flex-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all shadow-lg"
-            >
-              Update Now
-            </button>
-            <button
-              onClick={() => setNeedRefresh(false)}
-              className="flex-1 bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all"
-            >
-              Dismiss
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
