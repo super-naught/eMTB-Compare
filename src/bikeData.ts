@@ -50,6 +50,32 @@ export const eMTBData = [
       }
     ]
   },
+  {
+    brand: "Aventon",
+    logo: "/logos/aventon logo.svg",
+    models: [
+      {
+        name: "Ramblas ADV",
+        image: "/public/bikes/Aventon Ramblas ADV.png",
+        suspension: "130mm (Hardtail)",
+        builds: [
+          {
+            name: "Standard", price: 2899, material: "Aluminum", motor: "Aventon A100 Mid-Drive", torque: "100Nm", battery: "708Wh", fork: "RockShox Psylo Silver R 130mm", shock: "N/A (Hardtail)", drivetrain: "SRAM NX Eagle 12s", brakes: "SRAM DB8 4-Piston", wheelset: "Aventon Double Wall Alloy", wheels: "29", tires: "Maxxis Rekon 2.4"
+          }
+        ]
+      },
+        {
+        name: "Ramblas",
+        image: "/public/bikes/Aventon Ramblas.png",
+        suspension: "130mm (Hardtail)",
+        builds: [
+          {
+            name: "Standard", price: 2899, material: "Aluminum", motor: "Aventon A100 Mid-Drive", torque: "100Nm", battery: "708Wh", fork: "RockShox 35 Silver R 130mm", shock: "N/A (Hardtail)", drivetrain: "SRAM NX Eagle 12s", brakes: "SRAM DB8 4-Piston", wheelset: "Aventon Double Wall Alloy", wheels: "29", tires: "Maxxis Rekon 2.4"
+          }
+        ]
+      }
+    ]
+  },
     {
     brand: "BULLS",
     logo: "/logos/bulls_logo.svg",
@@ -582,12 +608,47 @@ export const eMTBData = [
       },
       {
         name: "Ekano 2 CF",
-        image: "/bikes/PROPAIN Ekano.png",
+        image: "/bikes/Propain Ekano.png",
         suspension: "180/170",
         builds: [
           { name: "Factory", price: 11299, material: "Carbon", motor: "SRAM Powertrain", torque: "90Nm", battery: "630Wh", fork: "Fox 38 Factory 180mm", shock: "Fox DHX2 Factory Coil - 170mm", drivetrain: "SRAM XX Transmission", brakes: "Magura MT7 Pro", wheelset: "Crankbrothers Synthesis Carbon", tires: "Schwalbe Magic Mary / Big Betty 2.4" },
           { name: "Ultimate", price: 9999, material: "Carbon", motor: "SRAM Powertrain", torque: "90Nm", battery: "630Wh", fork: "RockShox ZEB Ultimate 180mm", shock: "RockShox Super Deluxe Ultimate Coil - 170mm", drivetrain: "SRAM X0 Transmission", brakes: "SRAM Code RSC", wheelset: "Newmen Evolution EG 30", tires: "Schwalbe Magic Mary / Big Betty 2.4" },
           { name: "Base", price: 7794, material: "Carbon", motor: "SRAM Powertrain", torque: "90Nm", battery: "630Wh", fork: "RockShox ZEB Base 180mm", shock: "RockShox Super Deluxe Coil Select - 170mm", drivetrain: "SRAM GX Eagle", brakes: "SRAM DB8", wheelset: "Newmen Performance 30", tires: "Schwalbe Magic Mary / Big Betty 2.4" }
+        ]
+      }
+    ]
+  },
+  {
+    brand: "Revel",
+    logo: "/logos/revel_logo.svg",
+    models: [
+      {
+        name: "Re-Run",
+        image: "/bikes/Revel Re-Run.png", 
+        suspension: "170mm F / 165mm R",
+        builds: [
+          {
+            name: "Summit", price: 10999, material: "Carbon", motor: "Bosch Performance Line SX", torque: "55Nm", battery: "400Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver 4-Piston", wheelset: "Crankbrothers Synthesis Enduro Carbon", wheels: "Mullet", tires: "Continental Kryptotal Enduro Soft 2.6/2.4"
+          },
+          {
+            name: "Treeline", price: 8999, material: "Carbon", motor: "Bosch Performance Line SX", torque: "55Nm", battery: "400Wh", fork: "RockShox ZEB Select+ 170mm", shock: "RockShox Super Deluxe Ultimate", drivetrain: "SRAM Eagle 90 Transmission", brakes: "SRAM Maven Silver 4-Piston", wheelset: "Crankbrothers Synthesis Enduro V2 Alloy", wheels: "Mullet", tires: "Continental Kryptotal Enduro Soft 2.6/2.4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    brand: "Ride1Up",
+    logo: "/logos/ride1up_logo.svg",
+    models: [
+      {
+        name: "TrailRush",
+        image: "/bikes/Ride1Up - Trailrush.png", 
+        suspension: "120mm (Hardtail)",
+        builds: [
+          {
+            name: "Standard", price: 2095, material: "Aluminum", motor: "Brose TF Sprinter Mid-Drive", torque: "90Nm", battery: "504Wh", fork: "RockShox Judy Silver TK Air 120mm", shock: "N/A (Hardtail)", drivetrain: "Shimano Deore 10s", brakes: "Tektro Orion HD-M745 4-Piston", wheelset: "Double-walled Aluminum", wheels: "29", tires: "Maxxis Minion DHF/DHR 2.6"
+          }
         ]
       }
     ]
