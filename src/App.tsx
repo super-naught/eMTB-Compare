@@ -778,6 +778,8 @@ const toggleFavorite = async (buildId: string) => {
               </div>
 
               <div className="grid grid-cols-2 divide-x divide-slate-800 relative shrink-0 z-10">
+                
+                {/* --- RIG A COLUMN --- */}
                 <div className="flex flex-col relative w-full">
                   <div className="p-4 sm:p-8 border-b border-slate-800">
                     <label className="block text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-widest mb-3">Rig A</label>
@@ -788,10 +790,18 @@ const toggleFavorite = async (buildId: string) => {
                   </div>
                   {rigA && (
                     <>
-                      <div className="w-full aspect-[4/3] sm:aspect-video relative overflow-hidden flex items-center justify-center p-4">
-                        <img src={rigA.image} alt={rigA.fullName} className="w-full h-full object-contain scale-110 drop-shadow-2xl" crossOrigin="anonymous" />
+                      {/* NEW DISPLAY CASE FOR RIG A */}
+                      <div className="w-full px-4 sm:px-8 pt-8 pb-4">
+                        <div className="w-full h-40 sm:h-80 bg-[#F3F3F3] rounded-2xl relative overflow-visible flex items-center justify-center p-4 shadow-inner">
+                          <img 
+                            src={rigA.image} 
+                            alt={rigA.fullName} 
+                            className="w-[115%] max-w-[115%] h-auto object-contain drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)]" 
+                            crossOrigin="anonymous" 
+                          />
+                        </div>
                       </div>
-                      <div className="p-6 sm:p-10 text-center flex flex-col justify-center">
+                      <div className="px-6 pb-6 sm:px-10 sm:pb-10 text-center flex flex-col justify-center">
                         <h3 className="text-xl sm:text-3xl font-black text-white leading-tight mb-2 sm:mb-3">{rigA.model} <br className="sm:hidden" />{rigA.name}</h3>
                         <div className="text-lg sm:text-2xl font-bold text-blue-400">{formatPrice(rigA.price)}</div>
                       </div>
@@ -799,19 +809,28 @@ const toggleFavorite = async (buildId: string) => {
                   )}
                 </div>
 
+                {/* --- RIG B COLUMN --- */}
                 <div className="flex flex-col relative w-full">
                   <div className="p-4 sm:p-8 border-b border-slate-800">
                     <label className="block text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3">Rig B</label>
                   <button onClick={() => { setSelectingRig('B'); setSelectorBrand(rigB ? String(rigB.brand) : brands[0]); }} className="w-full bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-emerald-500 text-white text-xs sm:text-sm font-semibold rounded-xl p-3 sm:p-4 text-left flex justify-between items-center transition-all shadow-sm">
                   <span className="truncate pr-2">{rigB ? `${rigB.brand} ${rigB.model} ${rigB.name}` : 'Select Rig B'}</span>
-                  <ChevronDown size={18} className="text-blue-500 shrink-0 group-hover:scale-110 transition-transform" />
+                  <ChevronDown size={18} className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" />
                   </button>                  </div>
                   {rigB && (
                     <>
-                      <div className="w-full aspect-[4/3] sm:aspect-video relative overflow-hidden flex items-center justify-center p-4">
-                        <img src={rigB.image} alt={rigB.fullName} className="w-full h-full object-contain scale-110 drop-shadow-2xl" crossOrigin="anonymous" />
+                      {/* NEW DISPLAY CASE FOR RIG B */}
+                      <div className="w-full px-4 sm:px-8 pt-8 pb-4">
+                        <div className="w-full h-40 sm:h-80 bg-[#F3F3F3] rounded-2xl relative overflow-visible flex items-center justify-center p-4 shadow-inner">
+                          <img 
+                            src={rigB.image} 
+                            alt={rigB.fullName} 
+                            className="w-[115%] max-w-[115%] h-auto object-contain drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)]" 
+                            crossOrigin="anonymous" 
+                          />
+                        </div>
                       </div>
-                      <div className="p-6 sm:p-10 text-center flex flex-col justify-center">
+                      <div className="px-6 pb-6 sm:px-10 sm:pb-10 text-center flex flex-col justify-center">
                         <h3 className="text-xl sm:text-3xl font-black text-white leading-tight mb-2 sm:mb-3">{rigB.model} <br className="sm:hidden" />{rigB.name}</h3>
                         <div className="text-lg sm:text-2xl font-bold text-emerald-400">{formatPrice(rigB.price)}</div>
                       </div>
