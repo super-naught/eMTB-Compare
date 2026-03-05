@@ -192,24 +192,6 @@ export const eMTBData = [
       }
     ]
   },
-    {
-    brand: "Cube",
-    logo: "/logos/cube_logo.svg",
-    models: [
-      {
-        name: "Stereo Hybrid ONE77 HPC",
-        image: "/bikes/Cube Stereo Hybrid.png",
-        suspension: "170/170",
-        builds: [
-          { name: "SLT 800", price: 7999, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "800Wh", fork: "Fox 38 Factory GRIP X2 170mm", shock: "Fox Float X2 Factory - 170mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "SRAM Code Ultimate", wheelset: "Newmen Phase 30 Carbon", tires: "Schwalbe Magic Mary / Tacky Chan", wheels: "Mullet" },
-          { name: "ActionTeam 800", price: 6499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "800Wh", fork: "Fox 38 Factory GRIP X2 170mm", shock: "Fox Float X2 Factory - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "Shimano XT 4-Piston", wheelset: "Newmen Beskar 30", tires: "Schwalbe Magic Mary / Tacky Chan", wheels: "Mullet" },
-          { name: "TM 800", price: 5499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "800Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X2 Performance - 170mm", drivetrain: "SRAM GX Eagle Transmission AXS", brakes: "Magura MT7", wheelset: "Newmen Performance 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
-          { name: "SLX 800", price: 4499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "800Wh", fork: "RockShox ZEB Select 170mm", shock: "RockShox Super Deluxe Select+ - 170mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano XT 4-Piston", wheelset: "Newmen Performance 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
-          { name: "Race 800", price: 3999, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "800Wh", fork: "SR Suntour Aion 38X 170mm", shock: "SR Suntour Edge EVO - 170mm", drivetrain: "Shimano Deore 12-Speed", brakes: "Magura MT Thirty", wheelset: "CUBE EX30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" }
-        ]
-      }
-    ]
-  },
   {
     brand: "Devinci",
     logo: "/logos/devinci_logo.svg",
@@ -248,42 +230,6 @@ export const eMTBData = [
         builds: [
           { name: "X0 Eagle Transmission", price: 9999, material: "Carbon", motor: "Shimano EP801", torque: "85Nm", battery: "630Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Super Deluxe Coil Ultimate - 166mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "Industry Nine Grade 300 Hydra", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4", wheels: "29\"" },
           { name: "Eagle 90 Transmission", price: 8699, material: "Carbon", motor: "Shimano EP801", torque: "85Nm", battery: "630Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Super Deluxe Coil Ultimate - 166mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "SRAM Code RSC", wheelset: "Industry Nine Grade 300 Hydra", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4", wheels: "29\"" }
-        ]
-      }
-    ]
-  },
-    {
-    brand: "Focus",
-    logo: "/logos/focus_logo.svg",
-    models: [
-      {
-        name: "SAM2",
-        image: "/bikes/Focus SAM2.png",
-        suspension: "170/165",
-        builds: [
-          { name: "6.0", price: 8499, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh / 800Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate Coil - 165mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "DT Swiss HFR 1700", tires: "Schwalbe Magic Mary Super DH 2.4", wheels: "Mullet" },
-          { name: "6.9", price: 7499, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh / 800Wh", fork: "Fox 38 Factory GRIP X2 170mm", shock: "Fox DHX Performance Coil - 165mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "DT Swiss HF 1900", tires: "Schwalbe Magic Mary Super DH 2.4", wheels: "Mullet" },
-          { name: "6.8", price: 5999, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh / 800Wh", fork: "Fox 38 Rhythm 170mm", shock: "Fox DHX Performance Coil - 165mm", drivetrain: "Shimano Deore 12-Speed", brakes: "Shimano Deore 4-Piston", wheelset: "WTB ST i30", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.5", wheels: "Mullet" }
-        ]
-      },
-      {
-        name: "JAM2",
-        image: "/bikes/Focus JAM2.png",
-        suspension: "160/150",
-        builds: [
-          { name: "6.9", price: 6599, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh / 800Wh", fork: "Fox 36 Performance Elite 160mm", shock: "Fox Float X Performance - 150mm", drivetrain: "Shimano XT 12-Speed", brakes: "TRP EVO PRO", wheelset: "DT Swiss", tires: "Maxxis Minion DHF / DHR II", wheels: "29\"" },
-          { name: "6.8", price: 5999, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh / 800Wh", fork: "RockShox Lyrik Select 160mm", shock: "RockShox Super Deluxe Select - 150mm", drivetrain: "SRAM GX Eagle", brakes: "SRAM DB8", wheelset: "RaceFace AR30", tires: "Maxxis Minion DHF / DHR II", wheels: "29\"" },
-          { name: "6.7", price: 4999, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Psylo Silver RC 160mm", shock: "RockShox Deluxe Select - 150mm", drivetrain: "Shimano CUES 10-Speed", brakes: "Tektro Gemini SL", wheelset: "WTB ST i30", tires: "Maxxis Minion DHF / DHR II", wheels: "29\"" }
-        ]
-      },
-      {
-        name: "VAM2 SL",
-        image: "/bikes/Focus VAM2 SL.png",
-        suspension: "130/125",
-        builds: [
-          { name: "9.9", price: 10999, material: "Carbon", motor: "Fazua Ride 60", torque: "60Nm", battery: "430Wh", fork: "Fox 34 Factory 130mm", shock: "Fox Float Factory - 125mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Level Ultimate", wheelset: "Mavic Crossmax XL R Carbon", tires: "Schwalbe Nobby Nic 2.4", wheels: "29\"" },
-          { name: "9.8", price: 8699, material: "Carbon", motor: "Fazua Ride 60", torque: "60Nm", battery: "430Wh", fork: "Fox 34 Performance Elite 130mm", shock: "Fox Float Performance - 125mm", drivetrain: "Shimano XT 12-Speed", brakes: "Shimano XT", wheelset: "DT Swiss HX1700", tires: "Schwalbe Nobby Nic 2.4", wheels: "29\"" },
-          { name: "9.0", price: 10999, material: "Carbon", motor: "Fazua Ride 60", torque: "60Nm", battery: "430Wh", fork: "Fox 34 Factory 130mm", shock: "Fox Float Factory - 125mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "SRAM Level Ultimate", wheelset: "Mavic Crossmax XL R Carbon", tires: "Schwalbe Nobby Nic 2.4", wheels: "29\"" }
         ]
       }
     ]
