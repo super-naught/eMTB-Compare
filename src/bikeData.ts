@@ -593,8 +593,8 @@ export const eMTBData = [
         image: "/bikes/Polygon Siskiu TE.png",
         suspension: "150/140",
         builds: [
+          { name: "TE Bosch", price: 4799, material: "Alloy", motor: "Bosch Performance Line CX (Gen 4)", torque: "85Nm", battery: "625Wh", fork: "RockShox Lyrik Select 150mm", shock: "RockShox Super Deluxe Select+ - 140mm", drivetrain: "SRAM SX Eagle 12-Speed", brakes: "SRAM Code R", wheelset: "Entity XL3", tires: "Maxxis Dissector 29x2.4", wheels: "29\"" }
           { name: "T7E", price: 3999, material: "Alloy", motor: "Shimano EP801", torque: "85Nm", battery: "630Wh", fork: "SR Suntour Aion 35 Boost 150mm", shock: "SR Suntour Triair2 - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "SRAM Code R", wheelset: "Entity XL3", tires: "Schwalbe Hans Dampf 29x2.6", wheels: "29\"" },
-          { name: "TE with Bosch", price: 4799, material: "Alloy", motor: "Bosch Performance Line CX (Gen 4)", torque: "85Nm", battery: "625Wh", fork: "RockShox Lyrik Select 150mm", shock: "RockShox Super Deluxe Select+ - 140mm", drivetrain: "SRAM SX Eagle 12-Speed", brakes: "SRAM Code R", wheelset: "Entity XL3", tires: "Maxxis Dissector 29x2.4", wheels: "29\"" }
         ]
       }
     ]
@@ -724,14 +724,15 @@ export const eMTBData = [
         image: "/bikes/Santa Cruz Vala.png",
         suspension: "160/150",
         builds: [
-          { name: "AL Deore", price: 5999, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "Shimano Deore M6100", brakes: "SRAM Maven Base", wheelset: "WTB ST i30", wheels: "Mullet" },
-          { name: "AL 70", price: 7049, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "SRAM Eagle 70 Transmission", brakes: "SRAM DB8 Stealth", wheelset: "Reserve 30|HD AL", wheels: "Mullet" },
-          { name: "C R", price: 7299, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "SRAM NX Eagle", brakes: "SRAM Maven Base", wheelset: "WTB ST i30", wheels: "Mullet" },
-          { name: "C S", price: 8499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Performance", shock: "FOX Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Maven Bronze", wheelset: "RaceFace ARC 30 HD", wheels: "Mullet" },
-          { name: "C GX AXS", price: 9849, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Performance Elite", shock: "FOX Float X Performance Elite", drivetrain: "SRAM GX Eagle AXS T-Type", brakes: "SRAM Maven Bronze", wheelset: "RaceFace ARC 30 HD", wheels: "Mullet" },
-          { name: "C XT Di2", price: 11099, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "Shimano XT Di2 (Auto-shift)", brakes: "SRAM Maven Silver", wheelset: "Reserve 30|HD AL", wheels: "Mullet" },
+          { name: "CC XX AXS RSV", price: 14099, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "SRAM XX Eagle AXS T-Type", brakes: "SRAM Maven Ultimate", wheelset: "Reserve 30|HD Carbon", wheels: "Mullet" },
           { name: "CC X0 AXS RSV", price: 11949, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "SRAM X0 Eagle AXS T-Type", brakes: "SRAM Maven Silver", wheelset: "Reserve 30|HD Carbon", wheels: "Mullet" },
-          { name: "CC XX AXS RSV", price: 14099, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "SRAM XX Eagle AXS T-Type", brakes: "SRAM Maven Ultimate", wheelset: "Reserve 30|HD Carbon", wheels: "Mullet" }
+          { name: "C XT Di2", price: 11099, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "Shimano XT Di2 (Auto-shift)", brakes: "SRAM Maven Silver", wheelset: "Reserve 30|HD AL", wheels: "Mullet" },
+          { name: "C GX AXS", price: 9849, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Performance Elite", shock: "FOX Float X Performance Elite", drivetrain: "SRAM GX Eagle AXS T-Type", brakes: "SRAM Maven Bronze", wheelset: "RaceFace ARC 30 HD", wheels: "Mullet" },
+          { name: "C S", price: 8499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Performance", shock: "FOX Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Maven Bronze", wheelset: "RaceFace ARC 30 HD", wheels: "Mullet" },
+          { name: "C R", price: 7299, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "SRAM NX Eagle", brakes: "SRAM Maven Base", wheelset: "WTB ST i30", wheels: "Mullet" },
+          { name: "AL 70", price: 7049, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "SRAM Eagle 70 Transmission", brakes: "SRAM DB8 Stealth", wheelset: "Reserve 30|HD AL", wheels: "Mullet" },
+          { name: "AL Deore", price: 5999, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "Shimano Deore M6100", brakes: "SRAM Maven Base", wheelset: "WTB ST i30", wheels: "Mullet" },
+
         ]
       },
       {
