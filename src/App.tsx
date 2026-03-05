@@ -122,7 +122,7 @@ function BrandedStepper({ label, value, onChange, step = 1, suffix = "" }: { lab
       console.error('SW registration error', error);
     },
   });
-  
+
 // --- NEW SMART CAROUSEL COMPONENT ---
 const TrendingCarousel = ({ BIKES, onSelectBike }: { BIKES: any[], onSelectBike: (id: string) => void }) => {
   const top5 = useMemo(() => ['Vala', 'Levo', 'Wild', 'Meta Power SX Avinox', 'Sight VLT CX']
@@ -554,7 +554,7 @@ const toggleFavorite = async (buildId: string) => {
                             </div>
                             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-[1.05]">
                               FIND YOUR <br />
-                              <span className="text-blue-500 mt-1 inline-block">DREAM BIKE</span>
+                              <span className="text-blue-500 mt-1 inline-block">DREAM BIKE ⚡</span> 
                             </h1>
                           </div>
                           <p className="text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed font-medium">
