@@ -115,14 +115,14 @@ function BrandedStepper({ label, value, onChange, step = 1, suffix = "" }: { lab
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW({
-    onRegistered(r) {
+    onRegistered(r: any) {
       console.log('SW Registered:', r);
     },
-    onRegisterError(error) {
+    onRegisterError(error: any) {
       console.error('SW registration error', error);
     },
   });
-
+  
 // --- NEW SMART CAROUSEL COMPONENT ---
 const TrendingCarousel = ({ BIKES, onSelectBike }: { BIKES: any[], onSelectBike: (id: string) => void }) => {
   const top5 = useMemo(() => ['Vala', 'Levo', 'Wild', 'Meta Power SX Avinox', 'Sight VLT CX']
