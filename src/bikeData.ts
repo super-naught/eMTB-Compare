@@ -593,8 +593,8 @@ export const eMTBData = [
         image: "/bikes/Polygon Siskiu TE.png",
         suspension: "150/140",
         builds: [
-          { name: "TE Bosch", price: 4799, material: "Alloy", motor: "Bosch Performance Line CX (Gen 4)", torque: "85Nm", battery: "625Wh", fork: "RockShox Lyrik Select 150mm", shock: "RockShox Super Deluxe Select+ - 140mm", drivetrain: "SRAM SX Eagle 12-Speed", brakes: "SRAM Code R", wheelset: "Entity XL3", tires: "Maxxis Dissector 29x2.4", wheels: "29\"" }
-          { name: "T7E", price: 3999, material: "Alloy", motor: "Shimano EP801", torque: "85Nm", battery: "630Wh", fork: "SR Suntour Aion 35 Boost 150mm", shock: "SR Suntour Triair2 - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "SRAM Code R", wheelset: "Entity XL3", tires: "Schwalbe Hans Dampf 29x2.6", wheels: "29\"" },
+          { name: "TE Bosch", price: 4799, material: "Alloy", motor: "Bosch Performance Line CX (Gen 4)", torque: "85Nm", battery: "625Wh", fork: "RockShox Lyrik Select 150mm", shock: "RockShox Super Deluxe Select+ - 140mm", drivetrain: "SRAM SX Eagle 12-Speed", brakes: "SRAM Code R", wheelset: "Entity XL3", tires: "Maxxis Dissector 29x2.4", wheels: "29\"" },
+          { name: "T7E", price: 3999, material: "Alloy", motor: "Shimano EP801", torque: "85Nm", battery: "630Wh", fork: "SR Suntour Aion 35 Boost 150mm", shock: "SR Suntour Triair2 - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "SRAM Code R", wheelset: "Entity XL3", tires: "Schwalbe Hans Dampf 29x2.6", wheels: "29\"" }
         ]
       }
     ]
