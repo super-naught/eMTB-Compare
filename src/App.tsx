@@ -13,6 +13,7 @@ const createClerkSupabaseClient = (token: string) => {
   );
 };
 
+
 // --- STRICT TYPES ---
 interface BuildType {
   name: string;
@@ -108,7 +109,6 @@ function BrandedStepper({ label, value, onChange, step = 1, suffix = "" }: { lab
   );
 }
 
-// --- NEW SMART CAROUSEL COMPONENT ---
 // --- NEW SMART CAROUSEL COMPONENT ---
 const TrendingCarousel = ({ BIKES, onSelectBike }: { BIKES: any[], onSelectBike: (id: string) => void }) => {
   const top5 = useMemo(() => ['Vala', 'Levo', 'Wild', 'Meta Power SX Avinox', 'Sight VLT CX']
@@ -241,6 +241,15 @@ const TrendingCarousel = ({ BIKES, onSelectBike }: { BIKES: any[], onSelectBike:
       </div>
     </div>
   );
+};
+
+const formatWheelSetup = (setup?: string) => {
+  if (!setup) return "TBD";
+  const s = setup.toUpperCase();
+  if (s.includes("MULLET") || s.includes("MX")) return 'MULLET (MX 29"F, 27.5"R)';
+  if (s.includes("29")) return '29" (29"F, 29"R)';
+  if (s.includes("27.5")) return '27.5" (27.5"F, 27.5"R)';
+  return setup;
 };
 
 export default function App() {
@@ -774,7 +783,8 @@ const toggleFavorite = async (buildId: string) => {
                   <h2 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tighter leading-[1.05]">HEAD-<span className="text-blue-500">TO</span>-HEAD</h2>
                   <p className="text-slate-400 mt-4 sm:mt-6 font-medium max-w-xl text-sm sm:text-lg leading-relaxed">Stack two rigs side-by-side to compare geometry, motors, and components before you calculate the damage.</p>
                 </div>
-                <div className="hidden lg:flex items-center justify-center relative z-10 opacity-20 pr-8"><Scale size={160} className="text-blue-500" /></div>
+                <div className="hidden lg:flex items-center justify-center relative z-10 opacity-20 pr-8"><Scale size={160} 
+                className="text-blue-500" /></div>
               </div>
 
               <div className="grid grid-cols-2 divide-x divide-slate-800 relative shrink-0 z-10">
@@ -783,7 +793,8 @@ const toggleFavorite = async (buildId: string) => {
                 <div className="flex flex-col relative w-full">
                   <div className="p-4 sm:p-8 border-b border-slate-800">
                     <label className="block text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-widest mb-3">Rig A</label>
-                    <button onClick={() => { setSelectingRig('A'); setSelectorBrand(rigA ? String(rigA.brand) : brands[0]); }} className="w-full bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-blue-500 text-white text-xs sm:text-sm font-semibold rounded-xl p-3 sm:p-4 text-left flex justify-between items-center transition-all shadow-sm">
+                    <button onClick={() => { setSelectingRig('A'); setSelectorBrand(rigA ? String(rigA.brand) : brands[0]); }} 
+                    className="w-full bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-blue-500 text-white text-xs sm:text-sm font-semibold rounded-xl p-3 sm:p-4 text-left flex justify-between items-center transition-all shadow-sm">
                     <span className="truncate pr-2">{rigA ? `${rigA.brand} ${rigA.model} ${rigA.name}` : 'Select Rig A'}</span>
                     <ChevronDown size={18} className="text-blue-500 shrink-0 group-hover:scale-110 transition-transform" />
                     </button>
@@ -851,6 +862,7 @@ const toggleFavorite = async (buildId: string) => {
                     { label: 'Shock', a: rigA.shock || 'TBD', b: rigB.shock || 'TBD' },
                     { label: 'Brakes', a: rigA.brakes || 'TBD', b: rigB.brakes || 'TBD' },
                     { label: 'Wheelset', a: rigA.wheelset || 'TBD', b: rigB.wheelset || 'TBD' },
+                    { label: 'Wheel Setup', a: formatWheelSetup(rigA.wheels), b: formatWheelSetup(rigB.wheels) },
                     { label: 'Tires', a: rigA.tires || 'TBD', b: rigB.tires || 'TBD' },
                   ].map((spec, idx) => (
                     <div key={idx} className="hover:bg-white transition-colors w-full">

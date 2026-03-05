@@ -8,8 +8,8 @@ export const eMTBData = [
         image: "/bikes/Amflow PL Carbon.png",
         suspension: "160/150",
         builds: [
-          { name: "Pro", price: 8599, material: "Carbon", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 36 Factory 160mm", shock: "Fox Float X Factory - 150mm", drivetrain: "SRAM X0 Transmission", brakes: "Magura MT7 Pro", wheelset: "Amflow Carbon 30mm", tires: "Maxxis Assegai 2.5 / Dissector 2.4" },
-          { name: "Standard", price: 6499, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 36 Performance 160mm", shock: "Fox Float X Performance - 150mm", drivetrain: "SRAM Eagle 70 Transmission", brakes: "Magura MT5", wheelset: "Amflow Alloy 30mm", tires: "Maxxis Assegai 2.5 / Dissector 2.4" }
+          { name: "Pro", price: 8599, material: "Carbon", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 36 Factory 160mm", shock: "Fox Float X Factory - 150mm", drivetrain: "SRAM X0 Transmission", brakes: "Magura MT7 Pro", wheelset: "Amflow Carbon 30mm", wheels: "29", tires: "Maxxis Assegai 2.5 / Dissector 2.4" },
+          { name: "Standard", price: 6499, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 36 Performance 160mm", shock: "Fox Float X Performance - 150mm", drivetrain: "SRAM Eagle 70 Transmission", brakes: "Magura MT5", wheelset: "Amflow Alloy 30mm", wheels: "29", tires: "Maxxis Assegai 2.5 / Dissector 2.4" }
         ]
       }
     ]
@@ -23,10 +23,10 @@ export const eMTBData = [
         image: "/bikes/ARI Timp.png",
         suspension: "170/170",
         builds: [
-          { name: "Team", price: 10995, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "SRAM Maven Ultimate", wheelset: "Crankbrothers Synthesis Carbon", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "Pro", price: 9495, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "Crankbrothers Synthesis Alloy", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "Elite", price: 8495, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "Crankbrothers Synthesis Alloy", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "Comp", price: 6995, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox ZEB Rush RC 170mm", shock: "RockShox Super Deluxe - 170mm", drivetrain: "Shimano Deore M6100", brakes: "TRP Trail EVO", wheelset: "DT Swiss H1900 Spline", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
+          { name: "Team", price: 10995, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM XX Eagle Transmission", brakes: "SRAM Maven Ultimate", wheelset: "Crankbrothers Synthesis Carbon", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "Pro", price: 9495, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "Crankbrothers Synthesis Alloy", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "Elite", price: 8495, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Vivid Ultimate - 170mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "Crankbrothers Synthesis Alloy", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "Comp", price: 6995, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox ZEB Rush RC 170mm", shock: "RockShox Super Deluxe - 170mm", drivetrain: "Shimano Deore M6100", brakes: "TRP Trail EVO", wheelset: "DT Swiss H1900 Spline", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
         ]
       },
       {
@@ -34,8 +34,8 @@ export const eMTBData = [
         image: "/bikes/ARI Nebo Peak.png",
         suspension: "150/140",
         builds: [
-          { name: "Elite", price: 6995, material: "Carbon", motor: "Fazua Ride 60", torque: "60Nm", battery: "430Wh", fork: "Fox 36 Performance Elite 150mm", shock: "Fox Float X Performance Elite - 140mm", drivetrain: "Shimano XT 12-Speed", brakes: "TRP Trail EVO", wheelset: "DT Swiss M 1900 Spline", tires: "Maxxis Minion DHF / Dissector 2.4" },
-          { name: "Comp", price: 5995, material: "Carbon", motor: "Fazua Ride 60", torque: "60Nm", battery: "430Wh", fork: "DVO Diamond 36 D1 SL 150mm", shock: "DVO Topaz Gen 3 - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "TRP Trail EVO", wheelset: "DT Swiss M 1900 Spline", tires: "Maxxis Minion DHF / Dissector 2.4" }
+          { name: "Elite", price: 6995, material: "Carbon", motor: "Fazua Ride 60", torque: "60Nm", battery: "430Wh", fork: "Fox 36 Performance Elite 150mm", shock: "Fox Float X Performance Elite - 140mm", drivetrain: "Shimano XT 12-Speed", brakes: "TRP Trail EVO", wheelset: "DT Swiss M 1900 Spline", wheels: "Mullet", tires: "Maxxis Minion DHF / Dissector 2.4" },
+          { name: "Comp", price: 5995, material: "Carbon", motor: "Fazua Ride 60", torque: "60Nm", battery: "430Wh", fork: "DVO Diamond 36 D1 SL 150mm", shock: "DVO Topaz Gen 3 - 140mm", drivetrain: "Shimano SLX 12-Speed", brakes: "TRP Trail EVO", wheelset: "DT Swiss M 1900 Spline", wheels: "Mullet", tires: "Maxxis Minion DHF / Dissector 2.4" }
         ]
       },
       {
@@ -109,8 +109,8 @@ export const eMTBData = [
         image: "/bikes/Canyon Torque ON.png",
         suspension: "180/175",
         builds: [
-          { name: "CF 9", price: 8999, material: "Carbon", motor: "Shimano EP801", torque: "85Nm", battery: "720Wh", fork: "Fox 38 Factory 180mm", shock: "Fox Float X2 Factory - 175mm", drivetrain: "Shimano XT M8100", brakes: "Shimano XT M8120", wheelset: "DT Swiss HX1700", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "CF 8", price: 5749, material: "Carbon", motor: "Shimano EP801", torque: "85Nm", battery: "720Wh", fork: "Fox 38 Rhythm 180mm", shock: "Fox Float X2 Performance - 175mm", drivetrain: "Shimano SLX M7100", brakes: "Shimano SLX M7120", wheelset: "SunRingle Duroc SD37", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
+          { name: "CF 9", price: 8999, material: "Carbon", motor: "Shimano EP801", torque: "85Nm", battery: "720Wh", fork: "Fox 38 Factory 180mm", shock: "Fox Float X2 Factory - 175mm", drivetrain: "Shimano XT M8100", brakes: "Shimano XT M8120", wheelset: "DT Swiss HX1700", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "CF 8", price: 5749, material: "Carbon", motor: "Shimano EP801", torque: "85Nm", battery: "720Wh", fork: "Fox 38 Rhythm 180mm", shock: "Fox Float X2 Performance - 175mm", drivetrain: "Shimano SLX M7100", brakes: "Shimano SLX M7120", wheelset: "SunRingle Duroc SD37", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
         ]
       },
       {
@@ -118,7 +118,7 @@ export const eMTBData = [
         image: "/bikes/Canyon Spectral ON.png",
         suspension: "160/155",
         builds: [
-          { name: "CF 8", price: 5999, material: "Carbon", motor: "Shimano EP801", torque: "85Nm", battery: "900Wh", fork: "Fox 38 Rhythm 160mm", shock: "Fox Float X Performance - 155mm", drivetrain: "Shimano XT M8100", brakes: "Shimano SLX M7120", wheelset: "DT Swiss HLN350 29/27.5", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "CF 8", price: 5999, material: "Carbon", motor: "Shimano EP801", torque: "85Nm", battery: "900Wh", fork: "Fox 38 Rhythm 160mm", shock: "Fox Float X Performance - 155mm", drivetrain: "Shimano XT M8100", brakes: "Shimano SLX M7120", wheelset: "DT Swiss HLN350 29/27.5", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
           { name: "CF 7", price: 5249, material: "Carbon", motor: "Shimano EP801", torque: "85Nm", battery: "720Wh", fork: "RockShox Lyrik 160mm", shock: "RockShox Deluxe Select+ - 155mm", drivetrain: "Shimano Deore M6100", brakes: "SRAM DB8", wheelset: "SunRingle Duroc SD37", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
         ]
       },
@@ -127,8 +127,8 @@ export const eMTBData = [
         image: "/bikes/Canyon Spectral ONfly.png",
         suspension: "160/150",
         builds: [
-          { name: "CF CLLCTV", price: 7499, material: "Carbon", motor: "TQ-HPR50", torque: "50Nm", battery: "360Wh", fork: "Fox 38 Performance Elite 160mm", shock: "Fox Float X Performance - 150mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code Silver", wheelset: "DT Swiss", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "CF 8", price: 5999, material: "Carbon", motor: "TQ-HPR50", torque: "50Nm", battery: "360Wh", fork: "RockShox Lyrik 160mm", shock: "RockShox Deluxe - 150mm", drivetrain: "Shimano XT", brakes: "SRAM Code Bronze", wheelset: "SunRingle", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
+          { name: "CF CLLCTV", price: 7499, material: "Carbon", motor: "TQ-HPR50", torque: "50Nm", battery: "360Wh", fork: "Fox 38 Performance Elite 160mm", shock: "Fox Float X Performance - 150mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Code Silver", wheelset: "DT Swiss", wheels: "29", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "CF 8", price: 5999, material: "Carbon", motor: "TQ-HPR50", torque: "50Nm", battery: "360Wh", fork: "RockShox Lyrik 160mm", shock: "RockShox Deluxe - 150mm", drivetrain: "Shimano XT", brakes: "SRAM Code Bronze", wheelset: "SunRingle", wheels: "29", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
         ]
       },
       {
@@ -136,7 +136,7 @@ export const eMTBData = [
         image: "/bikes/Canyon Strive ON.png",
         suspension: "170/160",
         builds: [
-          { name: "CFR", price: 7499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 4)", torque: "85Nm", battery: "750Wh", fork: "Fox 38 Performance Elite Grip2 170mm", shock: "Fox Float X2 Performance - 160mm", drivetrain: "Shimano XT", brakes: "Shimano XT", wheelset: "DT Swiss HX1700", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "CFR", price: 7499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 4)", torque: "85Nm", battery: "750Wh", fork: "Fox 38 Performance Elite Grip2 170mm", shock: "Fox Float X2 Performance - 160mm", drivetrain: "Shimano XT", brakes: "Shimano XT", wheelset: "DT Swiss HX1700", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
           { name: "CFR Underdog", price: 6499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 4)", torque: "85Nm", battery: "625Wh", fork: "Fox 38 Rhythm 170mm", shock: "Fox Float X Performance - 160mm", drivetrain: "Shimano Deore M6100", brakes: "SRAM DB8", wheelset: "DT Swiss HX1700", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
         ]
       }
@@ -151,7 +151,7 @@ export const eMTBData = [
         image: "/bikes/Commencal MetaPowerSX.png",
         suspension: "170/165",
         builds: [
-          { name: "Signature AXS", price: 8500, material: "Alloy", motor: "Bosch Performance Line SX (Gen 4)", torque: "55Nm", battery: "400Wh", fork: "Fox 38 Factory 170mm", shock: "Fox Float X Factory - 165mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "DT Swiss HFR1700", tires: "Schwalbe Magic Mary / Tacky Chan 2.4" },
+          { name: "Signature AXS", price: 8500, material: "Alloy", motor: "Bosch Performance Line SX (Gen 4)", torque: "55Nm", battery: "400Wh", fork: "Fox 38 Factory 170mm", shock: "Fox Float X Factory - 165mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "SRAM Maven Silver", wheelset: "DT Swiss HFR1700", wheels: "Mullet", tires: "Schwalbe Magic Mary / Tacky Chan 2.4" },
           { name: "Essential", price: 6500, material: "Alloy", motor: "Bosch Performance Line SX (Gen 4)", torque: "55Nm", battery: "400Wh", fork: "Fox 38 Performance 170mm", shock: "Fox Float X Performance - 165mm", drivetrain: "SRAM GX Eagle", brakes: "TRP DH-R EVO", wheelset: "DT Swiss HF1900", tires: "Schwalbe Magic Mary / Tacky Chan 2.4" }
         ]
       },
@@ -160,11 +160,11 @@ export const eMTBData = [
         image: "/bikes/Commencal MetaPowerSX Avinox.png",
         suspension: "160/160",
         builds: [
-          { name: "Podium", price: 12000, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox Podium Factory 160mm", shock: "Fox Float X2 Factory - 160mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "Shimano XT 4-Piston", wheelset: "DT Swiss HX 1700", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "Signature", price: 10800, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 36 Factory 160mm", shock: "Fox Float X Factory - 160mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "Shimano XT 4-Piston", wheelset: "DT Swiss HX 1700", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "RockShox", price: 9200, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Super Deluxe Select - 160mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "SRAM Maven Base", wheelset: "DT Swiss H 1900", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "Essential", price: 8800, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 36 Performance 160mm", shock: "Fox Float X Performance - 160mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "DT Swiss H 1900", tires: "Maxxis Minion DHR II 2.5 / Minion DHR II 2.4" },
-          { name: "Ride", price: 7800, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "RockShox Domain Gold R 170mm", shock: "RockShox Deluxe Select - 160mm", drivetrain: "Shimano XT LinkGlide", brakes: "TRP DH-R EVO", wheelset: "DT Swiss H 1900", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
+          { name: "Podium", price: 12000, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox Podium Factory 160mm", shock: "Fox Float X2 Factory - 160mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "Shimano XT 4-Piston", wheelset: "DT Swiss HX 1700", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "Signature", price: 10800, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 36 Factory 160mm", shock: "Fox Float X Factory - 160mm", drivetrain: "SRAM GX Eagle Transmission", brakes: "Shimano XT 4-Piston", wheelset: "DT Swiss HX 1700", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "RockShox", price: 9200, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "RockShox ZEB Ultimate 170mm", shock: "RockShox Super Deluxe Select - 160mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "SRAM Maven Base", wheelset: "DT Swiss H 1900", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "Essential", price: 8800, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 36 Performance 160mm", shock: "Fox Float X Performance - 160mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "DT Swiss H 1900", wheels: "Mullet", tires: "Maxxis Minion DHR II 2.5 / Minion DHR II 2.4" },
+          { name: "Ride", price: 7800, material: "Alloy", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "RockShox Domain Gold R 170mm", shock: "RockShox Deluxe Select - 160mm", drivetrain: "Shimano XT LinkGlide", brakes: "TRP DH-R EVO", wheelset: "DT Swiss H 1900", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
         ]
       },
       {
@@ -172,8 +172,8 @@ export const eMTBData = [
         image: "/bikes/Commencal MetaPowerSX 800.png",
         suspension: "180/180",
         builds: [
-          { name: "Signature", price: 10800, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "800Wh", fork: "Fox 38 Factory 180mm", shock: "Fox Float X2 Factory - 180mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "DT Swiss HX 1700", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
-          { name: "RockShox", price: 9500, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "800Wh", fork: "RockShox ZEB Ultimate 180mm", shock: "RockShox Super Deluxe Select - 180mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "DT Swiss H 1900", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
+          { name: "Signature", price: 10800, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "800Wh", fork: "Fox 38 Factory 180mm", shock: "Fox Float X2 Factory - 180mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "DT Swiss HX 1700", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" },
+          { name: "RockShox", price: 9500, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "800Wh", fork: "RockShox ZEB Ultimate 180mm", shock: "RockShox Super Deluxe Select - 180mm", drivetrain: "SRAM Eagle 90 Transmission", brakes: "TRP DH-R EVO PRO", wheelset: "DT Swiss H 1900", wheels: "Mullet", tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4" }
         ]
       }
     ]
@@ -187,7 +187,7 @@ export const eMTBData = [
         image: "/bikes/Crestline rs181.png",
         suspension: "180/180",
         builds: [
-          { name: "Spectre Edition", price: 10500, material: "Carbon", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 40 Factory 180mm", shock: "Fox Float X2 Factory - 180mm", drivetrain: "SRAM GX T-Type", brakes: "TRP Evo Pro", wheelset: "WAO Carbon", tires: "Continental Kryptotal 2.4" }
+          { name: "Spectre Edition", price: 10500, material: "Carbon", motor: "DJI Avinox M1", torque: "105Nm", battery: "800Wh", fork: "Fox 40 Factory 180mm", shock: "Fox Float X2 Factory - 180mm", drivetrain: "SRAM GX T-Type", brakes: "TRP Evo Pro", wheelset: "WAO Carbon", wheels: "Mullet", tires: "Continental Kryptotal 2.4" }
         ]
       }
     ]
@@ -219,9 +219,9 @@ export const eMTBData = [
           image: "/bikes/Devinci E-Troy Lite.png",
           suspension: "160/150",
           builds: [
-            { name: "GX AXS 12S", price: 7999, material: "Aluminum", motor: "Bosch Performance Line SX (Gen 4)", battery: "Bosch CompactTube 400Wh", fork: "RockShox Lyrik Ultimate", shock: "RockShox Super Deluxe Ultimate", drivetrain: "SRAM GX Eagle AXS T-Type", brakes: "Magura MT5", wheelset: "RaceFace ARC30" },
-            { name: "GX 12S", price: 6999, material: "Aluminum", motor: "Bosch Performance Line SX (Gen 4)", battery: "Bosch CompactTube 400Wh", fork: "Fox 36 Performance", shock: "Fox Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace ARC30" },
-            { name: "NX 12S", price: 5499, material: "Aluminum", motor: "Bosch Performance Line SX (Gen 4)", battery: "Bosch CompactTube 400Wh", fork: "RockShox Psylo Gold RL", shock: "RockShox Deluxe Select+", drivetrain: "SRAM NX Eagle", brakes: "SRAM DB8", wheelset: "V2 Comp" }
+            { name: "GX AXS 12S", price: 7999, material: "Aluminum", motor: "Bosch Performance Line SX (Gen 4)", battery: "Bosch CompactTube 400Wh", fork: "RockShox Lyrik Ultimate", shock: "RockShox Super Deluxe Ultimate", drivetrain: "SRAM GX Eagle AXS T-Type", brakes: "Magura MT5", wheelset: "RaceFace ARC30", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO / Minion DHR II 2.4 EXO+" },
+            { name: "GX 12S", price: 6999, material: "Aluminum", motor: "Bosch Performance Line SX (Gen 4)", battery: "Bosch CompactTube 400Wh", fork: "Fox 36 Performance", shock: "Fox Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace ARC30", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO / Minion DHR II 2.4 EXO+" },
+            { name: "NX 12S", price: 5499, material: "Aluminum", motor: "Bosch Performance Line SX (Gen 4)", battery: "Bosch CompactTube 400Wh", fork: "RockShox Psylo Gold RL", shock: "RockShox Deluxe Select+", drivetrain: "SRAM NX Eagle", brakes: "SRAM DB8", wheelset: "V2 Comp", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO / Minion DHR II 2.4 EXO+" }
           ]
         },
         {
@@ -229,10 +229,10 @@ export const eMTBData = [
           image: "/bikes/Devinci E-Troy.png",
           suspension: "160/170",
           builds: [
-            { name: "GX 12S LTD", price: 7999, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "Fox 38 Performance Elite (170mm)", shock: "Fox Float X Performance Elite", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace Aeffect R30" },
-            { name: "GX 12S", price: 7299, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "Fox 38 Performance (160mm)", shock: "Fox Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace Aeffect R30" },
-            { name: "NX 12S", price: 6499, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "RockShox Domain RC (160mm)", shock: "RockShox Super Deluxe Select R", drivetrain: "SRAM NX Eagle", brakes: "SRAM DB8", wheelset: "V2 Comp" },
-            { name: "Deore 12S", price: 6199, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "RockShox Domain RC (160mm)", shock: "RockShox Super Deluxe Select R", drivetrain: "Shimano Deore M6100", brakes: "Shimano MT520 4-Piston", wheelset: "V2 Comp" }
+            { name: "GX 12S LTD", price: 7999, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "Fox 38 Performance Elite (170mm)", shock: "Fox Float X Performance Elite", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace Aeffect R30", wheels: "Mullet", tires: "Maxxis Minion DHF 2.6 EXO+ / Minion DHR II 2.6 EXO+" },
+            { name: "GX 12S", price: 7299, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "Fox 38 Performance (160mm)", shock: "Fox Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Code R", wheelset: "RaceFace Aeffect R30", wheels: "Mullet", tires: "Maxxis Minion DHF 2.6 EXO+ / Minion DHR II 2.6 EXO+" },
+            { name: "NX 12S", price: 6499, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "RockShox Domain RC (160mm)", shock: "RockShox Super Deluxe Select R", drivetrain: "SRAM NX Eagle", brakes: "SRAM DB8", wheelset: "V2 Comp", wheels: "Mullet", tires: "Maxxis Minion DHF 2.6 EXO+ / Minion DHR II 2.6 EXO+" },
+            { name: "Deore 12S", price: 6199, material: "Aluminum", motor: "Bosch Performance Line CX (Gen 4)", battery: "Bosch PowerTube 625Wh", fork: "RockShox Domain RC (160mm)", shock: "RockShox Super Deluxe Select R", drivetrain: "Shimano Deore M6100", brakes: "Shimano MT520 4-Piston", wheelset: "V2 Comp", wheels: "Mullet", tires: "Maxxis Minion DHF 2.6 EXO+ / Minion DHR II 2.6 EXO+" }
           ]
         }
       ]
@@ -631,7 +631,7 @@ export const eMTBData = [
         builds: [
           { name: "Goldrush", price: 8999, material: "Alloy", motor: "Shimano EP801", torque: "85Nm", battery: "626Wh", fork: "Fox 38 Factory Grip2 180mm", shock: "Fox DHX2 Factory - 170mm", drivetrain: "SRAM X0 Eagle Transmission", brakes: "Magura MT7", wheelset: "Crankbrothers Synthesis E-Bike Carbon i9", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
           { name: "Shred²", price: 7579, material: "Alloy", motor: "Shimano EP801", torque: "85Nm", battery: "626Wh", fork: "RockShox ZEB Ultimate 190mm", shock: "RockShox Super Deluxe Ultimate RCT Air TR - 170mm", drivetrain: "SRAM GX Eagle Transmission AXS", brakes: "SRAM Code RSC", wheelset: "NEWMEN Evo EG 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" },
-          { name: "Price2Ride", price: 5889, material: "Alloy", motor: "Shimano EP801", torque: "85Nm", battery: "626Wh", fork: "RockShox ZEB Select+ 180mm", shock: "RockShox SDLX Select Coil-R - 170mm", drivetrain: "SRAM GX Eagle", brakes: "Formula Cura 4", wheelset: "NEWMEN Evo EG 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet" }
+          { name: "Price2Ride", price: 5889, material: "Alloy", motor: "Shimano EP801", torque: "85Nm", battery: "626Wh", fork: "RockShox ZEB Select+ 180mm", shock: "RockShox SDLX Select Coil-R - 170mm", drivetrain: "SRAM GX Eagle", brakes: "Formula Cura 4", wheelset: "NEWMEN Evo EG 30", tires: "Schwalbe Magic Mary / Big Betty", wheels: "Mullet"}
         ]
       },
       {
@@ -724,14 +724,14 @@ export const eMTBData = [
         image: "/bikes/Santa Cruz Vala.png",
         suspension: "160/150",
         builds: [
-          { name: "CC XX AXS RSV", price: 14099, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "SRAM XX Eagle AXS T-Type", brakes: "SRAM Maven Ultimate", wheelset: "Reserve 30|HD Carbon", wheels: "Mullet" },
-          { name: "CC X0 AXS RSV", price: 11949, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "SRAM X0 Eagle AXS T-Type", brakes: "SRAM Maven Silver", wheelset: "Reserve 30|HD Carbon", wheels: "Mullet" },
-          { name: "C XT Di2", price: 11099, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "Shimano XT Di2 (Auto-shift)", brakes: "SRAM Maven Silver", wheelset: "Reserve 30|HD AL", wheels: "Mullet" },
-          { name: "C GX AXS", price: 9849, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Performance Elite", shock: "FOX Float X Performance Elite", drivetrain: "SRAM GX Eagle AXS T-Type", brakes: "SRAM Maven Bronze", wheelset: "RaceFace ARC 30 HD", wheels: "Mullet" },
-          { name: "C S", price: 8499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Performance", shock: "FOX Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Maven Bronze", wheelset: "RaceFace ARC 30 HD", wheels: "Mullet" },
-          { name: "C R", price: 7299, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "SRAM NX Eagle", brakes: "SRAM Maven Base", wheelset: "WTB ST i30", wheels: "Mullet" },
-          { name: "AL 70", price: 7049, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "SRAM Eagle 70 Transmission", brakes: "SRAM DB8 Stealth", wheelset: "Reserve 30|HD AL", wheels: "Mullet" },
-          { name: "AL Deore", price: 5999, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "Shimano Deore M6100", brakes: "SRAM Maven Base", wheelset: "WTB ST i30", wheels: "Mullet" },
+          { name: "CC XX AXS RSV", price: 14099, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "SRAM XX Eagle AXS T-Type", brakes: "SRAM Maven Ultimate", wheelset: "Reserve 30|HD Carbon", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO+ / Minion DHR II 2.4 DD" },
+          { name: "CC X0 AXS RSV", price: 11949, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "SRAM X0 Eagle AXS T-Type", brakes: "SRAM Maven Silver", wheelset: "Reserve 30|HD Carbon", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO+ / Minion DHR II 2.4 DD" },
+          { name: "C XT Di2", price: 11099, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Factory Grip X2", shock: "FOX Float X Factory", drivetrain: "Shimano XT Di2 (Auto-shift)", brakes: "SRAM Maven Silver", wheelset: "Reserve 30|HD AL", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO+ / Minion DHR II 2.4 DD" },
+          { name: "C GX AXS", price: 9849, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Performance Elite", shock: "FOX Float X Performance Elite", drivetrain: "SRAM GX Eagle AXS T-Type", brakes: "SRAM Maven Bronze", wheelset: "RaceFace ARC 30 HD", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO+ / Minion DHR II 2.4 DD" },
+          { name: "C S", price: 8499, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "FOX 38 Performance", shock: "FOX Float X Performance", drivetrain: "SRAM GX Eagle", brakes: "SRAM Maven Bronze", wheelset: "RaceFace ARC 30 HD", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO+ / Minion DHR II 2.4 DD" },
+          { name: "C R", price: 7299, material: "Carbon", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "SRAM NX Eagle", brakes: "SRAM Maven Base", wheelset: "WTB ST i30", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO+ / Minion DHR II 2.4 DD" },
+          { name: "AL 70", price: 7049, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "SRAM Eagle 70 Transmission", brakes: "SRAM DB8 Stealth", wheelset: "Reserve 30|HD AL", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO+ / Minion DHR II 2.4 DD" },
+          { name: "AL Deore", price: 5999, material: "Alloy", motor: "Bosch Performance Line CX (Gen 5)", torque: "85Nm", battery: "600Wh", fork: "RockShox Zeb Base", shock: "RockShox Super Deluxe Base", drivetrain: "Shimano Deore M6100", brakes: "SRAM Maven Base", wheelset: "WTB ST i30", wheels: "Mullet", tires: "Maxxis Assegai 2.5 EXO+ / Minion DHR II 2.4 DD" },
 
         ]
       },
