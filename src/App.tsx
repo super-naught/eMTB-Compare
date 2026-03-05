@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Sta
 import { eMTBData } from './bikeData';
 import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from "@clerk/clerk-react";
 import { createClient } from '@supabase/supabase-js';
+import { useRegisterSW } from 'virtual:pwa-register/react';
 
 // Helper to create a secure client using the Clerk token
 const createClerkSupabaseClient = (token: string) => {
@@ -108,6 +109,19 @@ function BrandedStepper({ label, value, onChange, step = 1, suffix = "" }: { lab
     </div>
   );
 }
+
+// --- PWA UPDATE LISTENER ---
+  const {
+    needRefresh: [needRefresh, setNeedRefresh],
+    updateServiceWorker,
+  } = useRegisterSW({
+    onRegistered(r) {
+      console.log('SW Registered:', r);
+    },
+    onRegisterError(error) {
+      console.error('SW registration error', error);
+    },
+  });
 
 // --- NEW SMART CAROUSEL COMPONENT ---
 const TrendingCarousel = ({ BIKES, onSelectBike }: { BIKES: any[], onSelectBike: (id: string) => void }) => {
@@ -1290,6 +1304,28 @@ function CalculatorView({ bike, build, isFavorite, onToggleFavorite }: { bike: t
           </div>
         </div>
       </div>
+      {/* --- PWA UPDATE PROMPT --- */}
+      {needRefresh && (
+        <div className="fixed bottom-6 right-6 z-[100] bg-slate-800 border border-blue-500 rounded-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col gap-3 max-w-sm animate-in slide-in-from-bottom-8 duration-500">
+          <p className="text-white text-sm font-semibold">
+            A new version of <span className="text-blue-400 font-black tracking-widest">TRAIL MATH</span> is available!
+          </p>
+          <div className="flex gap-3 mt-1">
+            <button
+              onClick={() => updateServiceWorker(true)}
+              className="flex-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all shadow-lg"
+            >
+              Update Now
+            </button>
+            <button
+              onClick={() => setNeedRefresh(false)}
+              className="flex-1 bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

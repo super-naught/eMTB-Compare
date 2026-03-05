@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate', // Automatically updates the app when you push new code to Vercel
+      registerType: 'prompt', // Automatically updates the app when you push new code to Vercel
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
         name: 'TRAIL MATH',
