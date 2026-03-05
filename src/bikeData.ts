@@ -56,7 +56,7 @@ export const eMTBData = [
     models: [
       {
         name: "Ramblas ADV",
-        image: "/public/bikes/Aventon Ramblas ADV.png",
+        image: "/bikes/Aventon Ramblas ADV.png",
         suspension: "130mm (Hardtail)",
         builds: [
           {
@@ -66,7 +66,7 @@ export const eMTBData = [
       },
         {
         name: "Ramblas",
-        image: "/public/bikes/Aventon Ramblas.png",
+        image: "/bikes/Aventon Ramblas.png",
         suspension: "130mm (Hardtail)",
         builds: [
           {
@@ -608,7 +608,7 @@ export const eMTBData = [
       },
       {
         name: "Ekano 2 CF",
-        image: "/bikes/Propain Ekano.png",
+        image: "/bikes/Propain Ekano 2 CF.png",
         suspension: "180/170",
         builds: [
           { name: "Factory", price: 11299, material: "Carbon", motor: "SRAM Powertrain", torque: "90Nm", battery: "630Wh", fork: "Fox 38 Factory 180mm", shock: "Fox DHX2 Factory Coil - 170mm", drivetrain: "SRAM XX Transmission", brakes: "Magura MT7 Pro", wheelset: "Crankbrothers Synthesis Carbon", tires: "Schwalbe Magic Mary / Big Betty 2.4" },
