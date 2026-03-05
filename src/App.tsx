@@ -172,11 +172,15 @@ const TrendingCarousel = ({ BIKES, onSelectBike }: { BIKES: any[], onSelectBike:
         Showroom
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24">
-        {/* Killed the "Swipe to explore" text */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24 flex flex-col justify-center sm:justify-start">
         <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tighter uppercase italic text-center sm:text-left leading-none">
           TRENDING RIGS FOR 2026
         </h2>
+        
+        {/* NEW: Mobile-only swipe indicator */}
+        <div className="block sm:hidden text-[10px] font-bold text-slate-400 uppercase tracking-widest animate-pulse text-center mt-4">
+          &larr; Swipe to explore &rarr;
+        </div>
       </div>
 
       {/* NEW: Left Arrow */}
@@ -588,7 +592,10 @@ const toggleFavorite = async (buildId: string) => {
             {showGarage ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-4 sm:mt-8">
                 {ALL_BUILDS.filter(b => favorites.includes(b.id)).map(build => (
-                  <div key={`garage-${build.id}`} onClick={() => { showroomScrollRef.current = window.scrollY; const parentBike = BIKES.find(bike => bike.builds.some(bb => bb.id === build.id)); if (parentBike) { setSelectedBikeId(parentBike.id); setSelectedBuildId(build.id); setView('calculator'); } }} className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 hover:border-blue-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col relative">
+                  <div key={`garage-${build.id}`} onClick={() => { showroomScrollRef.current = window.scrollY; const parentBike = BIKES.find(bike => bike.builds.some(bb => bb.id === build.id)); if (parentBike) { setSelectedBikeId(parentBike.id); setSelectedBuildId(build.id); setView('calculator'); 
+                    } 
+                  }} 
+                  className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 hover:border-blue-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col relative">
                     <button onClick={(e) => { e.stopPropagation(); toggleFavorite(build.id); }} className="absolute top-4 right-4 z-20 p-2 bg-slate-50 rounded-full hover:bg-red-50 text-blue-500 hover:text-red-500 transition-colors" title="Remove from Garage"><Star size={16} className="fill-current" /></button>
                     <div className="w-full h-40 sm:h-48 bg-[#F3F3F3] rounded-2xl mb-5 relative overflow-hidden flex items-center justify-center">
                       <img src={build.image} alt={build.fullName} className="absolute inset-0 w-full h-full object-contain scale-110 group-hover:scale-125 transition-transform duration-500" crossOrigin="anonymous" />
