@@ -1,26 +1,8 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import {
-  ChevronLeft,
-  ChevronDown,
-  ArrowRight,
-  Scale,
-  Calculator,
-  Filter,
-  X,
-  Star,
-  Plus,
-  Minus,
-  MapPin,
-  ShoppingCart,
-} from "lucide-react";
+import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star, Plus, Minus, MapPin, Phone, ShoppingCart,} from "lucide-react";
 import { eMTBData } from "./bikeData";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-  useAuth,
-} from "@clerk/clerk-react";
+import { SPONSORED_SHOPS } from './sponsorData';
+import { SignedIn, SignedOut, SignInButton, UserButton, useAuth,} from "@clerk/clerk-react";
 import { createClient } from "@supabase/supabase-js";
 import { useRegisterSW } from "virtual:pwa-register/react";
 
@@ -153,46 +135,40 @@ function BrandedStepper({
   );
 }
 
-// --- NEW SMART CAROUSEL COMPONENT ---
-const TrendingCarousel = ({
-  BIKES,
-  onSelectBike,
-}: {
-  BIKES: any[];
-  onSelectBike: (id: string) => void;
-}) => {
-  const top5 = useMemo(
-    () =>
-      ["Vala", "Levo", "Wild", "Meta Power SX Avinox", "Sight VLT CX"]
-        .map((m) => BIKES.find((b) => b.model.includes(m)))
-        .filter(Boolean),
-    [BIKES],
-  );
-
-  const displayBikes = useMemo(
-    () => [...top5, ...top5, ...top5, ...top5, ...top5],
-    [top5],
-  );
-
+// --- UPGRADED SMART CAROUSEL COMPONENT ---
+const TrendingCarousel = ({ BIKES, onSelectBike, sponsor }: { BIKES: any[], onSelectBike: (id: string) => void, sponsor?: typeof SPONSORED_SHOPS[0] | null }) => {
+  
+  const displayBikes = useMemo(() => {
+    if (sponsor) {
+      // Filter bikes to ONLY show brands carried by the local sponsor
+      const sponsorBikes = BIKES.filter(b => sponsor.brands.includes(b.brand));
+      // Duplicate them to make sure the carousel is full enough to scroll nicely
+      return [...sponsorBikes, ...sponsorBikes, ...sponsorBikes, ...sponsorBikes];
+    } else {
+      // The default "Trending" list for unsponsored ZIPs
+      const top5 = ['Vala', 'Levo', 'Wild', 'Meta Power SX Avinox', 'Sight VLT CX']
+        .map(m => BIKES.find(b => b.model.includes(m)))
+        .filter(Boolean);
+      return [...top5, ...top5, ...top5, ...top5, ...top5];
+    }
+  }, [BIKES, sponsor]);
+  
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(
-    Math.floor(displayBikes.length / 2),
-  );
+  const [activeIndex, setActiveIndex] = useState(Math.floor(displayBikes.length / 2));
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
     const container = scrollRef.current;
     const scrollCenter = container.scrollLeft + container.clientWidth / 2;
-
+    
     let closestIndex = activeIndex;
     let minDistance = Infinity;
 
     Array.from(container.children).forEach((child, index) => {
       const childElement = child as HTMLElement;
-      const childCenter =
-        childElement.offsetLeft + childElement.clientWidth / 2;
+      const childCenter = childElement.offsetLeft + childElement.clientWidth / 2;
       const distance = Math.abs(scrollCenter - childCenter);
-
+      
       if (distance < minDistance) {
         minDistance = distance;
         closestIndex = index;
@@ -207,107 +183,101 @@ const TrendingCarousel = ({
     const container = scrollRef.current;
     const middleIndex = Math.floor(displayBikes.length / 2);
     const middleChild = container.children[middleIndex] as HTMLElement;
-
+    
     if (middleChild) {
-      const scrollPos =
-        middleChild.offsetLeft -
-        container.clientWidth / 2 +
-        middleChild.clientWidth / 2;
-      container.scrollTo({ left: scrollPos, behavior: "auto" });
+      const scrollPos = middleChild.offsetLeft - container.clientWidth / 2 + middleChild.clientWidth / 2;
+      container.scrollTo({ left: scrollPos, behavior: 'auto' });
     }
   }, [displayBikes]);
 
-  // NEW: Smooth scroll logic for arrows and side-clicks
   const scrollToItem = (index: number) => {
     if (!scrollRef.current) return;
     const container = scrollRef.current;
     const item = container.children[index] as HTMLElement;
     if (item) {
-      const scrollPos =
-        item.offsetLeft - container.clientWidth / 2 + item.clientWidth / 2;
-      container.scrollTo({ left: scrollPos, behavior: "smooth" });
+      const scrollPos = item.offsetLeft - container.clientWidth / 2 + item.clientWidth / 2;
+      container.scrollTo({ left: scrollPos, behavior: 'smooth' });
     }
   };
 
   return (
-    // Added group/carousel so the arrows know when you are hovering over the section
     <div className="w-screen relative left-1/2 -translate-x-1/2 bg-slate-50 pt-12 pb-4 sm:pt-16 sm:pb-8 mb-12 sm:mb-16 border-t border-slate-200 overflow-hidden group/carousel">
+      {/* Background Text dynamically changes! */}
       <div className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] sm:text-[15vw] font-black text-slate-200/50 select-none pointer-events-none uppercase tracking-tighter w-full text-center whitespace-nowrap z-0">
-        Showroom
+        {sponsor ? sponsor.name : 'Showroom'}
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24 flex flex-col justify-center sm:justify-start">
-        <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tighter uppercase italic text-center sm:text-left leading-none">
-          TRENDING RIGS FOR 2026
-        </h2>
+<div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 flex flex-col justify-center sm:justify-start">
+        
+        {sponsor ? (
+          /* --- COHESIVE SPONSORED TAKEOVER CARD --- */
+          <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200 flex flex-col sm:flex-row items-center sm:items-center gap-6 w-full relative overflow-hidden mb-4">
+            
+            {/* Blue Gradient Accent Banner on the left edge */}
+            <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-blue-500 to-blue-700"></div>
 
-        {/* NEW: Mobile-only swipe indicator */}
-        <div className="block sm:hidden text-[10px] font-bold text-slate-400 uppercase tracking-widest animate-pulse text-center mt-4">
-          &larr; Swipe to explore &rarr;
-        </div>
+            {/* Shop Logo */}
+            <div className="h-20 sm:h-24 w-48 sm:w-56 flex items-center justify-center shrink-0 z-10">
+              <img src={sponsor.logo} alt={sponsor.name} className="max-h-full max-w-full object-contain" />
+            </div>
+            
+            {/* Divider (Desktop Only) */}
+            <div className="hidden sm:block w-px h-16 bg-slate-200 shrink-0"></div>
+            
+            {/* Shop Details */}
+            <div className="text-center sm:text-left flex flex-col justify-center flex-1 z-10">
+              <div className="text-blue-600 font-extrabold tracking-widest uppercase text-[10px] mb-1.5 flex items-center justify-center sm:justify-start gap-1.5">
+                <Star size={12} className="fill-blue-600" /> Sponsored Local Dealer
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tighter uppercase italic leading-none mb-4">
+                TEST RIDE AT {sponsor.name}
+              </h2>
+              
+              {/* Contact Info Pills */}
+              <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                <a href={`https://maps.google.com/?q=${sponsor.address}`} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-xs font-bold text-slate-600 bg-slate-50 hover:bg-blue-50 hover:text-blue-700 px-3 py-1.5 rounded-full transition-colors border border-slate-200 hover:border-blue-200 shadow-sm">
+                  <MapPin size={14} /> {sponsor.address}
+                </a>
+                <a href={`tel:${sponsor.phone.replace(/\D/g, '')}`} className="flex items-center gap-1.5 text-xs font-bold text-slate-600 bg-slate-50 hover:bg-blue-50 hover:text-blue-700 px-3 py-1.5 rounded-full transition-colors border border-slate-200 hover:border-blue-200 shadow-sm">
+                  <Phone size={14} /> {sponsor.phone}
+                </a>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* --- DEFAULT UNSPONSORED HEADER --- */
+          <>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tighter uppercase italic text-center sm:text-left leading-none">
+              TRENDING RIGS FOR 2026
+            </h2>
+            <div className="block sm:hidden text-[10px] font-bold text-slate-400 uppercase tracking-widest animate-pulse text-center mt-4">
+              ← Swipe to explore →
+            </div>
+          </>
+        )}
       </div>
 
-      {/* NEW: Left Arrow */}
-      <button
-        onClick={() => scrollToItem(activeIndex - 1)}
-        className="absolute left-4 sm:left-12 top-[55%] -translate-y-1/2 z-40 bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-full shadow-lg border border-slate-200 text-slate-400 hover:text-blue-600 hover:scale-110 hover:bg-white transition-all opacity-0 group-hover/carousel:opacity-100 hidden sm:flex disabled:opacity-0"
-        disabled={activeIndex === 0}
-      >
+      <button onClick={() => scrollToItem(activeIndex - 1)} className="absolute left-4 sm:left-12 top-[55%] -translate-y-1/2 z-40 bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-full shadow-lg border border-slate-200 text-slate-400 hover:text-blue-600 hover:scale-110 hover:bg-white transition-all opacity-0 group-hover/carousel:opacity-100 hidden sm:flex disabled:opacity-0" disabled={activeIndex === 0}>
         <ChevronLeft size={32} />
       </button>
-
-      {/* NEW: Right Arrow (Using rotate-180 so we don't need a new import) */}
-      <button
-        onClick={() => scrollToItem(activeIndex + 1)}
-        className="absolute right-4 sm:right-12 top-[55%] -translate-y-1/2 z-40 bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-full shadow-lg border border-slate-200 text-slate-400 hover:text-blue-600 hover:scale-110 hover:bg-white transition-all opacity-0 group-hover/carousel:opacity-100 hidden sm:flex disabled:opacity-0"
-        disabled={activeIndex === displayBikes.length - 1}
-      >
+      
+      <button onClick={() => scrollToItem(activeIndex + 1)} className="absolute right-4 sm:right-12 top-[55%] -translate-y-1/2 z-40 bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-full shadow-lg border border-slate-200 text-slate-400 hover:text-blue-600 hover:scale-110 hover:bg-white transition-all opacity-0 group-hover/carousel:opacity-100 hidden sm:flex disabled:opacity-0" disabled={activeIndex === displayBikes.length - 1}>
         <ChevronLeft size={32} className="rotate-180" />
       </button>
 
-      <div
-        ref={scrollRef}
-        onScroll={handleScroll}
-        className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory px-[30vw] sm:px-[40vw] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-      >
+      <div ref={scrollRef} onScroll={handleScroll} className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory px-[30vw] sm:px-[40vw] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {displayBikes.map((bike, index) => {
           const isActive = index === activeIndex;
           return (
-            <div
-              key={`carousel-${index}-${bike?.id}`}
-              onClick={() => {
-                // UX FIX: If it's active, go to builds. If it's inactive, scroll it to the center!
-                if (isActive) {
-                  onSelectBike(bike?.id);
-                } else {
-                  scrollToItem(index);
-                }
-              }}
-              className={`min-w-[65vw] sm:min-w-[400px] md:min-w-[500px] snap-center shrink-0 px-2 sm:px-4 cursor-pointer flex flex-col items-center transition-all duration-700 ${isActive ? "z-30" : "z-10"}`}
-            >
-              <div className="relative w-full h-64 sm:h-80 md:h-[24rem] flex items-center justify-center">
-                <img
-                  src={bike?.image}
-                  alt={bike?.model}
-                  className={`max-w-full max-h-full object-contain transition-all duration-700 ease-out ${isActive ? "scale-[1.25] sm:scale-[1.35] opacity-100 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)]" : "scale-75 opacity-30 hover:opacity-60 drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]"}`}
-                  crossOrigin="anonymous"
-                />
+            <div key={`carousel-${index}-${bike?.id}`} onClick={() => { if (isActive) { onSelectBike(bike?.id); } else { scrollToItem(index); } }} className={`min-w-[65vw] sm:min-w-[400px] md:min-w-[500px] snap-center shrink-0 px-2 sm:px-4 cursor-pointer flex flex-col items-center transition-all duration-700 ${isActive ? 'z-30' : 'z-10'}`}>
+              <div className={`relative w-full flex items-center justify-center ${sponsor ? 'h-48 sm:h-64 md:h-[20rem]' : 'h-64 sm:h-80 md:h-[24rem]'}`}>
+                <img src={bike?.image} alt={bike?.model} className={`max-w-full max-h-full object-contain transition-all duration-700 ease-out ${isActive ? 'scale-[1.25] sm:scale-[1.35] opacity-100 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)]' : 'scale-75 opacity-30 hover:opacity-60 drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]'}`} crossOrigin="anonymous" />
               </div>
-
-              <div className="text-center mt-10 sm:mt-14">
-                <span className="text-[10px] sm:text-xs font-extrabold text-blue-600 uppercase tracking-widest block mb-1">
-                  {bike?.brand}
-                </span>
-                <h3
-                  className={`text-2xl sm:text-4xl font-black uppercase tracking-widest transition-colors duration-500 ${isActive ? "text-slate-900" : "text-slate-300"}`}
-                >
-                  {bike?.model}
-                </h3>
-                <button
-                  className={`font-bold font-mono text-sm tracking-tighter mt-4 px-6 py-2 rounded-full border transition-all shadow-sm ${isActive ? "bg-blue-50/50 border-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white" : "bg-transparent border-slate-200 text-slate-300"}`}
-                >
-                  VIEW BUILDS
-                </button>
+              
+              <div className={`text-center ${sponsor ? 'mt-4 sm:mt-6' : 'mt-10 sm:mt-14'}`}>
+                <span className="text-[10px] sm:text-xs font-extrabold text-blue-600 uppercase tracking-widest block mb-1">{bike?.brand}</span>
+                <h3 className={`text-2xl sm:text-4xl font-black uppercase tracking-widest transition-colors duration-500 ${isActive ? 'text-slate-900' : 'text-slate-300'}`}>{bike?.model}</h3>
+                <button className={`font-bold font-mono text-sm tracking-tighter mt-4 px-6 py-2 rounded-full border transition-all shadow-sm ${isActive ? 'bg-blue-50/50 border-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white' : 'bg-transparent border-slate-200 text-slate-300'}`}>VIEW BUILDS</button>
               </div>
             </div>
           );
@@ -381,6 +351,47 @@ export default function App() {
   const { userId, getToken } = useAuth();
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showGarage, setShowGarage] = useState(false);
+
+  // --- NEW: LOCAL SPONSOR & LOCATION STATE ---
+  const [userZip, setUserZip] = useState<string | null>(localStorage.getItem('trailmath_zip') || null);
+  const [userCityState, setUserCityState] = useState<string | null>(localStorage.getItem('trailmath_citystate') || null);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [manualZipInput, setManualZipInput] = useState('');
+
+  useEffect(() => {
+    // Only run the ping if we don't already have a zip code saved
+    if (!userZip) {
+      fetch('https://ipapi.co/json/')
+        .then(res => res.json())
+        .then(data => {
+          if (data.postal && data.city && data.region_code) {
+            const cityState = `${data.city}, ${data.region_code}`;
+            setUserZip(data.postal);
+            setUserCityState(cityState);
+            localStorage.setItem('trailmath_zip', data.postal);
+            localStorage.setItem('trailmath_citystate', cityState);
+          }
+        })
+        .catch(err => console.error("Silent location ping failed:", err));
+    }
+  }, [userZip]);
+
+  const handleManualZipSave = () => {
+    if (manualZipInput.length >= 5) {
+      // For now, we just save the zip. Later, we can do a reverse-lookup for the city!
+      setUserZip(manualZipInput);
+      setUserCityState(`ZIP: ${manualZipInput}`);
+      localStorage.setItem('trailmath_zip', manualZipInput);
+      localStorage.setItem('trailmath_citystate', `ZIP: ${manualZipInput}`);
+      setIsLocationModalOpen(false);
+    }
+  };
+
+  // Check if the current zip code belongs to a paying sponsor
+  const activeSponsor = useMemo(() => {
+    if (!userZip) return null;
+    return SPONSORED_SHOPS.find(shop => shop.zipCodes.includes(userZip)) || null;
+  }, [userZip]);
 
   useEffect(() => {
     const fetchGarage = async () => {
@@ -624,8 +635,17 @@ export default function App() {
             />
           </div>
 
-          {view === "showroom" && (
+          {view === 'showroom' && (
             <div className="flex items-center gap-2">
+              {/* --- NEW: LOCATION BUTTON --- */}
+              <button 
+                onClick={() => setIsLocationModalOpen(true)}
+                className="flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all bg-slate-100 text-slate-900 hover:bg-slate-200"
+              >
+                <MapPin size={16} className="text-blue-600" />
+                <span className="hidden sm:inline">{userCityState || 'Set Location'}</span>
+                <span className="sm:hidden">{userZip || 'Local'}</span>
+              </button>
               <button
                 onClick={() => {
                   setShowGarage(!showGarage);
@@ -702,6 +722,7 @@ export default function App() {
       </header>
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-8 sm:pb-12 relative z-10">
+
         {/* --- SHOWROOM VIEW --- */}
         {view === "showroom" && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -870,6 +891,7 @@ export default function App() {
                     setSelectedBikeId(id);
                     setView("builds");
                   }}
+                  sponsor={activeSponsor} // Pass the active sponsor
                 />
               </>
             )}
@@ -953,12 +975,14 @@ export default function App() {
               </div>
             ) : (
               <>
-                <div className="flex items-center justify-between mt-8 sm:mt-12 mb-4 px-2">
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                    The Complete Catalog
-                  </h3>
-                  <div className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider hidden sm:block">
-                    {totalBuilds} Total Builds
+                <div className="flex flex-col mt-8 sm:mt-12 mb-4 px-2">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">The Complete Catalog</h3>
+                    <div className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider hidden sm:block">{totalBuilds} Total Builds</div>
+                  </div>
+                  <div className="flex items-center gap-1.5 mt-2">
+                    <span className="text-[10px] sm:text-xs text-slate-500 font-medium">Spot an error in our spec data?</span>
+                    <a href="mailto:TrailMath@gmail.com?subject=Data%20Correction" className="text-[10px] sm:text-xs font-bold text-blue-600 hover:underline">Let us know.</a>
                   </div>
                 </div>
 
@@ -1472,6 +1496,41 @@ export default function App() {
           </div>
         )}
       </main>
+
+      {/* --- BULLETPROOF LOCATION MODAL --- */}
+      {isLocationModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center p-4" style={{ zIndex: 9999 }}>
+          <div className="absolute inset-0 bg-[#0B1121]/80 backdrop-blur-md" onClick={() => setIsLocationModalOpen(false)} />
+          <div className="bg-white rounded-2xl shadow-[0_0_100px_rgba(0,0,0,0.5)] w-[90vw] max-w-sm flex flex-col relative z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-200 border border-slate-200 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
+                <MapPin className="text-blue-600" /> Set Local Trailhead
+              </h2>
+              <button onClick={() => setIsLocationModalOpen(false)} className="p-2 hover:bg-slate-100 rounded-full transition-colors"><X size={20} className="text-slate-500" /></button>
+            </div>
+            <p className="text-sm font-medium text-slate-500 mb-6">
+              Enter your zip code to see inventory and exclusive deals from authorized bike shops in your immediate area.
+            </p>
+            <div className="flex gap-3">
+              <input 
+                type="text" 
+                placeholder="Enter Zip Code" 
+                value={manualZipInput}
+                onChange={(e) => setManualZipInput(e.target.value.replace(/\D/g, ''))}
+                maxLength={5}
+                className="flex-1 bg-slate-50 border border-slate-300 text-slate-900 font-bold text-lg rounded-xl px-4 py-3 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
+              />
+              <button 
+                onClick={handleManualZipSave}
+                disabled={manualZipInput.length < 5}
+                className={`bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition-colors ${manualZipInput.length < 5 ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* --- BULLETPROOF FILTER MODAL --- */}
       {isFilterModalOpen && (
@@ -2035,16 +2094,13 @@ export default function App() {
       {/* --- FOOTER --- */}
       <footer className="w-full bg-slate-900 border-t border-slate-800 py-8 sm:py-6 mt-auto relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col items-center md:items-start gap-2">
-            <img
-              src="/trail_math_logo_footer.png"
-              alt="Trail Math"
-              className="h-8 sm:h-7 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-            />
-            <p className="text-xs text-slate-500 font-medium">
-              &copy; {new Date().getFullYear()} Trail Math.
-            </p>
-          </div>
+      <div className="flex flex-col items-center md:items-start gap-2">
+      <img src="/trail_math_logo_footer.png" alt="Trail Math" className="h-8 sm:h-7 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
+      <a href="mailto:TrailMath@gmail.com?subject=Local%20Shop%20Sponsorship" className="text-xs font-bold text-blue-500 hover:text-blue-400 transition-colors uppercase tracking-widest mt-2">
+        Become a Sponsored Shop
+      </a>
+      <p className="text-xs text-slate-500 font-medium">&copy; {new Date().getFullYear()} Trail Math.</p>
+      </div>
 
           <div className="max-w-md text-center md:text-right space-y-3">
             {/* Required Affiliate Disclosure */}
@@ -2099,9 +2155,7 @@ function CalculatorView({
   const [standardApr, setStandardApr] = useState(7.99);
   const [taxRate, setTaxRate] = useState<number>(0);
 
-  // NEW: State for Dealer Search
-  const [showDealerSearch, setShowDealerSearch] = useState(false);
-  const [zipCode, setZipCode] = useState("");
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -2330,68 +2384,24 @@ function CalculatorView({
               </div>
 
               {/* --- DUAL-ACTION CHECKOUT ZONE --- */}
-              <div className="mt-8 pt-8 border-t border-slate-800">
-                {!showDealerSearch ? (
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <button
-                        onClick={() => setShowDealerSearch(true)}
-                        className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-base py-4 px-6 rounded-xl transition-colors shadow-lg shadow-blue-900/20"
-                      >
-                        <MapPin size={18} /> Find Local Dealer
-                      </button>
-                      <a
-                        href={`https://www.google.com/search?q=buy+${bike.brand}+${bike.model}+${build.name}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 bg-slate-800 border border-slate-700 hover:bg-slate-700 text-white font-extrabold text-base py-4 px-6 rounded-xl transition-colors shadow-sm"
-                      >
-                        <ShoppingCart size={18} /> Shop Online
-                      </a>
-                    </div>
-                    <p className="text-center text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
-                      Support local shops or buy direct
-                    </p>
-                  </div>
-                ) : (
-                  <div className="bg-slate-800/80 backdrop-blur-md rounded-2xl p-6 border border-slate-700 animate-in fade-in slide-in-from-top-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-white font-bold flex items-center gap-2">
-                        <MapPin size={18} className="text-blue-500" /> Locate a{" "}
-                        {bike.brand} Dealer
-                      </h4>
-                      <button
-                        onClick={() => setShowDealerSearch(false)}
-                        className="text-slate-400 hover:text-white transition-colors"
-                      >
-                        <X size={18} />
-                      </button>
-                    </div>
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <input
-                        type="text"
-                        placeholder="Enter Zip Code"
-                        value={zipCode}
-                        onChange={(e) =>
-                          setZipCode(e.target.value.replace(/\D/g, ""))
-                        }
-                        className="flex-1 bg-[#0B1121] border border-slate-600 text-white font-bold text-lg rounded-xl px-4 py-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none placeholder:text-slate-600 placeholder:font-normal"
-                        maxLength={5}
-                      />
-                      <button
-                        onClick={() =>
-                          alert(
-                            `Dealer search for ${zipCode} coming soon! This will trigger the Google Places API.`,
-                          )
-                        }
-                        className={`bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition-colors w-full sm:w-auto ${zipCode.length < 5 ? "opacity-50 cursor-not-allowed" : ""}`}
-                        disabled={zipCode.length < 5}
-                      >
-                        Search
-                      </button>
-                    </div>{" "}
-                  </div>
-                )}
+              <div className="mt-8 pt-8 border-t border-slate-700/50">
+                <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 text-center sm:text-left">Ready to pull the trigger?</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <button
+                    onClick={() => window.open(`https://www.google.com/maps/search/${bike.brand}+mountain+bike+dealer+near+me`, '_blank')}
+                    className="flex items-center justify-center gap-2 bg-slate-800/80 hover:bg-slate-700 text-white py-3.5 px-4 rounded-xl font-bold transition-all border border-slate-700 hover:border-blue-500 group"
+                  >
+                    <MapPin className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
+                    Find Local Dealer
+                  </button>
+                  <button
+                    onClick={() => window.open(`https://www.jensonusa.com/search?q=${bike.brand}`, '_blank')}
+                    className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white py-3.5 px-4 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/20 group"
+                  >
+                    <ShoppingCart className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+                    Shop Online
+                  </button>
+                </div>
               </div>
 
               {/* --- RESTORED TRAIL MATH BOX --- */}
