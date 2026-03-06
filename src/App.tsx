@@ -28,6 +28,7 @@ interface BuildType {
   drivetrain: string;
   brakes: string;
   wheelset: string;
+  hubs?: string;
   tires?: string;
   wheels?: string;
 }
@@ -605,8 +606,10 @@ const toggleFavorite = async (buildId: string) => {
 
             {showGarage ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-4 sm:mt-8">
-                {ALL_BUILDS.filter(b => favorites.includes(b.id)).map(build => (
-                  <div key={`garage-${build.id}`} onClick={() => { showroomScrollRef.current = window.scrollY; const parentBike = BIKES.find(bike => bike.builds.some(bb => bb.id === build.id)); if (parentBike) { setSelectedBikeId(parentBike.id); setSelectedBuildId(build.id); setView('calculator'); 
+{ALL_BUILDS.filter(b => favorites.includes(b.id)).map(build => {
+                  const parentBike = BIKES.find(bike => bike.builds.some(bb => bb.id === build.id));
+                  return (
+                  <div key={`garage-${build.id}`} onClick={() => { showroomScrollRef.current = window.scrollY; if (parentBike) { setSelectedBikeId(parentBike.id); setSelectedBuildId(build.id); setView('calculator'); 
                     } 
                   }} 
                   className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 hover:border-blue-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col relative">
@@ -614,7 +617,10 @@ const toggleFavorite = async (buildId: string) => {
                     <div className="w-full h-40 sm:h-48 bg-[#F3F3F3] rounded-2xl mb-5 relative overflow-hidden flex items-center justify-center">
                       <img src={build.image} alt={build.fullName} className="absolute inset-0 w-full h-full object-contain scale-110 group-hover:scale-125 transition-transform duration-500" crossOrigin="anonymous" />
                     </div>
-                    <div className="flex items-center justify-between mb-2"><span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest">{build.brand}</span></div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest">{build.brand}</span>
+                      <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-md shrink-0">{parentBike?.suspension || 'TBD'}</span>
+                    </div>
                     <h4 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-tight mb-1">{build.model}</h4>
                     <div className="text-xs sm:text-sm font-bold text-slate-500 mb-4">{build.name}</div>
                     <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
@@ -622,8 +628,7 @@ const toggleFavorite = async (buildId: string) => {
                       <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform text-blue-600" />
                     </div>
                   </div>
-                ))}
-                {favorites.length === 0 && (
+                )})}                {favorites.length === 0 && (
                   <div className="col-span-full py-20 sm:py-32 text-center">
                     <Star size={48} className="mx-auto text-slate-300 mb-4" />
                     <h3 className="text-2xl font-bold text-slate-500">Your Garage is Empty</h3>
@@ -638,26 +643,26 @@ const toggleFavorite = async (buildId: string) => {
                   <div className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider hidden sm:block">{totalBuilds} Total Builds</div>
                 </div>
 
-                <div className="sticky top-16 sm:top-20 z-30 bg-slate-50/90 backdrop-blur-md py-4 border-b border-slate-200 -mx-4 px-4 sm:mx-0 sm:px-0 transition-all shadow-[0_1px_3px_rgba(0,0,0,0.05)] shadow-slate-200/50">
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-                      <button onClick={() => setIsFilterModalOpen(true)} className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white border border-slate-300 py-2.5 px-6 rounded-xl text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors">
-                        <Filter size={16} className="text-blue-600" /> Filter Rigs {totalActiveFilters > 0 && <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">{totalActiveFilters}</span>}                      
+                <div className="sticky top-16 sm:top-20 z-30 bg-slate-50/90 backdrop-blur-md py-2 sm:py-4 border-b border-slate-200 -mx-4 px-4 sm:mx-0 sm:px-0 transition-all shadow-[0_1px_3px_rgba(0,0,0,0.05)] shadow-slate-200/50">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+                      <button onClick={() => setIsFilterModalOpen(true)} className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 sm:gap-2 bg-white border border-slate-300 py-1.5 sm:py-2.5 px-3 sm:px-6 rounded-xl text-xs sm:text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors">
+                        <Filter size={14} className="text-blue-600 sm:w-4 sm:h-4" /> Filter <span className="hidden sm:inline">Rigs</span> {totalActiveFilters > 0 && <span className="bg-blue-100 text-blue-700 px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs">{totalActiveFilters}</span>}                      
                       </button>
-                      <span className="flex-1 sm:flex-none text-center text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-2.5 rounded-xl">{filteredBikes.length} {filteredBikes.length === 1 ? 'Match' : 'Matches'}</span>
+                      <span className="flex-1 sm:flex-none text-center text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-1.5 sm:px-3 sm:py-2.5 rounded-xl">{filteredBikes.length} {filteredBikes.length === 1 ? 'Match' : 'Matches'}</span>
                       {(totalActiveFilters > 0 || priceFilter !== absoluteMaxPrice) && (
-                        <button onClick={clearFilters} className="text-sm text-slate-500 hover:text-slate-800 font-medium whitespace-nowrap px-2">Clear All</button>
+                        <button onClick={clearFilters} className="text-xs sm:text-sm text-slate-500 hover:text-slate-800 font-medium whitespace-nowrap px-1 sm:px-2">Clear All</button>
                       )}                   
                     </div>
-                    <div className="w-full sm:w-auto flex flex-col min-w-[100%] sm:min-w-[240px] bg-white sm:bg-transparent p-4 sm:p-0 rounded-xl border sm:border-0 border-slate-200 shadow-sm sm:shadow-none">
-                      <div className="flex justify-between items-center w-full text-xs font-bold text-slate-700 uppercase tracking-wider mb-3 sm:mb-2">
-                        <span>Budget</span><span className="text-blue-600 bg-blue-50 sm:bg-transparent px-2 py-0.5 sm:p-0 rounded">Under ${priceFilter.toLocaleString()}</span>
+                    <div className="w-full sm:w-auto flex flex-row sm:flex-col items-center sm:items-stretch gap-3 sm:gap-0 min-w-[100%] sm:min-w-[240px] bg-white sm:bg-transparent p-2 sm:p-0 rounded-xl border sm:border-0 border-slate-200 shadow-sm sm:shadow-none">
+                      <div className="flex justify-between items-center w-auto sm:w-full text-[10px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider mb-0 sm:mb-2 shrink-0">
+                        <span className="hidden sm:inline">Budget</span><span className="text-blue-600 bg-blue-50 sm:bg-transparent px-2 py-0.5 sm:p-0 rounded">Under ${priceFilter.toLocaleString()}</span>
                       </div>
                       <input type="range" min="0" max={absoluteMaxPrice} step="500" value={priceFilter} onChange={(e) => setPriceFilter(parseInt(e.target.value))} className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all" />
                     </div>
                   </div>
                 </div>
-
+                
 {/* The Min-Height Wrapper preventing the scroll-snap */}
                 <div className="min-h-[100vh] pt-6 pb-12 [overflow-anchor:none]">
                   {groupedBikes.length === 0 && (
@@ -883,6 +888,7 @@ const toggleFavorite = async (buildId: string) => {
                     { label: 'Shock', a: rigA.shock || 'TBD', b: rigB.shock || 'TBD' },
                     { label: 'Brakes', a: rigA.brakes || 'TBD', b: rigB.brakes || 'TBD' },
                     { label: 'Wheelset', a: rigA.wheelset || 'TBD', b: rigB.wheelset || 'TBD' },
+                    { label: 'Hubs', a: rigA.hubs || 'TBD', b: rigB.hubs || 'TBD' },
                     { label: 'Wheel Setup', a: formatWheelSetup(rigA.wheels), b: formatWheelSetup(rigB.wheels) },
                     { label: 'Tires', a: rigA.tires || 'TBD', b: rigB.tires || 'TBD' },
                   ].map((spec, idx) => (
@@ -1210,7 +1216,7 @@ function CalculatorView({ bike, build, isFavorite, onToggleFavorite }: { bike: t
                 <h2 className="text-xl font-black text-slate-900 text-center leading-snug">{bike.model} - {build.name}</h2>
                 <p className="text-2xl font-extrabold text-blue-600 mt-2">{formatMoney(build.price)}</p>
               </div>
-              {/* --- RESTORED COMPONENT BREAKDOWN GRID --- */}
+{/* --- RESTORED COMPONENT BREAKDOWN GRID --- */}
               <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-6">
                 <div className="flex flex-col gap-1"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Material</span><span className="text-sm font-semibold text-slate-800">{build.material || 'TBD'}</span></div>
                 <div className="flex flex-col gap-1"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Suspension</span><span className="text-sm font-semibold text-slate-800">{bike.suspension}</span></div>
@@ -1220,8 +1226,9 @@ function CalculatorView({ bike, build, isFavorite, onToggleFavorite }: { bike: t
                 <div className="flex flex-col gap-1"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Battery</span><span className="text-sm font-semibold text-slate-800">{build.battery || 'TBD'}</span></div>
                 <div className="flex flex-col gap-1"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Drivetrain</span><span className="text-sm font-semibold text-slate-800">{build.drivetrain || 'TBD'}</span></div>
                 <div className="flex flex-col gap-1"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Brakes</span><span className="text-sm font-semibold text-slate-800">{build.brakes || 'TBD'}</span></div>
-              </div>
-            </div>
+                <div className="flex flex-col gap-1"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Wheelset</span><span className="text-sm font-semibold text-slate-800">{build.wheelset || 'TBD'}</span></div>
+                <div className="flex flex-col gap-1"><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Hubs</span><span className="text-sm font-semibold text-slate-800">{build.hubs || 'TBD'}</span></div>
+              </div>            </div>
           </div>
         </div>
         <div className="w-full">
