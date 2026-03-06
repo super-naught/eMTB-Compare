@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star, Plus, Minus, MapPin, Phone, ShoppingCart,} from "lucide-react";
+import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star, Plus, Minus, MapPin, Phone, ShoppingCart, Home } from "lucide-react";
 import { eMTBData } from "./bikeData";
 import { SPONSORED_SHOPS } from './sponsorData';
 import { SignedIn, SignedOut, SignInButton, UserButton, useAuth,} from "@clerk/clerk-react";
@@ -617,7 +617,7 @@ export default function App() {
     selectedDrivetrainFilters.length;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col relative">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col relative pb-20 sm:pb-0">
       <header className="bg-slate-50/90 backdrop-blur-md sticky top-0 z-40 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           <div
@@ -651,7 +651,7 @@ export default function App() {
                   setShowGarage(!showGarage);
                   if (!showGarage) clearFilters();
                 }}
-                className={`flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all ${showGarage ? "bg-slate-200 text-slate-900" : "bg-slate-100 text-slate-900 hover:bg-slate-200"}`}
+                className={`hidden sm:flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all ${showGarage ? "bg-slate-200 text-slate-900" : "bg-slate-100 text-slate-900 hover:bg-slate-200"}`}
               >
                 <Star
                   size={16}
@@ -661,12 +661,7 @@ export default function App() {
                       : "text-slate-600"
                   }
                 />
-                <span className="hidden sm:inline">
-                  {showGarage ? "Exit Garage" : "My Garage"}
-                </span>
-                <span className="sm:hidden">
-                  {showGarage ? "Exit" : "Garage"}
-                </span>
+                <span>{showGarage ? "Exit Garage" : "My Garage"}</span>
               </button>
               <button
                 onClick={() => {
@@ -674,11 +669,10 @@ export default function App() {
                   setShowGarage(false);
                   setView("compare");
                 }}
-                className="flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all bg-slate-100 text-slate-900 hover:bg-slate-200"
+                className="hidden sm:flex items-center gap-1.5 sm:gap-2 text-xs md:text-sm font-bold px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-all bg-slate-100 text-slate-900 hover:bg-slate-200"
               >
                 <Scale size={16} className="text-slate-600" />
-                <span className="hidden sm:inline">Compare Rigs</span>
-                <span className="sm:hidden">Compare</span>
+                <span>Compare Rigs</span>
               </button>
               <div className="flex items-center gap-2 sm:gap-4 ml-2 pl-2 sm:ml-4 sm:pl-4 border-l border-slate-200">
                 <SignedOut>
@@ -2134,6 +2128,53 @@ export default function App() {
           </div>
         </div>
       </footer>
+      
+{/* --- MOBILE BOTTOM NAVIGATION --- */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 z-50 pb-[env(safe-area-inset-bottom)] shadow-[0_-20px_40px_rgba(0,0,0,0.04)]">
+        <div className="flex justify-around items-center px-4 py-2">
+          
+          {/* Left: Garage */}
+          <button
+            onClick={() => {
+              setView("showroom");
+              setShowGarage(true);
+              if (!showGarage) clearFilters();
+            }}
+            className={`flex flex-col items-center justify-center gap-1 w-20 py-2 rounded-2xl transition-all duration-300 ${showGarage ? 'bg-blue-50 text-blue-600' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
+          >
+            <Star size={20} className={showGarage ? 'fill-blue-600' : ''} />
+            <span className="text-[10px] font-bold tracking-wide">Garage</span>
+          </button>
+
+          {/* Center: Home */}
+          <button
+            onClick={() => {
+              showroomScrollRef.current = 0;
+              setView("showroom");
+              setShowGarage(false);
+            }}
+            className={`flex flex-col items-center justify-center gap-1 w-20 py-2 rounded-2xl transition-all duration-300 ${view === 'showroom' && !showGarage ? 'bg-blue-50 text-blue-600' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
+          >
+            <Home size={20} className={view === 'showroom' && !showGarage ? 'fill-blue-100' : ''} />
+            <span className="text-[10px] font-bold tracking-wide">Home</span>
+          </button>
+
+          {/* Right: Compare */}
+          <button
+            onClick={() => {
+              showroomScrollRef.current = window.scrollY;
+              setShowGarage(false);
+              setView("compare");
+            }}
+            className={`flex flex-col items-center justify-center gap-1 w-20 py-2 rounded-2xl transition-all duration-300 ${view === 'compare' ? 'bg-blue-50 text-blue-600' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
+          >
+            <Scale size={20} />
+            <span className="text-[10px] font-bold tracking-wide">Compare</span>
+          </button>
+          
+        </div>
+      </div>
+
     </div>
   );
 }
