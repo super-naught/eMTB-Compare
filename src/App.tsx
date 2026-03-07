@@ -715,7 +715,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-8 sm:pb-12 relative z-10">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-8 pb-8 sm:pb-12 relative z-10">
 
         {/* --- SHOWROOM VIEW --- */}
         {view === "showroom" && (
