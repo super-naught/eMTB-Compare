@@ -766,8 +766,8 @@ export default function App() {
                     <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[20rem] h-[20rem] rounded-full bg-cyan-500/10 blur-[80px] pointer-events-none"></div>
 
                     {/* Added air back to the tires here: p-10 sm:p-14 lg:p-20 */}
-                    <div className="relative flex flex-col md:flex-row items-center gap-6 lg:gap-8 p-10 sm:p-14 lg:p-20">
-                      <div className="md:w-1/2 space-y-5 lg:space-y-6 z-10">
+                    <div className="relative flex flex-col md:flex-row items-center gap-6 lg:gap-8 p-6 sm:p-14 lg:p-20">
+                      <div className="md:w-1/2 space-y-3 sm:space-y-5 lg:space-y-6 z-10">
                         <div className="space-y-2 sm:space-y-3">
                           <div className="flex items-center gap-3">
                             <div className="h-[2px] w-8 sm:w-10 bg-blue-500"></div>
