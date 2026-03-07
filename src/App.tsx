@@ -2193,7 +2193,7 @@ function CalculatorView({
   const [downPayment, setDownPayment] = useState<number | string>("");
   const [promo, setPromo] = useState("none");
   const [standardTerm, setStandardTerm] = useState(36);
-  const [standardApr, setStandardApr] = useState(7.99);
+  const [standardApr, setStandardApr] = useState(15);
   const [taxRate, setTaxRate] = useState<number>(0);
 
 
