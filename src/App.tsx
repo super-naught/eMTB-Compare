@@ -1552,19 +1552,19 @@ export default function App() {
             <p className="text-sm font-medium text-slate-500 mb-6">
               Enter your zip code to see inventory and exclusive deals from authorized bike shops in your immediate area.
             </p>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input 
                 type="text" 
                 placeholder="Enter Zip Code" 
                 value={manualZipInput}
                 onChange={(e) => setManualZipInput(e.target.value.replace(/\D/g, ''))}
                 maxLength={5}
-                className="flex-1 bg-slate-50 border border-slate-300 text-slate-900 font-bold text-lg rounded-xl px-4 py-3 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
+                className="w-full sm:flex-1 min-w-0 bg-slate-50 border border-slate-300 text-slate-900 font-bold text-lg rounded-xl px-4 py-3 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
               />
               <button 
                 onClick={handleManualZipSave}
                 disabled={manualZipInput.length < 5}
-                className={`bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition-colors ${manualZipInput.length < 5 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition-colors shrink-0 ${manualZipInput.length < 5 ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 Save
               </button>
@@ -2107,7 +2107,7 @@ export default function App() {
 
       {/* --- PWA UPDATE PROMPT --- */}
       {needRefresh && (
-        <div className="fixed bottom-6 right-6 z-[100] bg-slate-800 border border-blue-500 rounded-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col gap-3 max-w-sm animate-in slide-in-from-bottom-8 duration-500">
+        <div className="fixed bottom-24 left-4 right-4 sm:bottom-6 sm:left-auto sm:right-6 z-[100] bg-slate-800 border border-blue-500 rounded-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col gap-3 sm:max-w-sm animate-in slide-in-from-bottom-8 duration-500">
           <p className="text-white text-sm font-semibold">
             A new version of{" "}
             <span className="text-blue-400 font-black tracking-widest">
