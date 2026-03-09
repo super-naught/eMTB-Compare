@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star, Plus, Minus, MapPin, Phone, ShoppingCart, Home } from "lucide-react";
+import { ChevronLeft, ChevronDown, ArrowRight, Scale, Calculator, Filter, X, Star, Plus, Minus, MapPin, Phone, ShoppingCart, Home, Download } from "lucide-react";
 import { eMTBData } from "./bikeData";
 import { SPONSORED_SHOPS } from './sponsorData';
 import { SignedIn, SignedOut, SignInButton, UserButton, useAuth,} from "@clerk/clerk-react";
@@ -464,6 +464,42 @@ export default function App() {
     );
     return Array.from(allMotors).sort((a, b) => a.localeCompare(b));
   }, []);
+  // --- PWA INSTALL STATE ---
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isIOS, setIsIOS] = useState(false);
+  const [showIosInstructions, setShowIosInstructions] = useState(false);
+
+  useEffect(() => {
+    // Detect iOS
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const isIosDevice = /iphone|ipad|ipod/.test(userAgent);
+    setIsIOS(isIosDevice);
+
+    // Capture the install prompt on Android/Desktop
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      // Trigger the native Android/Chrome prompt
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        setDeferredPrompt(null);
+      }
+    } else if (isIOS) {
+      // Show custom instructions for Apple users
+      setShowIosInstructions(true);
+    } else {
+      alert("Trail Math is already installed, or your browser doesn't support installation.");
+    }
+  };
 
   const torques = useMemo(
     () => [
@@ -633,6 +669,17 @@ export default function App() {
               alt="Trail Math"
               className="h-8 sm:h-10 w-auto max-w-[40vw] sm:max-w-none object-contain"
             />
+            {/* INSTALL BUTTON */}
+          {(deferredPrompt || isIOS) && (
+            <button 
+              onClick={handleInstallClick}
+              className="ml-2 sm:ml-4 flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold transition-colors"
+            >
+              <Download size={14} />
+              <span className="hidden sm:inline">Install App</span>
+              <span className="sm:hidden">Install</span>
+            </button>
+          )}
           </div>
 
           {view === 'showroom' && (
@@ -804,7 +851,7 @@ export default function App() {
                           </button>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 pt-5 lg:pt-6 border-t border-slate-800/80">
+                        <div className="grid grid-cols-3 gap-4 pt-5 lg:pt-6 border-t border-slate-800/80 text-center sm:text-left">
                           <div>
                             <div className="text-2xl lg:text-4xl font-black text-white">
                               {totalBrands}
@@ -2128,7 +2175,32 @@ export default function App() {
           </div>
         </div>
       </footer>
-      
+      {/* iOS PWA INSTALL INSTRUCTIONS */}
+      {showIosInstructions && (
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 w-full max-w-sm shadow-2xl relative mb-20 sm:mb-0">
+            <button onClick={() => setShowIosInstructions(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+              <X size={20} />
+            </button>
+            <div className="text-center">
+              <div className="bg-blue-50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Download size={24} className="text-blue-600" />
+              </div>
+              <h3 className="text-xl font-black text-slate-900 mb-2">Install on iPhone</h3>
+              <p className="text-sm text-slate-500 font-medium mb-6">
+                Apple requires a manual install. Tap the <span className="font-bold text-blue-600 text-lg mx-1">↑</span> Share button at the bottom of Safari, then scroll down and tap <span className="font-bold text-slate-900">"Add to Home Screen"</span>.
+              </p>
+              <button 
+                onClick={() => setShowIosInstructions(false)}
+                className="w-full bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition-colors"
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 {/* --- MOBILE BOTTOM NAVIGATION --- */}
       <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 z-50 pb-[env(safe-area-inset-bottom)] shadow-[0_-20px_40px_rgba(0,0,0,0.04)]">
         <div className="flex justify-around items-center px-4 py-2">
