@@ -146,7 +146,7 @@ const TrendingCarousel = ({ BIKES, onSelectBike, sponsor }: { BIKES: any[], onSe
       return [...sponsorBikes, ...sponsorBikes, ...sponsorBikes, ...sponsorBikes];
     } else {
       // The default "Trending" list for unsponsored ZIPs
-      const top5 = ['Vala', 'Levo', 'Wild', 'Meta Power SX Avinox', 'Sight VLT CX']
+      const top5 = ['Vala', 'Levo', 'Wild', 'Timp Peak', 'Sight VLT CX']
         .map(m => BIKES.find(b => b.model.includes(m)))
         .filter(Boolean);
       return [...top5, ...top5, ...top5, ...top5, ...top5];
