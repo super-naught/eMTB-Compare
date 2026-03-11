@@ -11,6 +11,8 @@ export const eMTBData = [
           {
             name: "Pro",
             price: 8599,
+            msrp: 10199,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -27,6 +29,8 @@ export const eMTBData = [
           {
             name: "Standard",
             price: 6499,
+            msrp: 7499,
+            limitedStock: false,
             material: "Alloy",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -55,11 +59,13 @@ export const eMTBData = [
         builds: [
           {
             name: "Team",
-            price: 10995,
+            price: 11999,
+            msrp: 12999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
-            battery: "600Wh",
+            battery: "600Wh or 800Wh",
             fork: "RockShox ZEB Ultimate 170mm",
             shock: "RockShox Vivid Ultimate - 170mm",
             drivetrain: "SRAM XX Eagle Transmission",
@@ -71,11 +77,13 @@ export const eMTBData = [
           },
           {
             name: "Pro",
-            price: 9495,
+            price: 9699,
+            msrp: 10499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
-            battery: "600Wh",
+            battery: "600Wh or 800Wh",
             fork: "RockShox ZEB Ultimate 170mm",
             shock: "RockShox Vivid Ultimate - 170mm",
             drivetrain: "SRAM X0 Eagle Transmission",
@@ -87,11 +95,13 @@ export const eMTBData = [
           },
           {
             name: "Elite",
-            price: 8495,
+            price: 9199,
+            msrp: 9499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
-            battery: "600Wh",
+            battery: "600Wh or 800Wh",
             fork: "RockShox ZEB Ultimate 170mm",
             shock: "RockShox Vivid Ultimate - 170mm",
             drivetrain: "SRAM GX Eagle Transmission",
@@ -103,11 +113,13 @@ export const eMTBData = [
           },
           {
             name: "Comp",
-            price: 6995,
+            price: 7649,
+            msrp: 7799,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
-            battery: "600Wh",
+            battery: "600Wh or 800Wh",
             fork: "RockShox ZEB Rush RC 170mm",
             shock: "RockShox Super Deluxe - 170mm",
             drivetrain: "Shimano Deore M6100",
@@ -126,7 +138,9 @@ export const eMTBData = [
         builds: [
           {
             name: "Elite",
-            price: 6995,
+            price: 7799,
+            msrp: 8599,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -142,7 +156,9 @@ export const eMTBData = [
           },
           {
             name: "Comp",
-            price: 5995,
+            price: 6699,
+            msrp: 7399,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -165,7 +181,9 @@ export const eMTBData = [
         builds: [
           {
             name: "Pro",
-            price: 5895,
+            price: 5999,
+            msrp: 6499,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP8",
             torque: "85Nm",
@@ -181,7 +199,9 @@ export const eMTBData = [
           },
           {
             name: "Elite",
-            price: 4995,
+            price: 4799,
+            msrp: 5799,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP8",
             torque: "85Nm",
@@ -197,7 +217,9 @@ export const eMTBData = [
           },
           {
             name: "Comp",
-            price: 3995,
+            price: 4299,
+            msrp: 4999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano E7000",
             torque: "60Nm",
@@ -227,6 +249,8 @@ export const eMTBData = [
           {
             name: "Standard",
             price: 2899,
+            msrp: 2899,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Aventon A100 Mid-Drive",
             torque: "100Nm",
@@ -250,6 +274,8 @@ export const eMTBData = [
           {
             name: "Standard",
             price: 2899,
+            msrp: 2699,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Aventon A100 Mid-Drive",
             torque: "100Nm",
@@ -279,6 +305,8 @@ export const eMTBData = [
           {
             name: "AM 4 750",
             price: 6499,
+            msrp: 6499,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -295,6 +323,8 @@ export const eMTBData = [
           {
             name: "AM 3 750",
             price: 5599,
+            msrp: 5599,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -311,6 +341,8 @@ export const eMTBData = [
           {
             name: "AM 2 750",
             price: 5299,
+            msrp: 5299,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -327,6 +359,8 @@ export const eMTBData = [
           {
             name: "AM 1 750",
             price: 4999,
+            msrp: 4999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -355,7 +389,9 @@ export const eMTBData = [
         builds: [
           {
             name: "Carbon 2",
-            price: 7500,
+            price: 4999,
+            msrp: 7500,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -371,7 +407,9 @@ export const eMTBData = [
           },
           {
             name: "3",
-            price: 6000,
+            price: 4800,
+            msrp: 6000,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -395,6 +433,8 @@ export const eMTBData = [
           {
             name: "LAB71",
             price: 14000,
+            msrp: 14000,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -410,7 +450,9 @@ export const eMTBData = [
           },
           {
             name: "SL 1",
-            price: 8750,
+            price: 6999,
+            msrp: 8750,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -426,7 +468,9 @@ export const eMTBData = [
           },
           {
             name: "SL 2",
-            price: 7000,
+            price: 5495,
+            msrp: 7000,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -449,7 +493,9 @@ export const eMTBData = [
         builds: [
           {
             name: "Carbon 2",
-            price: 7000,
+            price: 5500,
+            msrp: 7000,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -479,6 +525,8 @@ export const eMTBData = [
           {
             name: "CF 9",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -494,7 +542,9 @@ export const eMTBData = [
           },
           {
             name: "CF 8",
-            price: 5749,
+            price: 4299,
+            msrp: 5749,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -517,11 +567,13 @@ export const eMTBData = [
         builds: [
           {
             name: "CF 8",
-            price: 5999,
+            price: 4499,
+            msrp: 5999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
-            battery: "900Wh",
+            battery: "800Wh",
             fork: "Fox 38 Rhythm 160mm",
             shock: "Fox Float X Performance - 155mm",
             drivetrain: "Shimano XT M8100",
@@ -533,7 +585,9 @@ export const eMTBData = [
           },
           {
             name: "CF 7",
-            price: 5249,
+            price: 3899,
+            msrp: 5249,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -556,7 +610,9 @@ export const eMTBData = [
         builds: [
           {
             name: "CF CLLCTV",
-            price: 7499,
+            price: 5599,
+            msrp: 7499,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -572,7 +628,9 @@ export const eMTBData = [
           },
           {
             name: "CF 8",
-            price: 5999,
+            price: 4499,
+            msrp: 5999,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -595,7 +653,9 @@ export const eMTBData = [
         builds: [
           {
             name: "CFR",
-            price: 7499,
+            price: 6699,
+            msrp: 7499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -610,7 +670,9 @@ export const eMTBData = [
           },
           {
             name: "CFR Underdog",
-            price: 6499,
+            price: 6199,
+            msrp: 6499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -638,6 +700,8 @@ export const eMTBData = [
           {
             name: "Signature AXS",
             price: 8500,
+            msrp: 8500,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line SX (Gen 4)",
             torque: "55Nm",
@@ -654,6 +718,8 @@ export const eMTBData = [
           {
             name: "Essential",
             price: 6500,
+            msrp: 6500,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line SX (Gen 4)",
             torque: "55Nm",
@@ -677,6 +743,8 @@ export const eMTBData = [
           {
             name: "Podium",
             price: 12000,
+            msrp: 12000,
+            limitedStock: false,
             material: "Alloy",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -693,6 +761,8 @@ export const eMTBData = [
           {
             name: "Signature",
             price: 10800,
+            msrp: 10800,
+            limitedStock: false,
             material: "Alloy",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -709,6 +779,8 @@ export const eMTBData = [
           {
             name: "RockShox",
             price: 9200,
+            msrp: 9200,
+            limitedStock: false,
             material: "Alloy",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -725,6 +797,8 @@ export const eMTBData = [
           {
             name: "Essential",
             price: 8800,
+            msrp: 8800,
+            limitedStock: false,
             material: "Alloy",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -741,6 +815,8 @@ export const eMTBData = [
           {
             name: "Ride",
             price: 7800,
+            msrp: 7800,
+            limitedStock: false,
             material: "Alloy",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -764,6 +840,8 @@ export const eMTBData = [
           {
             name: "Signature",
             price: 10800,
+            msrp: 10800,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -780,6 +858,8 @@ export const eMTBData = [
           {
             name: "RockShox",
             price: 9500,
+            msrp: 9500,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -809,6 +889,8 @@ export const eMTBData = [
           {
             name: "Spectre Edition",
             price: 10500,
+            msrp: 10500,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -838,6 +920,8 @@ export const eMTBData = [
           {
             name: "GX AXS 12S",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Bosch Performance Line SX (Gen 4)",
             battery: "Bosch CompactTube 400Wh",
@@ -853,6 +937,8 @@ export const eMTBData = [
           {
             name: "GX 12S",
             price: 6999,
+            msrp: 6999,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Bosch Performance Line SX (Gen 4)",
             battery: "Bosch CompactTube 400Wh",
@@ -868,6 +954,8 @@ export const eMTBData = [
           {
             name: "NX 12S",
             price: 5499,
+            msrp: 5499,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Bosch Performance Line SX (Gen 4)",
             battery: "Bosch CompactTube 400Wh",
@@ -890,6 +978,8 @@ export const eMTBData = [
           {
             name: "GX 12S LTD",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Bosch Performance Line CX (Gen 4)",
             battery: "Bosch PowerTube 625Wh",
@@ -905,6 +995,8 @@ export const eMTBData = [
           {
             name: "GX 12S",
             price: 7299,
+            msrp: 7299,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Bosch Performance Line CX (Gen 4)",
             battery: "Bosch PowerTube 625Wh",
@@ -920,6 +1012,8 @@ export const eMTBData = [
           {
             name: "NX 12S",
             price: 6499,
+            msrp: 6499,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Bosch Performance Line CX (Gen 4)",
             battery: "Bosch PowerTube 625Wh",
@@ -935,6 +1029,8 @@ export const eMTBData = [
           {
             name: "Deore 12S",
             price: 6199,
+            msrp: 6199,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Bosch Performance Line CX (Gen 4)",
             battery: "Bosch PowerTube 625Wh",
@@ -963,6 +1059,8 @@ export const eMTBData = [
           {
             name: "X0 Eagle Transmission",
             price: 9999,
+            msrp: 9999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -979,6 +1077,8 @@ export const eMTBData = [
           {
             name: "Eagle 90 Transmission",
             price: 8699,
+            msrp: 8699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -1008,6 +1108,8 @@ export const eMTBData = [
           {
             name: "CorE 1",
             price: 11899,
+            msrp: 11899,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -1024,6 +1126,8 @@ export const eMTBData = [
           {
             name: "CorE 2",
             price: 10199,
+            msrp: 10199,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -1040,6 +1144,8 @@ export const eMTBData = [
           {
             name: "CorE 3",
             price: 9299,
+            msrp: 9299,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -1063,6 +1169,8 @@ export const eMTBData = [
           {
             name: "LitE 1",
             price: 11499,
+            msrp: 11499,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -1079,6 +1187,8 @@ export const eMTBData = [
           {
             name: "LitE 2",
             price: 9699,
+            msrp: 9699,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -1095,6 +1205,8 @@ export const eMTBData = [
           {
             name: "LitE 3",
             price: 8599,
+            msrp: 8599,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -1124,6 +1236,8 @@ export const eMTBData = [
           {
             name: "0",
             price: 13500,
+            msrp: 13500,
+            limitedStock: false,
             material: "Carbon",
             motor: "SyncDrive Pro 3",
             torque: "90Nm",
@@ -1140,6 +1254,8 @@ export const eMTBData = [
           {
             name: "1",
             price: 8800,
+            msrp: 8800,
+            limitedStock: false,
             material: "Carbon",
             motor: "SyncDrive Pro 3",
             torque: "90Nm",
@@ -1156,6 +1272,8 @@ export const eMTBData = [
           {
             name: "2",
             price: 7500,
+            msrp: 7500,
+            limitedStock: false,
             material: "Carbon",
             motor: "SyncDrive Pro 3",
             torque: "90Nm",
@@ -1179,6 +1297,8 @@ export const eMTBData = [
           {
             name: "0",
             price: 13500,
+            msrp: 13500,
+            limitedStock: false,
             material: "Carbon",
             motor: "SyncDrive Pro 2",
             torque: "85Nm",
@@ -1195,6 +1315,8 @@ export const eMTBData = [
           {
             name: "3",
             price: 6000,
+            msrp: 6000,
+            limitedStock: false,
             material: "Carbon",
             motor: "SyncDrive Pro 2",
             torque: "85Nm",
@@ -1218,6 +1340,8 @@ export const eMTBData = [
           {
             name: "0",
             price: 6000,
+            msrp: 6000,
+            limitedStock: false,
             material: "Alloy",
             motor: "SyncDrive Sport",
             torque: "75Nm",
@@ -1234,6 +1358,8 @@ export const eMTBData = [
           {
             name: "1",
             price: 5500,
+            msrp: 5500,
+            limitedStock: false,
             material: "Alloy",
             motor: "SyncDrive Sport",
             torque: "75Nm",
@@ -1263,6 +1389,8 @@ export const eMTBData = [
           {
             name: "GX Transmission",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -1279,6 +1407,8 @@ export const eMTBData = [
           {
             name: "NGX",
             price: 6449,
+            msrp: 6449,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -1308,6 +1438,8 @@ export const eMTBData = [
           {
             name: "E2",
             price: 5279,
+            msrp: 5279,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -1324,6 +1456,8 @@ export const eMTBData = [
           {
             name: "E1",
             price: 4559,
+            msrp: 4559,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -1347,6 +1481,8 @@ export const eMTBData = [
           {
             name: "EL XR",
             price: 7699,
+            msrp: 7699,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "55Nm",
@@ -1363,6 +1499,8 @@ export const eMTBData = [
           {
             name: "E2",
             price: 6499,
+            msrp: 6499,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "55Nm",
@@ -1379,6 +1517,8 @@ export const eMTBData = [
           {
             name: "E1",
             price: 5199,
+            msrp: 5199,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "55Nm",
@@ -1408,6 +1548,8 @@ export const eMTBData = [
           {
             name: "RR SL",
             price: 13999,
+            msrp: 13999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -1424,6 +1566,8 @@ export const eMTBData = [
           {
             name: "XR",
             price: 9999,
+            msrp: 9999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1440,6 +1584,8 @@ export const eMTBData = [
           {
             name: "RR",
             price: 9499,
+            msrp: 9499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1456,6 +1602,8 @@ export const eMTBData = [
           {
             name: "R",
             price: 7199,
+            msrp: 7199,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1479,6 +1627,8 @@ export const eMTBData = [
           {
             name: "XR",
             price: 9999,
+            msrp: 9999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1495,6 +1645,8 @@ export const eMTBData = [
           {
             name: "RR",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1511,6 +1663,8 @@ export const eMTBData = [
           {
             name: "R",
             price: 7799,
+            msrp: 7799,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1534,6 +1688,8 @@ export const eMTBData = [
           {
             name: "XR",
             price: 14999,
+            msrp: 14999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line SX (Gen 4)",
             torque: "60Nm",
@@ -1550,6 +1706,8 @@ export const eMTBData = [
           {
             name: "RR",
             price: 11299,
+            msrp: 11299,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line SX (Gen 4)",
             torque: "60Nm",
@@ -1566,6 +1724,8 @@ export const eMTBData = [
           {
             name: "R",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line SX (Gen 4)",
             torque: "60Nm",
@@ -1589,6 +1749,8 @@ export const eMTBData = [
           {
             name: "RR SL",
             price: 14399,
+            msrp: 14399,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -1605,6 +1767,8 @@ export const eMTBData = [
           {
             name: "RR",
             price: 9999,
+            msrp: 9999,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -1621,6 +1785,8 @@ export const eMTBData = [
           {
             name: "R",
             price: 10499,
+            msrp: 10499,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -1650,6 +1816,8 @@ export const eMTBData = [
           {
             name: "C1",
             price: 9999,
+            msrp: 9999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1666,6 +1834,8 @@ export const eMTBData = [
           {
             name: "C2",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1682,6 +1852,8 @@ export const eMTBData = [
           {
             name: "C3",
             price: 6699,
+            msrp: 6699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1705,6 +1877,8 @@ export const eMTBData = [
           {
             name: "C1",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1721,6 +1895,8 @@ export const eMTBData = [
           {
             name: "C2",
             price: 7299,
+            msrp: 7299,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1744,6 +1920,8 @@ export const eMTBData = [
           {
             name: "C1 140",
             price: 9999,
+            msrp: 9999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line SX (Gen 4)",
             torque: "55Nm",
@@ -1760,6 +1938,8 @@ export const eMTBData = [
           {
             name: "C2 140",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line SX (Gen 4)",
             torque: "55Nm",
@@ -1776,6 +1956,8 @@ export const eMTBData = [
           {
             name: "C3 140",
             price: 5999,
+            msrp: 5999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line SX (Gen 4)",
             torque: "55Nm",
@@ -1805,6 +1987,8 @@ export const eMTBData = [
           {
             name: "RS",
             price: 10899,
+            msrp: 10899,
+            limitedStock: false,
             material: "Carbon",
             motor: "SRAM Powertrain",
             torque: "90Nm",
@@ -1821,6 +2005,8 @@ export const eMTBData = [
           {
             name: "Pro",
             price: 9899,
+            msrp: 9899,
+            limitedStock: false,
             material: "Carbon",
             motor: "SRAM Powertrain",
             torque: "90Nm",
@@ -1844,6 +2030,8 @@ export const eMTBData = [
           {
             name: "RS",
             price: 9599,
+            msrp: 9599,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP8",
             torque: "85Nm",
@@ -1860,6 +2048,8 @@ export const eMTBData = [
           {
             name: "Factory",
             price: 8599,
+            msrp: 8599,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP8",
             torque: "85Nm",
@@ -1876,6 +2066,8 @@ export const eMTBData = [
           {
             name: "Elite",
             price: 7799,
+            msrp: 7799,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP8",
             torque: "85Nm",
@@ -1892,6 +2084,8 @@ export const eMTBData = [
           {
             name: "Comp",
             price: 6099,
+            msrp: 6099,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP8",
             torque: "85Nm",
@@ -1909,7 +2103,7 @@ export const eMTBData = [
       },
     ],
   },
-  {
+ {
     brand: "Orbea",
     logo: "/logos/orbea_logo.svg",
     models: [
@@ -1920,7 +2114,9 @@ export const eMTBData = [
         builds: [
           {
             name: "M-LTD",
-            price: 11999,
+            price: 8999,
+            msrp: 12999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX Race (Gen 4)",
             torque: "85Nm",
@@ -1936,7 +2132,9 @@ export const eMTBData = [
           },
           {
             name: "M-Team",
-            price: 9959,
+            price: 7599,
+            msrp: 9499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1952,7 +2150,9 @@ export const eMTBData = [
           },
           {
             name: "M10",
-            price: 8459,
+            price: 6374,
+            msrp: 8499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1968,7 +2168,9 @@ export const eMTBData = [
           },
           {
             name: "M20",
-            price: 7499,
+            price: 5624,
+            msrp: 7499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -1984,7 +2186,9 @@ export const eMTBData = [
           },
           {
             name: "H10",
-            price: 6999,
+            price: 5474,
+            msrp: 6999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -2000,7 +2204,9 @@ export const eMTBData = [
           },
           {
             name: "H20",
-            price: 6499,
+            price: 4873,
+            msrp: 6499,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -2009,6 +2215,42 @@ export const eMTBData = [
             shock: "Fox Float X Performance - 170mm",
             drivetrain: "Shimano Deore M6100",
             brakes: "SRAM DB8",
+            wheelset: "Race Face AR 30c",
+            hubs: "Shimano MT410",
+            tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4",
+            wheels: '29"',
+          },
+          {
+            name: "ST H20",
+            price: 4499,
+            msrp: 5999,
+            limitedStock: true,
+            material: "Alloy",
+            motor: "Bosch Performance Line CX (Gen 5)",
+            torque: "85Nm",
+            battery: "600Wh",
+            fork: "RockShox ZEB Base 150mm",
+            shock: "Fox Float X Performance - 150mm",
+            drivetrain: "Shimano Deore M6100",
+            brakes: "SRAM DB8",
+            wheelset: "Race Face AR 30c",
+            hubs: "Shimano MT410",
+            tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4",
+            wheels: '29"',
+          },
+          {
+            name: "ST H30",
+            price: 3999,
+            msrp: 5399,
+            limitedStock: true,
+            material: "Alloy",
+            motor: "Bosch Performance Line CX (Gen 5)",
+            torque: "85Nm",
+            battery: "600Wh",
+            fork: "RockShox 35 Silver TK 150mm",
+            shock: "Fox Float Performance - 150mm",
+            drivetrain: "Shimano Deore M6100",
+            brakes: "Shimano MT410",
             wheelset: "Race Face AR 30c",
             hubs: "Shimano MT410",
             tires: "Maxxis Assegai 2.5 / Minion DHR II 2.4",
@@ -2024,6 +2266,8 @@ export const eMTBData = [
           {
             name: "M-Team",
             price: 11999,
+            msrp: 11999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801 RS Gen 2",
             torque: "85Nm",
@@ -2040,6 +2284,8 @@ export const eMTBData = [
           {
             name: "M10",
             price: 8699,
+            msrp: 8699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801 RS Gen 2",
             torque: "85Nm",
@@ -2056,6 +2302,8 @@ export const eMTBData = [
           {
             name: "M20",
             price: 7199,
+            msrp: 7199,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801 RS Gen 2",
             torque: "85Nm",
@@ -2072,6 +2320,8 @@ export const eMTBData = [
           {
             name: "H10",
             price: 6599,
+            msrp: 6599,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP801 RS Gen 2",
             torque: "85Nm",
@@ -2088,6 +2338,8 @@ export const eMTBData = [
           {
             name: "H20",
             price: 5999,
+            msrp: 5999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP801 RS Gen 2",
             torque: "85Nm",
@@ -2117,6 +2369,8 @@ export const eMTBData = [
           {
             name: "Team XX Transmission",
             price: 14999,
+            msrp: 14999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2133,6 +2387,8 @@ export const eMTBData = [
           {
             name: "Team XTR",
             price: 12999,
+            msrp: 12999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2149,6 +2405,8 @@ export const eMTBData = [
           {
             name: "Pro X0 Transmission",
             price: 11999,
+            msrp: 11999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2165,6 +2423,8 @@ export const eMTBData = [
           {
             name: "Pro XT/XTR",
             price: 10999,
+            msrp: 10999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2181,6 +2441,8 @@ export const eMTBData = [
           {
             name: "Ride SLX/XT",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2204,6 +2466,8 @@ export const eMTBData = [
           {
             name: "Team XX Transmission",
             price: 14499,
+            msrp: 14499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -2220,6 +2484,8 @@ export const eMTBData = [
           {
             name: "Pro X0 Transmission",
             price: 11999,
+            msrp: 11999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -2236,6 +2502,8 @@ export const eMTBData = [
           {
             name: "Pro GX Transmission",
             price: 10999,
+            msrp: 10999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -2252,6 +2520,8 @@ export const eMTBData = [
           {
             name: "Ride GX Eagle",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -2275,6 +2545,8 @@ export const eMTBData = [
           {
             name: "Team XX Transmission",
             price: 12999,
+            msrp: 12999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -2291,6 +2563,8 @@ export const eMTBData = [
           {
             name: "Pro X0 Transmission",
             price: 10999,
+            msrp: 10999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -2307,6 +2581,8 @@ export const eMTBData = [
           {
             name: "Ride SLX/XT",
             price: 8299,
+            msrp: 8299,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -2336,6 +2612,8 @@ export const eMTBData = [
           {
             name: "N8XE",
             price: 5199,
+            msrp: 5199,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2352,6 +2630,8 @@ export const eMTBData = [
           {
             name: "N8E",
             price: 4999,
+            msrp: 4999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2375,6 +2655,8 @@ export const eMTBData = [
           {
             name: "TE 0 AXS",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -2391,6 +2673,8 @@ export const eMTBData = [
           {
             name: "TE 8 AXS",
             price: 7499,
+            msrp: 7499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -2414,6 +2698,8 @@ export const eMTBData = [
           {
             name: "TE Bosch",
             price: 4799,
+            msrp: 4799,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -2430,6 +2716,8 @@ export const eMTBData = [
           {
             name: "T7E",
             price: 3999,
+            msrp: 3999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2459,6 +2747,8 @@ export const eMTBData = [
           {
             name: "Factory",
             price: 10193,
+            msrp: 10193,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -2475,6 +2765,8 @@ export const eMTBData = [
           {
             name: "Signature 2",
             price: 8299,
+            msrp: 8299,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -2491,6 +2783,8 @@ export const eMTBData = [
           {
             name: "Signature 1",
             price: 6999,
+            msrp: 6999,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -2507,6 +2801,8 @@ export const eMTBData = [
           {
             name: "Base",
             price: 5999,
+            msrp: 5999,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -2530,6 +2826,8 @@ export const eMTBData = [
           {
             name: "Factory",
             price: 9584,
+            msrp: 9584,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2546,6 +2844,8 @@ export const eMTBData = [
           {
             name: "Ultimate Enduro",
             price: 7529,
+            msrp: 7529,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2562,6 +2862,8 @@ export const eMTBData = [
           {
             name: "Base",
             price: 6299,
+            msrp: 6299,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2585,6 +2887,8 @@ export const eMTBData = [
           {
             name: "Goldrush",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2601,6 +2905,8 @@ export const eMTBData = [
           {
             name: "Shred²",
             price: 7579,
+            msrp: 7579,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2617,6 +2923,8 @@ export const eMTBData = [
           {
             name: "Price2Ride",
             price: 5889,
+            msrp: 5889,
+            limitedStock: false,
             material: "Alloy",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -2640,6 +2948,8 @@ export const eMTBData = [
           {
             name: "Factory",
             price: 11299,
+            msrp: 11299,
+            limitedStock: false,
             material: "Carbon",
             motor: "SRAM Powertrain",
             torque: "90Nm",
@@ -2655,6 +2965,8 @@ export const eMTBData = [
           {
             name: "Ultimate",
             price: 9999,
+            msrp: 9999,
+            limitedStock: false,
             material: "Carbon",
             motor: "SRAM Powertrain",
             torque: "90Nm",
@@ -2670,6 +2982,8 @@ export const eMTBData = [
           {
             name: "Base",
             price: 7794,
+            msrp: 7794,
+            limitedStock: false,
             material: "Carbon",
             motor: "SRAM Powertrain",
             torque: "90Nm",
@@ -2698,6 +3012,8 @@ export const eMTBData = [
           {
             name: "Summit",
             price: 10999,
+            msrp: 10999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line SX",
             torque: "55Nm",
@@ -2714,6 +3030,8 @@ export const eMTBData = [
           {
             name: "Treeline",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line SX",
             torque: "55Nm",
@@ -2743,6 +3061,8 @@ export const eMTBData = [
           {
             name: "Standard",
             price: 2095,
+            msrp: 2095,
+            limitedStock: false,
             material: "Aluminum",
             motor: "Brose TF Sprinter Mid-Drive",
             torque: "90Nm",
@@ -2772,6 +3092,8 @@ export const eMTBData = [
           {
             name: "Carbon 90 Rally Edition",
             price: 11399,
+            msrp: 11399,
+            limitedStock: false,
             material: "Carbon",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -2788,6 +3110,8 @@ export const eMTBData = [
           {
             name: "Carbon 70",
             price: 9999,
+            msrp: 9999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -2804,6 +3128,8 @@ export const eMTBData = [
           {
             name: "Alloy 70",
             price: 8499,
+            msrp: 8499,
+            limitedStock: false,
             material: "Alloy",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -2820,6 +3146,8 @@ export const eMTBData = [
           {
             name: "Alloy 50",
             price: 7599,
+            msrp: 7599,
+            limitedStock: false,
             material: "Alloy",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -2836,6 +3164,8 @@ export const eMTBData = [
           {
             name: "Alloy 30 Coil",
             price: 6199,
+            msrp: 6199,
+            limitedStock: false,
             material: "Alloy",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -2859,6 +3189,8 @@ export const eMTBData = [
           {
             name: "Carbon 90",
             price: 11999,
+            msrp: 11999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Dyname S4 Lite",
             torque: "65Nm",
@@ -2875,6 +3207,8 @@ export const eMTBData = [
           {
             name: "Carbon 70",
             price: 9699,
+            msrp: 9699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Dyname S4 Lite",
             torque: "65Nm",
@@ -2891,6 +3225,8 @@ export const eMTBData = [
           {
             name: "Carbon 50",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Dyname S4 Lite",
             torque: "65Nm",
@@ -2907,6 +3243,8 @@ export const eMTBData = [
           {
             name: "Alloy 70 BC Edition",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Dyname S4 Lite",
             torque: "65Nm",
@@ -2923,6 +3261,8 @@ export const eMTBData = [
           {
             name: "Alloy 50",
             price: 6999,
+            msrp: 6999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Dyname S4 Lite",
             torque: "65Nm",
@@ -2939,6 +3279,8 @@ export const eMTBData = [
           {
             name: "Alloy 30",
             price: 5499,
+            msrp: 5499,
+            limitedStock: false,
             material: "Alloy",
             motor: "Dyname S4 Lite",
             torque: "65Nm",
@@ -2962,6 +3304,8 @@ export const eMTBData = [
           {
             name: "Carbon 90",
             price: 11499,
+            msrp: 11499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -2978,6 +3322,8 @@ export const eMTBData = [
           {
             name: "Carbon 70",
             price: 9499,
+            msrp: 9499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -2994,6 +3340,8 @@ export const eMTBData = [
           {
             name: "Alloy 70",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -3010,6 +3358,8 @@ export const eMTBData = [
           {
             name: "Alloy 50",
             price: 6999,
+            msrp: 6999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -3026,6 +3376,8 @@ export const eMTBData = [
           {
             name: "Alloy 30",
             price: 5599,
+            msrp: 5599,
+            limitedStock: false,
             material: "Alloy",
             motor: "Dyname 4.0",
             torque: "108Nm",
@@ -3055,6 +3407,8 @@ export const eMTBData = [
           {
             name: "Carbon GX Eagle",
             price: 8699,
+            msrp: 8699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -3071,6 +3425,8 @@ export const eMTBData = [
           {
             name: "Carbon Deore 12",
             price: 6999,
+            msrp: 6999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -3087,6 +3443,8 @@ export const eMTBData = [
           {
             name: "Alloy Deore 12",
             price: 5999,
+            msrp: 5999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -3103,6 +3461,8 @@ export const eMTBData = [
           {
             name: "Alloy Cues 10",
             price: 4999,
+            msrp: 4999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -3126,6 +3486,8 @@ export const eMTBData = [
           {
             name: "Deore 12",
             price: 4999,
+            msrp: 4999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3142,6 +3504,8 @@ export const eMTBData = [
           {
             name: "CUES 10",
             price: 4199,
+            msrp: 4199,
+            limitedStock: false,
             material: "Alloy",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3171,6 +3535,8 @@ export const eMTBData = [
           {
             name: "CC XX AXS RSV",
             price: 14099,
+            msrp: 14099,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3187,6 +3553,8 @@ export const eMTBData = [
           {
             name: "CC X0 AXS RSV",
             price: 11949,
+            msrp: 11949,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3203,6 +3571,8 @@ export const eMTBData = [
           {
             name: "C XT Di2",
             price: 11099,
+            msrp: 11099,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3219,6 +3589,8 @@ export const eMTBData = [
           {
             name: "C GX AXS",
             price: 9849,
+            msrp: 9849,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3235,6 +3607,8 @@ export const eMTBData = [
           {
             name: "C S",
             price: 8499,
+            msrp: 8499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3251,6 +3625,8 @@ export const eMTBData = [
           {
             name: "C R",
             price: 7299,
+            msrp: 7299,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3267,6 +3643,8 @@ export const eMTBData = [
           {
             name: "AL 70",
             price: 7049,
+            msrp: 7049,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3283,6 +3661,8 @@ export const eMTBData = [
           {
             name: "AL Deore",
             price: 5999,
+            msrp: 5999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3306,6 +3686,8 @@ export const eMTBData = [
           {
             name: "Podium",
             price: 13449,
+            msrp: 13449,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3322,6 +3704,8 @@ export const eMTBData = [
           {
             name: "CC X0 AXS RSV",
             price: 12549,
+            msrp: 12549,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3338,6 +3722,8 @@ export const eMTBData = [
           {
             name: "C GX AXS",
             price: 10149,
+            msrp: 10149,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3354,6 +3740,8 @@ export const eMTBData = [
           {
             name: "C 90",
             price: 9099,
+            msrp: 9099,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3370,6 +3758,8 @@ export const eMTBData = [
           {
             name: "C 70",
             price: 7849,
+            msrp: 7849,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -3393,6 +3783,8 @@ export const eMTBData = [
           {
             name: "R",
             price: 6999,
+            msrp: 6999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -3416,6 +3808,8 @@ export const eMTBData = [
           {
             name: "CC X0 AXS RSV",
             price: 11699,
+            msrp: 11699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3432,6 +3826,8 @@ export const eMTBData = [
           {
             name: "C GX AXS",
             price: 9699,
+            msrp: 9699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3448,6 +3844,8 @@ export const eMTBData = [
           {
             name: "C Stout",
             price: 9299,
+            msrp: 9299,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3464,6 +3862,8 @@ export const eMTBData = [
           {
             name: "C 90",
             price: 8699,
+            msrp: 8699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3480,6 +3880,8 @@ export const eMTBData = [
           {
             name: "C 70",
             price: 7299,
+            msrp: 7299,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3509,6 +3911,8 @@ export const eMTBData = [
           {
             name: "900 TR",
             price: 9999,
+            msrp: 9999,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -3532,6 +3936,8 @@ export const eMTBData = [
           {
             name: "900 Tuned",
             price: 10999,
+            msrp: 10999,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -3561,6 +3967,8 @@ export const eMTBData = [
           {
             name: "S-Works",
             price: 18999,
+            msrp: 18999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 3.1",
             torque: "105Nm",
@@ -3577,6 +3985,8 @@ export const eMTBData = [
           {
             name: "Pro",
             price: 15799,
+            msrp: 15799,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 3.1",
             torque: "105Nm",
@@ -3593,6 +4003,8 @@ export const eMTBData = [
           {
             name: "Expert",
             price: 12999,
+            msrp: 12999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 3.1",
             torque: "105Nm",
@@ -3609,6 +4021,8 @@ export const eMTBData = [
           {
             name: "Comp",
             price: 10999,
+            msrp: 10999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 3.1",
             torque: "105Nm",
@@ -3625,6 +4039,8 @@ export const eMTBData = [
           {
             name: "Comp Alloy",
             price: 9499,
+            msrp: 9499,
+            limitedStock: false,
             material: "Alloy",
             motor: "Specialized 3.1",
             torque: "105Nm",
@@ -3641,6 +4057,8 @@ export const eMTBData = [
           {
             name: "Alloy",
             price: 7499,
+            msrp: 7499,
+            limitedStock: false,
             material: "Alloy",
             motor: "Specialized 3.1",
             torque: "105Nm",
@@ -3664,6 +4082,8 @@ export const eMTBData = [
           {
             name: "S-Works",
             price: 14000,
+            msrp: 14000,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 1.2 SL",
             torque: "50Nm",
@@ -3680,6 +4100,8 @@ export const eMTBData = [
           {
             name: "Pro",
             price: 11500,
+            msrp: 11500,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 1.2 SL",
             torque: "50Nm",
@@ -3696,6 +4118,8 @@ export const eMTBData = [
           {
             name: "Expert",
             price: 9000,
+            msrp: 9000,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 1.2 SL",
             torque: "50Nm",
@@ -3712,6 +4136,8 @@ export const eMTBData = [
           {
             name: "Comp Carbon",
             price: 7000,
+            msrp: 7000,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 1.2 SL",
             torque: "50Nm",
@@ -3728,6 +4154,8 @@ export const eMTBData = [
           {
             name: "Comp Alloy",
             price: 5500,
+            msrp: 5500,
+            limitedStock: false,
             material: "Alloy",
             motor: "Specialized 1.2 SL",
             torque: "50Nm",
@@ -3751,6 +4179,8 @@ export const eMTBData = [
           {
             name: "S-Works",
             price: 15000,
+            msrp: 15000,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 1.2 SL",
             torque: "50Nm",
@@ -3767,6 +4197,8 @@ export const eMTBData = [
           {
             name: "Expert",
             price: 9000,
+            msrp: 9000,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 1.2 SL",
             torque: "50Nm",
@@ -3783,6 +4215,8 @@ export const eMTBData = [
           {
             name: "Comp",
             price: 7000,
+            msrp: 7000,
+            limitedStock: false,
             material: "Carbon",
             motor: "Specialized 1.2 SL",
             torque: "50Nm",
@@ -3806,6 +4240,8 @@ export const eMTBData = [
           {
             name: "Expert",
             price: 9000,
+            msrp: 9000,
+            limitedStock: false,
             material: "Alloy",
             motor: "Specialized 2.2",
             torque: "90Nm",
@@ -3822,6 +4258,8 @@ export const eMTBData = [
           {
             name: "Comp",
             price: 7499,
+            msrp: 7499,
+            limitedStock: false,
             material: "Alloy",
             motor: "Specialized 2.2",
             torque: "90Nm",
@@ -3851,6 +4289,8 @@ export const eMTBData = [
           {
             name: "Carbon XT",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -3867,6 +4307,8 @@ export const eMTBData = [
           {
             name: "Carbon Deore",
             price: 7299,
+            msrp: 7299,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "85Nm",
@@ -3890,6 +4332,8 @@ export const eMTBData = [
           {
             name: "Carbon XT",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "55Nm",
@@ -3906,6 +4350,8 @@ export const eMTBData = [
           {
             name: "Carbon Deore",
             price: 6999,
+            msrp: 6999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 4)",
             torque: "55Nm",
@@ -3929,6 +4375,8 @@ export const eMTBData = [
           {
             name: "Carbon X0 AXS",
             price: 10499,
+            msrp: 10499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3945,6 +4393,8 @@ export const eMTBData = [
           {
             name: "Carbon GX AXS",
             price: 7499,
+            msrp: 7499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3961,6 +4411,8 @@ export const eMTBData = [
           {
             name: "Alloy Deore",
             price: 5999,
+            msrp: 5999,
+            limitedStock: false,
             material: "Alloy",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -3984,6 +4436,8 @@ export const eMTBData = [
           {
             name: "Carbon X0 AXS",
             price: 10499,
+            msrp: 10499,
+            limitedStock: false,
             material: "Carbon",
             motor: "SRAM Powertrain",
             torque: "90Nm",
@@ -4000,6 +4454,8 @@ export const eMTBData = [
           {
             name: "Carbon GX AXS",
             price: 8499,
+            msrp: 8499,
+            limitedStock: false,
             material: "Carbon",
             motor: "SRAM Powertrain",
             torque: "90Nm",
@@ -4029,6 +4485,8 @@ export const eMTBData = [
           {
             name: "9.9",
             price: 12500,
+            msrp: 12500,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4045,6 +4503,8 @@ export const eMTBData = [
           {
             name: "9.8 XT",
             price: 8699,
+            msrp: 8699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4061,6 +4521,8 @@ export const eMTBData = [
           {
             name: "9.7",
             price: 7699,
+            msrp: 7699,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4077,6 +4539,8 @@ export const eMTBData = [
           {
             name: "8",
             price: 6699,
+            msrp: 6699,
+            limitedStock: false,
             material: "Alloy",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4100,6 +4564,8 @@ export const eMTBData = [
           {
             name: "9.9 X0 AXS",
             price: 8500,
+            msrp: 8500,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -4116,6 +4582,8 @@ export const eMTBData = [
           {
             name: "9.8 GX AXS",
             price: 7500,
+            msrp: 7500,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -4132,6 +4600,8 @@ export const eMTBData = [
           {
             name: "8 XT",
             price: 6999,
+            msrp: 6999,
+            limitedStock: false,
             material: "Alloy",
             motor: "TQ-HPR50",
             torque: "50Nm",
@@ -4161,6 +4631,8 @@ export const eMTBData = [
           {
             name: "Factory",
             price: 13895,
+            msrp: 13895,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -4177,6 +4649,8 @@ export const eMTBData = [
           {
             name: "Pro",
             price: 11995,
+            msrp: 11995,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -4193,6 +4667,8 @@ export const eMTBData = [
           {
             name: "Race",
             price: 9995,
+            msrp: 9995,
+            limitedStock: false,
             material: "Carbon",
             motor: "DJI Avinox M1",
             torque: "105Nm",
@@ -4222,6 +4698,8 @@ export const eMTBData = [
           {
             name: "C3 GX Transmission",
             price: 10500,
+            msrp: 10500,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -4238,6 +4716,8 @@ export const eMTBData = [
           {
             name: "C1 Factory",
             price: 10100,
+            msrp: 10100,
+            limitedStock: false,
             material: "Carbon",
             motor: "Shimano EP801",
             torque: "85Nm",
@@ -4261,6 +4741,8 @@ export const eMTBData = [
           {
             name: "T4 XX",
             price: 14900,
+            msrp: 14900,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4277,6 +4759,8 @@ export const eMTBData = [
           {
             name: "T3 X0",
             price: 12900,
+            msrp: 12900,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4293,6 +4777,8 @@ export const eMTBData = [
           {
             name: "C2 Transmission",
             price: 10300,
+            msrp: 10300,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4316,6 +4802,8 @@ export const eMTBData = [
           {
             name: "T4 XX",
             price: 14300,
+            msrp: 14300,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR60",
             torque: "60Nm",
@@ -4332,6 +4820,8 @@ export const eMTBData = [
           {
             name: "T3 X0",
             price: 12650,
+            msrp: 12650,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR60",
             torque: "60Nm",
@@ -4348,6 +4838,8 @@ export const eMTBData = [
           {
             name: "C2 90",
             price: 9850,
+            msrp: 9850,
+            limitedStock: false,
             material: "Carbon",
             motor: "TQ-HPR60",
             torque: "60Nm",
@@ -4377,6 +4869,8 @@ export const eMTBData = [
           {
             name: "Core 4",
             price: 8999,
+            msrp: 8999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4393,6 +4887,8 @@ export const eMTBData = [
           {
             name: "Core 3",
             price: 7999,
+            msrp: 7999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4409,6 +4905,8 @@ export const eMTBData = [
           {
             name: "Core 1",
             price: 5999,
+            msrp: 5999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Bosch Performance Line CX (Gen 5)",
             torque: "85Nm",
@@ -4432,6 +4930,8 @@ export const eMTBData = [
           {
             name: "Core 4",
             price: 8499,
+            msrp: 8499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -4448,6 +4948,8 @@ export const eMTBData = [
           {
             name: "Core 3",
             price: 7499,
+            msrp: 7499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -4464,6 +4966,8 @@ export const eMTBData = [
           {
             name: "Core 2",
             price: 6499,
+            msrp: 6499,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
@@ -4480,6 +4984,8 @@ export const eMTBData = [
           {
             name: "Core 1",
             price: 5999,
+            msrp: 5999,
+            limitedStock: false,
             material: "Carbon",
             motor: "Fazua Ride 60",
             torque: "60Nm",
