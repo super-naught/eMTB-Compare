@@ -28,7 +28,7 @@ async function migrate() {
 
     console.log(`✅ Brand: ${brand.name}`)
 
-    for (const modelData of brandData.models) {
+    for (const modelData of brandData.models || []) {
       // 2. Insert/Get Model
       const { data: model, error: modelError } = await supabase
         .from('models')
@@ -49,7 +49,7 @@ async function migrate() {
       console.log(`  🚲 Model: ${model.name}`)
 
       // 3. Insert Builds
-      const buildsToInsert = modelData.builds.map(build => ({
+      const buildsToInsert = modelData.builds.map((build: any) => ({
         model_id: model.id,
         name: build.name,
         price: build.price,
@@ -67,7 +67,7 @@ async function migrate() {
         tires: build.tires,
         wheels: build.wheels,
         limited_stock: build.limitedStock || false
-      }))
+      })) as any[]
 
       const { error: buildError } = await supabase.from('builds').insert(buildsToInsert)
 

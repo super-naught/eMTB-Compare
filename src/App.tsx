@@ -767,24 +767,6 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* MOBILE ONLY BACK BUTTONS (For nested pages) */}
-            {view === "builds" && (
-              <button
-                onClick={() => setView("showroom")}
-                className="sm:hidden text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors mr-2"
-              >
-                <ChevronLeft size={16} /> Back
-              </button>
-            )}
-            {view === "calculator" && (
-              <button
-                onClick={() => setView("builds")}
-                className="sm:hidden text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors mr-2"
-              >
-                <ChevronLeft size={16} /> Back
-              </button>
-            )}
-
             {/* --- MAIN DESKTOP TABS --- */}
             <div className="hidden sm:flex items-center gap-2 mr-2">
               {/* Desktop Back buttons if they dive into a build/calc page */}
@@ -1303,7 +1285,7 @@ export default function App() {
                     <img
                       src={selectedBike.image}
                       alt={selectedBike.model}
-                      className="absolute inset-0 w-full h-full object-contain scale-110"
+                      className="absolute inset-0 w-full h-full object-contain scale-125 drop-shadow-2xl"
                       crossOrigin="anonymous"
                     />
                   </div>
