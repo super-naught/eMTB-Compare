@@ -3366,7 +3366,7 @@ export const eMTBData = [
       // --- PROPAIN ---
   {
     name: "Sresh SL",
-    image: "Propain Sresh SL.png",
+    image: "/bikes/Propain Sresh SL.png",
     suspension: "160mm Front / 150mm Rear",
     builds: [
       {
@@ -3409,7 +3409,7 @@ export const eMTBData = [
   },
   {
     name: "Sresh CF",
-    image: "Propain Sresh CF.png", 
+    image: "/bikes/Propain Sresh CF.png", 
     suspension: "160mm Front / 150mm Rear",
     builds: [
       {
@@ -3470,7 +3470,7 @@ export const eMTBData = [
   },
   {
     name: "Ekano 2 AL",
-    image: "Propain Ekano 2 AL.png", 
+    image: "/bikes/Propain Ekano 2 AL.png", 
     suspension: "180mm Front / 170mm Rear",
     builds: [
       {
@@ -5428,7 +5428,7 @@ export const eMTBData = [
         },
         {
     name: "Powerfly FS",
-    image: "Trek Powerfly+ FS.png",
+    image: "/bikes/Trek Powerfly+ FS.png",
     suspension: "130/120",
     builds: [
       {
