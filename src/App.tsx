@@ -2415,7 +2415,7 @@ function CalculatorView({
     window.scrollTo(0, 0);
   }, []);
 
-const { monthlyPayment, totalInterest, taxAmount, totalCost } =
+const { monthlyPayment, totalInterest, taxAmount, totalFinanced, totalCost } =
     useMemo(() => {
       const taxAmt = build.price * (taxRate / 100);
       const downValue = Number(downPayment) || 0;
@@ -2594,16 +2594,16 @@ const { monthlyPayment, totalInterest, taxAmount, totalCost } =
             <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] pointer-events-none"></div>
 
             <div className="relative z-10 space-y-8">
-              <div className="text-left">
-                <h3 className="text-xl font-black text-slate-400 uppercase tracking-widest mb-8">
+              <div className="w-full">
+                <h3 className="text-xl font-black text-slate-400 uppercase tracking-widest mb-6 text-center">
                   What's the Damage?
                 </h3>
                 <div className="space-y-6">
-                  <div>
+                  <div className="text-center">
                     <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">
                       Monthly Payment
                     </div>
-                    <div className="text-5xl font-black text-white">
+                    <div className="text-5xl font-black text-white flex items-baseline justify-center gap-1">
                       {formatMoney(monthlyPayment)}
                       <span className="text-xl text-slate-500 font-medium">
                         /mo
@@ -2627,20 +2627,27 @@ const { monthlyPayment, totalInterest, taxAmount, totalCost } =
                       </span>
                     </div>
 
-                    {/* --- RESTORED TOTAL INTEREST --- */}
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Total Interest</span>
-                      <span className="text-rose-400">
-                        +{formatMoney(totalInterest)}
-                      </span>
+                    <div className="flex justify-between font-bold text-white pt-2 border-t border-slate-800/50 mt-2">
+                      <span className="text-slate-300">Amount Financed</span>
+                      <span>{formatMoney(totalFinanced)}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-500 font-bold uppercase tracking-widest">
-                        Financed Total
-                      </span>
-                      <span className="font-bold text-white">
-                        {formatMoney(totalCost)}
-                      </span>
+
+                    <div className="flex justify-between text-rose-400">
+                      <span>Total Interest</span>
+                      <span>+{formatMoney(totalInterest)}</span>
+                    </div>
+
+                    {/* --- GRAND TOTAL --- */}
+                    <div className="mt-6 pt-4 border-t border-slate-800">
+                      <div className="flex justify-between items-center">
+                        <div className="flex flex-col">
+                          <span className="font-bold text-lg text-white">TOTAL OUT-OF-POCKET</span>
+                          <span className="text-xs text-slate-500 font-medium">(Amount Financed + Interest)</span>
+                        </div>
+                        <span className="font-black text-xl text-white">
+                          {formatMoney(totalCost)}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

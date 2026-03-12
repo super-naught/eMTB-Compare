@@ -87,6 +87,16 @@ const BRANDS_TO_SCRAPE = [
     models: ["RS 181"],
     builds: ["Spectre Edition"]
   },
+  // --- DEVINCI ---
+  {
+    name: "Devinci",
+    urls: [
+      "https://www.devinci.com/en/bikes/e-mountain/e-spartan-lite-gx-axs-12s-deep-olive/",
+      "https://www.devinci.com/en/bikes/e-mountain/e-troylite-gx-axs-12s-night-crow/"
+    ],
+    models: ["E-Spartan Lite", "E-Troy Lite"],
+    builds: ["GX AXS 12s", "Eagle 90 12s", "S1000 AXS 12s", "Eagle 70 12s"] 
+  },
   // --- EVIL ---
   {
     name: "Evil",
@@ -95,6 +105,16 @@ const BRANDS_TO_SCRAPE = [
     ],
     models: ["Epocalypse"],
     builds: ["X0 Eagle Transmission", "Eagle 90 Transmission"]
+  },
+  // --- FORBIDDEN ---
+  {
+    name: "Forbidden",
+    urls: [
+      "https://forbiddenbike.com/bikes/druid-lite/",
+      "https://forbiddenbike.com/bikes/druid-core/",
+    ],
+    models: ["Druid CorE", "Druid LitE"],
+    builds: ["CorE 1", "CorE 2", "CorE 3", "LitE 1", "LitE 2", "LitE 3"]
   },
   // --- GIANT ---
   {
@@ -150,7 +170,7 @@ const BRANDS_TO_SCRAPE = [
       "https://www.orbea.com/us-en/ebikes/mountain/keram-mtb/cat"
     ],
     models: ["Wild", "Rise", "Rise SL", "Urrun", "Keram"], 
-    builds: ["M-LTD", "M-Team", "M10", "M20", "H10", "H20", "H30", "10", "20", "30", "40"]
+    builds: ["M-LTD", "M-Team", "M10", "M20", "H10", "H20", "ST H20", "ST H30", "10", "20", "30", "40"]
   },
   // --- PIVOT ---
   {
@@ -176,13 +196,15 @@ const BRANDS_TO_SCRAPE = [
     builds: ["N9E", "N8E", "T9E", "T8E", "T7E", "T6E"]
   },
   // --- PROPAIN ---
-  {
+{
     name: "Propain",
     urls: [
-      "https://www.propain-bikes.com/us/products/bikes/?filter_ebikes=yes&query_type_ebikes=or"
+      "https://www.propain-bikes.com/us/products/config/sresh-sl/",
+      "https://www.propain-bikes.com/us/product/bikes/trail/sresh-cf/",
+      "https://www.propain-bikes.com/us/product/bikes/enduro/ekano-2-al/"
     ],
-    models: ["Sresh CF", "Ekano 2 AL", "Ekano 2 CF"],
-    builds: ["Base", "Performance", "Pro", "Ultimate", "Factory", "Ultimate Enduro"]
+    models: ["Sresh SL", "Sresh CF", "Ekano 2 AL"],
+    builds: ["Base", "Ultimate Enduro", "Factory", "Price2Ride", "Shred²", "Goldrush", "Signature Spec 1", "Signature Spec 2"] 
   },
   // --- REVEL ---
   {
@@ -233,7 +255,7 @@ const BRANDS_TO_SCRAPE = [
       "https://www.scott-sports.com/us/en/products/bike-ebikes-mtb-down-country-lumen-eride"
     ],
     models: ["Voltage eRIDE", "Lumen eRIDE"],
-    builds: ["900 SL", "900 Tuned", "900", "910", "920"]
+    builds: ["900 TR", "905", "900 SL", "900 Tuned", "910", "920"]
   },
   // --- SPECIALIZED ---
   {
@@ -242,7 +264,7 @@ const BRANDS_TO_SCRAPE = [
       "https://www.specialized.com/us/en/shop/bikes/electric-bikes/electric-mountain-bikes"
     ],
     models: ["Turbo Levo 4", "Turbo Levo SL", "Turbo Kenevo SL", "Turbo Kenevo"],
-    builds: ["S-Works", "Pro", "Expert", "Comp", "Comp Alloy", "Alloy"]
+    builds: ["S-Works", "Pro", "Expert", "Comp Carbon", "Comp Alloy", "Alloy"]
   },
   // --- TRANSITION ---
   {
@@ -282,6 +304,22 @@ async function runRobot() {
   console.log("🤖 Universal Robot starting...");
   const browser = await chromium.launch({ headless: true });
   
+  // Give our robot a fake mustache so firewalls think it's a real human
+  const context = await browser.newContext({
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+    extraHTTPHeaders: {
+      'Accept-Language': 'en-US,en;q=0.9',
+      'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+      'sec-ch-ua-mobile': '?0',
+      'sec-ch-ua-platform': '"Windows"',
+      'sec-fetch-dest': 'document',
+      'sec-fetch-mode': 'navigate',
+      'sec-fetch-site': 'none',
+      'sec-fetch-user': '?1',
+      'upgrade-insecure-requests': '1'
+    }
+  });
+  
   // Create Lookup Map from Database ONCE at the very beginning
   console.log("🚀 Fetching universal models from the database...");
   const { data: dbModels, error: modelsError } = await supabase.from('models').select('id, name');
@@ -305,29 +343,71 @@ async function runRobot() {
     for (const url of brand.urls) {
       console.log(`   📍 Visiting: ${url}`);
       
-      const page = await browser.newPage();
+      const page = await context.newPage();
       try {
         await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-        await page.waitForTimeout(5000); 
+        
+        // --- 🇺🇸 THE REGION SELECTOR BYPASS ---
+        // If there's a region pop-up (like on Forbidden or Transition), try to click "US" or "USA ($)"
+        try {
+          // Look for common US region buttons
+          const usButton = await page.$('text="US"');
+          const usaButton = await page.$('text="USA ($)"');
+          
+          if (usButton) {
+            await usButton.click();
+            console.log("   🇺🇸 Clicked 'US' Region Button!");
+            await page.waitForTimeout(3000); // Wait for the USD prices to load
+          } else if (usaButton) {
+            await usaButton.click();
+            console.log("   🇺🇸 Clicked 'USA ($)' Region Button!");
+            await page.waitForTimeout(3000);
+          }
+        } catch (e) {
+          // If there is no pop-up, just silently keep going!
+        }
+
+        // Mimic a human scrolling to trigger lazy-loaded bikes (Crucial for Orbea/Scott)
+        await page.evaluate(async () => {
+          await new Promise((resolve) => {
+            let totalHeight = 0;
+            const distance = 600;
+            const timer = setInterval(() => {
+              const scrollHeight = document.body.scrollHeight;
+              window.scrollBy(0, distance);
+              totalHeight += distance;
+              if (totalHeight >= scrollHeight - 300) {
+                clearInterval(timer);
+                resolve();
+              }
+            }, 250); // Scroll down every 250ms
+          });
+        });
+        
+        await page.waitForTimeout(2000); // Wait 2 seconds for the final prices to pop in
         const pageText = await page.evaluate(() => document.body.innerText);
+        
+        // Let's peek at the text to ensure it's not just a giant Cookie Banner!
+        console.log(`   📄 Page Text Snippet: ${pageText.substring(0, 150).replace(/\n/g, ' ')}...`);
         
         // Dynamically build the AI Prompt for this specific brand
         const prompt = `
           I am giving you text from the ${brand.name} e-MTB page. 
           Find the current sale prices for the following models and their builds.
 
-          Match the models EXACTLY to these names:
-          ${brand.models.map(m => `- "${m}"`).join('\n')}
-
-          Match the builds EXACTLY to these names:
-          ${brand.builds.map(b => `- "${b}"`).join('\n')}
+          MODELS TO FIND: ${brand.models.join(', ')}
+          BUILDS TO FIND: ${brand.builds.join(', ')}
           
           CRITICAL RULES:
           1. Return WHOLE NUMBERS ONLY for the price (e.g., 15399).
-          2. If there are multiple listings for the same model and build, only return the LOWEST price. Do not return duplicate combinations.
+          2. The website might combine the model and build names into one long string (e.g., "Orbea Wild M-LTD" or "SCOTT Voltage eRIDE 900 Tuned Bike"). You must figure out the price and separate them back into the exact "model" and "build" strings I provided above.
+          3. If there are multiple listings for the same model and build, only return the LOWEST price.
+          4. ONLY return a valid JSON array of objects with keys: "model", "build", "price".
+          5. DO NOT include markdown formatting like \`\`\`json.
+          6. DO NOT include any conversational text.
+          7. If you cannot find any prices, return exactly this: []
           
-          Return a JSON array of objects with "model", "build", and "price".
-          Example: [{"model": "${brand.models}", "build": "${brand.builds}", "price": 9999}]
+          Example: [{"model": "${brand.models[0] || 'Model'}", "build": "${brand.builds[0] || 'Build'}", "price": 9999}]
           
           Text: ${pageText.substring(0, 25000)}
         `;
