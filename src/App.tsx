@@ -2415,7 +2415,7 @@ function CalculatorView({
     window.scrollTo(0, 0);
   }, []);
 
-  const { monthlyPayment, totalInterest, taxAmount, totalFinanced } =
+const { monthlyPayment, totalInterest, taxAmount, totalCost } =
     useMemo(() => {
       const taxAmt = build.price * (taxRate / 100);
       const downValue = Number(downPayment) || 0;
@@ -2432,7 +2432,7 @@ function CalculatorView({
           totalFinanced: totalFinancedAmt,
         };
       }
-      const r = standardApr / 100 / 12;
+      const r = Number(standardApr) / 100 / 12;
       const t = standardTerm;
       const m = r === 0 ? p / t : (p * r) / (1 - Math.pow(1 + r, -t));
       const interest = m * t - p;
@@ -2626,6 +2626,7 @@ function CalculatorView({
                         -{formatMoney(Number(downPayment) || 0)}
                       </span>
                     </div>
+
                     {/* --- RESTORED TOTAL INTEREST --- */}
                     <div className="flex justify-between">
                       <span className="text-slate-400">Total Interest</span>
@@ -2638,7 +2639,7 @@ function CalculatorView({
                         Financed Total
                       </span>
                       <span className="font-bold text-white">
-                        {formatMoney(totalFinanced)}
+                        {formatMoney(totalCost)}
                       </span>
                     </div>
                   </div>
