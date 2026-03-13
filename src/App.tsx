@@ -234,9 +234,17 @@ const TrendingCarousel = ({ BIKES, onSelectBike, sponsor }: { BIKES: any[], onSe
         <ChevronLeft size={32} className="rotate-180" />
       </button>
 
-      <div ref={scrollRef} onScroll={handleScroll} className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-p-[10vw] sm:scroll-p-0 px-[10vw] sm:px-[calc(50vw-200px)] md:px-[calc(50vw-250px)] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div ref={scrollRef} onScroll={handleScroll} className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth px-0 sm:px-[calc(50vw-200px)] md:px-[calc(50vw-250px)] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {displayBikes.map((bike, index) => {
           const isActive = index === activeIndex;
+          // This will automatically snap to the 3rd bike (index 2) when the component loads!
+      useEffect(() => {
+      // A tiny timeout ensures the images have rendered before it tries to scroll
+      const timer = setTimeout(() => {
+      scrollToItem(2); // 0 is the 1st bike, 1 is the 2nd, 2 is the 3rd!
+      }, 100);
+        return () => clearTimeout(timer);
+        }, []);
           return (
             <div key={`carousel-${index}-${bike?.id}`} onClick={() => { if (isActive) { onSelectBike(bike?.id); } else { scrollToItem(index); } }} className={`min-w-[100vw] sm:min-w-[400px] md:min-w-[500px] snap-center snap-always shrink-0 px-2 sm:px-4 cursor-pointer flex flex-col items-center transition-all duration-700 ${isActive ? 'z-30' : 'z-10'}`}>
               <div className={`relative w-full flex items-center justify-center ${sponsor ? 'h-48 sm:h-64 md:h-[20rem]' : 'h-64 sm:h-80 md:h-[24rem]'}`}>
