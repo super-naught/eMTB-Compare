@@ -4,6 +4,7 @@ import { SPONSORED_SHOPS } from './sponsorData';
 import { SignedIn, SignedOut, SignInButton, UserButton, useAuth,} from "@clerk/clerk-react";
 import { createClient } from "@supabase/supabase-js";
 import { useRegisterSW } from "virtual:pwa-register/react";
+import { Analytics } from "@vercel/analytics/react";
 
 // Helper to create a secure client using the Clerk token
 const createClerkSupabaseClient = (token: string) => {
@@ -2849,4 +2850,12 @@ const { monthlyPayment, totalInterest, taxAmount, totalFinanced, totalCost } =
       </div>
     </div>
   );
+  return (
+    <div className="min-h-screen bg-slate-900 font-sans text-slate-200 selection:bg-blue-500/30">
+      {/* ... all your other code ... */}
+      
+      <Analytics /> {/* 👈 Just drop this here! */}
+    </div>
+  );
 }
+
