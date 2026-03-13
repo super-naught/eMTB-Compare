@@ -107,9 +107,21 @@ function BrandedStepper({
 // --- UPGRADED SMART CAROUSEL COMPONENT ---
 const TrendingCarousel = ({ BIKES, onSelectBike, sponsor }: { BIKES: any[], onSelectBike: (id: string) => void, sponsor?: typeof SPONSORED_SHOPS[0] | null }) => {
   
-  const displayBikes = useMemo(() => {
+ const displayBikes = useMemo(() => {
     if (sponsor) {
-      return BIKES.filter(b => sponsor.brands.includes(b.brand)).slice(0, 8);
+      const MODELS_PER_BRAND = 2;
+      // ✅ Added explicit typing ': any[]' to satisfy the TypeScript compiler
+      const curatedList: any[] = []; 
+      
+      sponsor.brands.forEach(brandName => {
+        const brandMatches = BIKES.filter(
+          b => b.brand.toLowerCase() === brandName.toLowerCase()
+        );
+        
+        curatedList.push(...brandMatches.slice(0, MODELS_PER_BRAND));
+      });
+      
+      return curatedList.slice(0, 12);
     } else {
       return ['Vala', 'Levo', 'Wild', 'Timp Peak', 'Sight VLT CX']
         .map(m => BIKES.find(b => b.model.includes(m)))
