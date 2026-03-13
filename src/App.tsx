@@ -234,11 +234,11 @@ const TrendingCarousel = ({ BIKES, onSelectBike, sponsor }: { BIKES: any[], onSe
         <ChevronLeft size={32} className="rotate-180" />
       </button>
 
-      <div ref={scrollRef} onScroll={handleScroll} className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth px-[17.5vw] sm:px-[calc(50vw-200px)] md:px-[calc(50vw-250px)] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div ref={scrollRef} onScroll={handleScroll} className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-p-[10vw] sm:scroll-p-0 px-[10vw] sm:px-[calc(50vw-200px)] md:px-[calc(50vw-250px)] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {displayBikes.map((bike, index) => {
           const isActive = index === activeIndex;
           return (
-            <div key={`carousel-${index}-${bike?.id}`} onClick={() => { if (isActive) { onSelectBike(bike?.id); } else { scrollToItem(index); } }} className={`min-w-[65vw] sm:min-w-[400px] md:min-w-[500px] snap-center snap-always shrink-0 px-2 sm:px-4 cursor-pointer flex flex-col items-center transition-all duration-700 ${isActive ? 'z-30' : 'z-10'}`}>
+            <div key={`carousel-${index}-${bike?.id}`} onClick={() => { if (isActive) { onSelectBike(bike?.id); } else { scrollToItem(index); } }} className={`min-w-[80vw] sm:min-w-[400px] md:min-w-[500px] snap-center snap-always shrink-0 px-2 sm:px-4 cursor-pointer flex flex-col items-center transition-all duration-700 ${isActive ? 'z-30' : 'z-10'}`}>
               <div className={`relative w-full flex items-center justify-center ${sponsor ? 'h-48 sm:h-64 md:h-[20rem]' : 'h-64 sm:h-80 md:h-[24rem]'}`}>
                 <img src={bike?.image} alt={bike?.model} className={`max-w-full max-h-full object-contain transition-all duration-700 ease-out ${isActive ? 'scale-[1.25] sm:scale-[1.35] opacity-100 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)]' : 'scale-75 opacity-30 hover:opacity-60 drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]'}`} crossOrigin="anonymous" />
               </div>
