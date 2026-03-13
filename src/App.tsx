@@ -1119,7 +1119,7 @@ export default function App() {
                               {formatPrice(build.price)}
                               {build.msrp && build.price < build.msrp && (
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-red-600 text-[10px] sm:text-xs font-black uppercase tracking-tight">Save ${build.msrp - build.price}</span>
+                                  <span className="text-red-600 text-[10px] sm:text-xs font-black uppercase tracking-tight">SAVE ${ (build.msrp - build.price).toLocaleString() }</span>
                                   {build.limitedStock && (
                                     <span className="bg-amber-500 text-white text-[8px] font-black uppercase px-1 py-0.5 rounded">Ltd</span>
                                   )}
@@ -1472,6 +1472,7 @@ export default function App() {
           isFavorite={favorites.includes(selectedBuild.id)}
           onToggleFavorite={() => toggleFavorite(selectedBuild.id)}
           onBack={() => setView("builds")} 
+          sponsor={activeSponsor}
         />
         )}
 
@@ -2427,12 +2428,14 @@ function CalculatorView({
   isFavorite,
   onToggleFavorite,
   onBack,
+  sponsor,
 }: {
   bike: any;
   build: any;
   isFavorite: boolean;
   onToggleFavorite: () => void;
   onBack: () => void;
+  sponsor?: any;
 }) {
   const [downPayment, setDownPayment] = useState<number | string>("");
   const [promo, setPromo] = useState("none");
@@ -2689,11 +2692,36 @@ const { monthlyPayment, totalInterest, taxAmount, totalFinanced, totalCost } =
                 <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 text-center sm:text-left">Ready to pull the trigger?</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <button
-                    onClick={() => window.open(`https://www.google.com/maps/search/${bike.brand}+mountain+bike+dealer+near+me`, '_blank')}
+                    onClick={() => {
+                      const isDealer = sponsor?.brands.includes(bike.brand);
+                      
+                      if (isDealer) {
+                        if (sponsor?.website) {
+                          // Option A: They have a website
+                          window.open(sponsor.website, '_blank');
+                        } else {
+                          // Option B: No website, initiate a call instead
+                          window.location.href = `tel:${sponsor.phone.replace(/\D/g, '')}`;
+                        }
+                      } else {
+                        // Fallback: Generic Google Search
+                        window.open(`https://www.google.com/search?q=${bike.brand}+dealers+near+me`, '_blank');
+                      }
+                    }}
                     className="flex items-center justify-center gap-2 bg-slate-800/80 hover:bg-slate-700 text-white py-3.5 px-4 rounded-xl font-bold transition-all border border-slate-700 hover:border-blue-500 group"
                   >
-                    <MapPin className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
-                    Find Local Dealer
+                    {/* ✅ DYNAMIC ICON: Shows a phone if they don't have a website */}
+                    {sponsor?.brands.includes(bike.brand) && !sponsor?.website ? (
+                      <Phone className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform" />
+                    ) : (
+                      <MapPin className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
+                    )}
+
+                    {/* ✅ DYNAMIC TEXT */}
+                    {sponsor?.brands.includes(bike.brand) 
+                      ? (sponsor?.website ? `Visit ${sponsor.name}` : `Call ${sponsor.name}`)
+                      : "Find Local Dealer"
+                    }
                   </button>
                   <button
                     onClick={() => window.open(`https://www.jensonusa.com/search?q=${bike.brand}`, '_blank')}

@@ -2,6 +2,7 @@
 
 export interface SponsoredShop {
   name: string;
+  website?: string;
   zipCodes: string[];
   brands: string[];
   logo: string;
@@ -14,8 +15,9 @@ export interface SponsoredShop {
 export const SPONSORED_SHOPS: SponsoredShop[] = [
     {
     name: "Mojo Cycling",
+    website: "https://www.mojocycling.com",
     zipCodes: ["78247",], 
-    brands: ["Forbidden", "Santa Cruz", "Orbea"],
+    brands: ["Ibis", "Santa Cruz", "Orbea", "Giant", "Marin"],
     logo: "/shop logos/Mojo Cycling Logo_short.png",
     address: "1100 N Walton Blvd | Bentonville, AR 72712",
     phone: "(479) 271-7201"
