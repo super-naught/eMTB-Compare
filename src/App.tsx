@@ -234,7 +234,7 @@ const TrendingCarousel = ({ BIKES, onSelectBike, sponsor }: { BIKES: any[], onSe
         <ChevronLeft size={32} className="rotate-180" />
       </button>
 
-      <div ref={scrollRef} onScroll={handleScroll} className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth px-[30vw] sm:px-[40vw] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div ref={scrollRef} onScroll={handleScroll} className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth px-[17.5vw] sm:px-[calc(50vw-200px)] md:px-[calc(50vw-250px)] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {displayBikes.map((bike, index) => {
           const isActive = index === activeIndex;
           return (

@@ -12,6 +12,15 @@ export interface SponsoredShop {
 // Leave this array empty for now to disable the takeover!
 // When you get a paying sponsor, just add their object back into this array.
 export const SPONSORED_SHOPS: SponsoredShop[] = [
+    {
+    name: "Mojo Cycling",
+    zipCodes: ["78247",], 
+    brands: ["Forbidden", "Santa Cruz", "Orbea"],
+    logo: "/shop logos/Mojo Cycling Logo.png",
+    address: "1100 N Walton Blvd.,Bentonville, AR 72712",
+    phone: "(479) 271-7201"
+  } 
+
   /* {
     name: "Spoke Appeal",
     zipCodes: ["76028", "76029", "76097"], 
