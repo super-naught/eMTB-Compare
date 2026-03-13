@@ -368,7 +368,31 @@ export default function App() {
     },
   });
 
-  const [view, setView] = useState<string>("showroom");
+  // 1. We rename the native React setter to _setView (with an underscore)
+  const [view, _setView] = useState<string>("showroom");
+  
+  // 2. We intercept your normal setView command and secretly add the history trick!
+  const setView = (newView: string) => {
+    window.history.pushState({ view: newView }, '');
+    _setView(newView);
+  };
+
+  useEffect(() => {
+    // Drop the very first breadcrumb when the app loads
+    window.history.replaceState({ view: 'showroom' }, '');
+
+    const handleSwipeBack = (event: PopStateEvent) => {
+      // If the phone sees our breadcrumb, go to it!
+      if (event.state && event.state.view) {
+        _setView(event.state.view);
+      } else {
+        _setView('showroom');
+      }
+    };
+
+    window.addEventListener('popstate', handleSwipeBack);
+    return () => window.removeEventListener('popstate', handleSwipeBack);
+  }, []);
   const [selectedBikeId, setSelectedBikeId] = useState<string | null>(null);
   const [selectedBuildId, setSelectedBuildId] = useState<string | null>(null);
 
