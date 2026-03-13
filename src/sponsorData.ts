@@ -16,8 +16,8 @@ export const SPONSORED_SHOPS: SponsoredShop[] = [
     name: "Mojo Cycling",
     zipCodes: ["78247",], 
     brands: ["Forbidden", "Santa Cruz", "Orbea"],
-    logo: "/shop logos/Mojo Cycling Logo.png",
-    address: "1100 N Walton Blvd.,Bentonville, AR 72712",
+    logo: "/shop logos/Mojo Cycling Logo_short.png",
+    address: "1100 N Walton Blvd | Bentonville, AR 72712",
     phone: "(479) 271-7201"
   } 
 

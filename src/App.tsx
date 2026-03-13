@@ -109,156 +109,160 @@ const TrendingCarousel = ({ BIKES, onSelectBike, sponsor }: { BIKES: any[], onSe
   
   const displayBikes = useMemo(() => {
     if (sponsor) {
-      // Filter bikes to ONLY show brands carried by the local sponsor
-      const sponsorBikes = BIKES.filter(b => sponsor.brands.includes(b.brand));
-      // Duplicate them to make sure the carousel is full enough to scroll nicely
-      return [...sponsorBikes, ...sponsorBikes, ...sponsorBikes, ...sponsorBikes];
+      return BIKES.filter(b => sponsor.brands.includes(b.brand)).slice(0, 8);
     } else {
-      // The default "Trending" list for unsponsored ZIPs
-      const top5 = ['Vala', 'Levo', 'Wild', 'Timp Peak', 'Sight VLT CX']
+      return ['Vala', 'Levo', 'Wild', 'Timp Peak', 'Sight VLT CX']
         .map(m => BIKES.find(b => b.model.includes(m)))
         .filter(Boolean);
-      return [...top5, ...top5, ...top5, ...top5, ...top5];
     }
   }, [BIKES, sponsor]);
   
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(Math.floor(displayBikes.length / 2));
+  const [activeIndex, setActiveIndex] = useState(0);
+  const thumbnailContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-    const container = scrollRef.current;
-    const scrollCenter = container.scrollLeft + container.clientWidth / 2;
-    
-    let closestIndex = activeIndex;
-    let minDistance = Infinity;
+  if (!displayBikes || displayBikes.length === 0) return null;
 
-    Array.from(container.children).forEach((child, index) => {
-      const childElement = child as HTMLElement;
-      const childCenter = childElement.offsetLeft + childElement.clientWidth / 2;
-      const distance = Math.abs(scrollCenter - childCenter);
-      
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestIndex = index;
-      }
-    });
+  const activeBike = displayBikes[activeIndex];
 
-    if (closestIndex !== activeIndex) setActiveIndex(closestIndex);
-  };
-
-  useEffect(() => {
-    if (!scrollRef.current || displayBikes.length === 0) return;
-    const container = scrollRef.current;
-    const middleIndex = Math.floor(displayBikes.length / 2);
-    const middleChild = container.children[middleIndex] as HTMLElement;
-    
-    if (middleChild) {
-      const scrollPos = middleChild.offsetLeft - container.clientWidth / 2 + middleChild.clientWidth / 2;
-      container.scrollTo({ left: scrollPos, behavior: 'auto' });
-    }
-  }, [displayBikes]);
-
-  const scrollToItem = (index: number) => {
-    if (!scrollRef.current) return;
-    const container = scrollRef.current;
-    const item = container.children[index] as HTMLElement;
-    if (item) {
-      const scrollPos = item.offsetLeft - container.clientWidth / 2 + item.clientWidth / 2;
-      container.scrollTo({ left: scrollPos, behavior: 'smooth' });
+  const scrollThumbnails = (direction: 'left' | 'right') => {
+    if (thumbnailContainerRef.current) {
+      const scrollAmount = thumbnailContainerRef.current.clientWidth * 0.75;
+      thumbnailContainerRef.current.scrollBy({ 
+        left: direction === 'left' ? -scrollAmount : scrollAmount, 
+        behavior: 'smooth' 
+      });
     }
   };
 
   return (
-    <div className="w-screen relative left-1/2 -translate-x-1/2 bg-slate-50 pt-12 pb-4 sm:pt-16 sm:pb-8 mb-12 sm:mb-16 border-t border-slate-200 overflow-hidden group/carousel">
-      {/* Background Text dynamically changes! */}
-      <div className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] sm:text-[15vw] font-black text-slate-200/50 select-none pointer-events-none uppercase tracking-tighter w-full text-center whitespace-nowrap z-0">
+    <div className="w-full bg-slate-50 pt-6 pb-6 sm:pt-14 sm:pb-12 mb-12 border-t border-b border-slate-200 relative overflow-x-hidden">
+      
+      <div className="absolute top-[30%] inset-x-0 -translate-y-1/2 text-[18vw] sm:text-[15vw] font-black text-slate-200/40 select-none pointer-events-none uppercase tracking-tighter text-center whitespace-nowrap z-0 overflow-hidden">
         {sponsor ? sponsor.name : 'Showroom'}
       </div>
 
-<div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 flex flex-col justify-center sm:justify-start">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+{/* HEADER SECTION */}
         {sponsor ? (
-          /* --- COHESIVE SPONSORED TAKEOVER CARD --- */
-          <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200 flex flex-col sm:flex-row items-center sm:items-center gap-6 w-full relative overflow-hidden mb-4">
-            
-            {/* Blue Gradient Accent Banner on the left edge */}
-            <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-blue-500 to-blue-700"></div>
-
-            {/* Shop Logo */}
-            <div className="h-20 sm:h-24 w-48 sm:w-56 flex items-center justify-center shrink-0 z-10">
-              <img src={sponsor.logo} alt={sponsor.name} className="max-h-full max-w-full object-contain" />
+          <div className="flex flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 mb-4 sm:mb-12 text-left">
+            <div className="h-20 sm:h-20 w-25 sm:w-32 px-3 sm:px-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
+               {sponsor?.logo ? (
+                 <img src={sponsor.logo} alt={sponsor?.name} className="h-12 sm:h-16 w-auto object-contain scale-125" />
+               ) : (
+                 <span className="text-2xl sm:text-4xl font-black text-slate-300">{sponsor?.name?.charAt(0)}</span>
+               )}
             </div>
-            
-            {/* Divider (Desktop Only) */}
-            <div className="hidden sm:block w-px h-16 bg-slate-200 shrink-0"></div>
-            
-            {/* Shop Details */}
-            <div className="text-center sm:text-left flex flex-col justify-center flex-1 z-10">
-              <div className="text-blue-600 font-extrabold tracking-widest uppercase text-[10px] mb-1.5 flex items-center justify-center sm:justify-start gap-1.5">
-                <Star size={12} className="fill-blue-600" /> Sponsored Local Dealer
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tighter uppercase italic leading-none mb-4">
-                TEST RIDE AT {sponsor.name}
+            <div className="flex flex-col justify-center">
+              <h2 className="text-2xl sm:text-5xl font-black text-slate-900 tracking-tighter uppercase italic leading-none">
+                {sponsor?.name}
               </h2>
-              
-              {/* Contact Info Pills */}
-              <div className="flex flex-wrap justify-center sm:justify-start gap-2">
-                <a href={`https://maps.google.com/?q=${sponsor.address}`} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-xs font-bold text-slate-600 bg-slate-50 hover:bg-blue-50 hover:text-blue-700 px-3 py-1.5 rounded-full transition-colors border border-slate-200 hover:border-blue-200 shadow-sm">
-                  <MapPin size={14} /> {sponsor.address}
-                </a>
-                <a href={`tel:${sponsor.phone.replace(/\D/g, '')}`} className="flex items-center gap-1.5 text-xs font-bold text-slate-600 bg-slate-50 hover:bg-blue-50 hover:text-blue-700 px-3 py-1.5 rounded-full transition-colors border border-slate-200 hover:border-blue-200 shadow-sm">
-                  <Phone size={14} /> {sponsor.phone}
-                </a>
-              </div>
+              <div className="mt-1 sm:mt-2 text-left">
+                <p className="text-blue-600 font-bold text-[9px] sm:text-[10px] uppercase tracking-widest flex items-center justify-start gap-1">
+                  <Star size={10} className="fill-blue-600 sm:w-3 sm:h-3" /> EXCLUSIVE DEALER
+                </p>
+<p className="text-slate-500 font-bold text-[9px] sm:text-[10px] uppercase tracking-widest flex items-start justify-start gap-1 mt-0.5">
+                  <MapPin size={10} className="sm:w-3 sm:h-3 shrink-0 mt-[2px]" /> 
+                  <span>
+                    {sponsor?.address?.split('|')[0]}
+                    {sponsor?.address?.includes('|') && (
+                      <>
+                        <span className="hidden sm:inline"> | </span>
+                        <br className="block sm:hidden" />
+                        {sponsor?.address?.split('|')[1]}
+                      </>
+                    )}
+                  </span>
+                </p>
+                </div>
             </div>
           </div>
         ) : (
-          /* --- DEFAULT UNSPONSORED HEADER --- */
-          <>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tighter uppercase italic text-center sm:text-left leading-none">
+          <div className="mb-4 sm:mb-12">
+            <h2 className="text-2xl sm:text-5xl font-black text-slate-900 tracking-tighter uppercase italic text-center sm:text-left leading-none">
               TRENDING RIGS FOR 2026
             </h2>
-            <div className="block sm:hidden text-[10px] font-bold text-slate-400 uppercase tracking-widest animate-pulse text-center mt-4">
-              ← Swipe to explore →
-            </div>
-          </>
+          </div>
         )}
-      </div>
 
-      <button onClick={() => scrollToItem(activeIndex - 1)} className="absolute left-4 sm:left-12 top-[55%] -translate-y-1/2 z-40 bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-full shadow-lg border border-slate-200 text-slate-400 hover:text-blue-600 hover:scale-110 hover:bg-white transition-all opacity-0 group-hover/carousel:opacity-100 hidden sm:flex disabled:opacity-0" disabled={activeIndex === 0}>
-        <ChevronLeft size={32} />
-      </button>
-      
-      <button onClick={() => scrollToItem(activeIndex + 1)} className="absolute right-4 sm:right-12 top-[55%] -translate-y-1/2 z-40 bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-full shadow-lg border border-slate-200 text-slate-400 hover:text-blue-600 hover:scale-110 hover:bg-white transition-all opacity-0 group-hover/carousel:opacity-100 hidden sm:flex disabled:opacity-0" disabled={activeIndex === displayBikes.length - 1}>
-        <ChevronLeft size={32} className="rotate-180" />
-      </button>
+        {/* HERO IMAGE TOP, DETAILS BOTTOM */}
+        <div className="relative w-full flex flex-col items-center mb-6 sm:mb-8">
+          
+          <div className="relative z-10 w-[calc(100%+2rem)] -mx-4 sm:w-full sm:mx-0 h-[28vh] min-h-[220px] sm:h-[40vh] md:h-[35rem] flex items-center justify-center cursor-pointer group mb-2 sm:mb-6" onClick={() => onSelectBike(activeBike?.id)}>
+             <img 
+               key={`hero-${activeBike?.id}`} 
+               src={activeBike?.image} 
+               alt={activeBike?.model} 
+               className="w-full h-full object-contain scale-[1.1] sm:scale-100 drop-shadow-[0_20px_25px_rgba(0,0,0,0.15)] group-hover:scale-[1.15] sm:group-hover:scale-105 transition-transform duration-500" 
+               crossOrigin="anonymous" 
+             />
+          </div>
 
-      <div ref={scrollRef} onScroll={handleScroll} className="relative z-20 w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth px-0 sm:px-[calc(50vw-200px)] md:px-[calc(50vw-250px)] pb-10 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        {displayBikes.map((bike, index) => {
-          const isActive = index === activeIndex;
-          // This will automatically snap to the 3rd bike (index 2) when the component loads!
-      useEffect(() => {
-      // A tiny timeout ensures the images have rendered before it tries to scroll
-      const timer = setTimeout(() => {
-      scrollToItem(2); // 0 is the 1st bike, 1 is the 2nd, 2 is the 3rd!
-      }, 100);
-        return () => clearTimeout(timer);
-        }, []);
-          return (
-            <div key={`carousel-${index}-${bike?.id}`} onClick={() => { if (isActive) { onSelectBike(bike?.id); } else { scrollToItem(index); } }} className={`min-w-[100vw] sm:min-w-[400px] md:min-w-[500px] snap-center snap-always shrink-0 px-2 sm:px-4 cursor-pointer flex flex-col items-center transition-all duration-700 ${isActive ? 'z-30' : 'z-10'}`}>
-              <div className={`relative w-full flex items-center justify-center ${sponsor ? 'h-48 sm:h-64 md:h-[20rem]' : 'h-64 sm:h-80 md:h-[24rem]'}`}>
-                <img src={bike?.image} alt={bike?.model} className={`max-w-full max-h-full object-contain transition-all duration-700 ease-out ${isActive ? 'scale-[1.25] sm:scale-[1.35] opacity-100 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)]' : 'scale-75 opacity-30 hover:opacity-60 drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]'}`} crossOrigin="anonymous" />
-              </div>
+          <div className="relative z-10 w-full max-w-2xl flex flex-col items-center text-center">
+            
+            <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-blue-500 mb-0.5 sm:mb-1 mt-2 sm:mt-0">
+              {activeBike?.brand}
+            </span>
+            <h3 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-slate-900 leading-[1.05] mb-4 sm:mb-6">
+              {activeBike?.model}
+            </h3>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center w-full gap-2.5 sm:gap-4 px-4 sm:px-0">
+              <button 
+                onClick={() => onSelectBike(activeBike?.id)}
+                className="w-full sm:w-auto font-bold font-mono text-xs sm:text-sm tracking-tighter px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-blue-600 text-white shadow-[0_4px_14px_0_rgb(37,99,235,0.39)] hover:bg-blue-500 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
+              >
+                VIEW BUILDS <ArrowRight size={14} className="sm:w-4 sm:h-4" />
+              </button>
               
-              <div className={`text-center ${sponsor ? 'mt-4 sm:mt-6' : 'mt-10 sm:mt-14'}`}>
-                <span className="text-[10px] sm:text-xs font-extrabold text-blue-600 uppercase tracking-widest block mb-1">{bike?.brand}</span>
-                <h3 className={`text-2xl sm:text-4xl font-black uppercase tracking-widest transition-colors duration-500 ${isActive ? 'text-slate-900' : 'text-slate-300'}`}>{bike?.model}</h3>
-                <button className={`font-bold font-mono text-sm tracking-tighter mt-4 px-6 py-2 rounded-full border transition-all shadow-sm ${isActive ? 'bg-blue-50/50 border-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white' : 'bg-transparent border-slate-200 text-slate-300'}`}>VIEW BUILDS</button>
-              </div>
+              {sponsor && (
+                <a href={`tel:${sponsor.phone}`} onClick={(e) => e.stopPropagation()} className="w-full sm:w-auto font-bold flex items-center justify-center gap-2 font-mono text-[12px] sm:text-sm tracking-tighter px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-white text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-50 hover:-translate-y-0.5 transition-all">
+                  <Phone size={14} className="sm:w-4 sm:h-4" /> CALL SHOP FOR DEMOS
+                </a>
+              )}
             </div>
-          );
-        })}
+          </div>
+        </div>
+
+        {/* THUMBNAIL CAROUSEL */}
+        <div className="w-full pt-6 sm:pt-8 border-t border-slate-200/80">
+           
+           <div className="flex items-center justify-between px-2 mb-2">
+             <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest animate-pulse sm:hidden mx-auto">
+               ← Swipe to explore →
+             </div>
+             <div className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+               More Featured Builds
+             </div>
+             <div className="hidden sm:flex items-center gap-2">
+               <button onClick={() => scrollThumbnails('left')} className="p-1.5 rounded-full bg-white border border-slate-200 text-slate-400 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 transition-all shadow-sm">
+                 <ChevronLeft size={16} />
+               </button>
+               <button onClick={() => scrollThumbnails('right')} className="p-1.5 rounded-full bg-white border border-slate-200 text-slate-400 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 transition-all shadow-sm">
+                 <ChevronLeft size={16} className="rotate-180" />
+               </button>
+             </div>
+           </div>
+
+           <div ref={thumbnailContainerRef} className="flex overflow-x-auto gap-3 sm:gap-4 pt-2 pb-6 px-2 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+             {displayBikes.map((bike, index) => (
+               <div 
+                 key={`thumb-${bike?.id}-${index}`}
+                 onClick={() => setActiveIndex(index)}
+                 className={`shrink-0 w-28 sm:w-36 snap-start cursor-pointer transition-all duration-300 rounded-[1.25rem] p-3 sm:p-4 border-2 ${index === activeIndex ? 'bg-white border-blue-500 shadow-[0_10px_20px_rgba(59,130,246,0.15)] scale-[1.05]' : 'bg-white border-slate-200 hover:border-blue-300 hover:bg-blue-50 opacity-60 hover:opacity-100'}`}
+               >
+                 <div className="h-14 sm:h-16 flex items-center justify-center mb-2">
+                   <img src={bike?.image} alt={bike?.model} className="max-w-full max-h-full object-contain drop-shadow-sm" crossOrigin="anonymous" />
+                 </div>
+                 <div className="text-center">
+                   <div className="text-[9px] font-extrabold text-blue-500 uppercase tracking-widest truncate">{bike?.brand}</div>
+                   <div className="text-[11px] sm:text-xs font-black text-slate-800 uppercase tracking-tight truncate mt-0.5">{bike?.model}</div>
+                 </div>
+               </div>
+             ))}
+           </div>
+        </div>
+
       </div>
     </div>
   );
@@ -926,8 +930,8 @@ export default function App() {
                     <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[30rem] h-[30rem] rounded-full bg-blue-600/20 blur-[100px] pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[20rem] h-[20rem] rounded-full bg-cyan-500/10 blur-[80px] pointer-events-none"></div>
 
-                  {/* Added air back to the tires here: p-10 sm:p-14 lg:p-20 */}
-<div className="relative flex flex-col md:flex-row items-center gap-6 lg:gap-8 p-6 sm:p-12 lg:p-16">
+                  {/* HERO CARD */}
+                  <div className="relative flex flex-col md:flex-row items-center gap-4 lg:gap-6 p-4 sm:p-8 lg:p-10 z-10">
                       <div className="md:w-1/2 z-10 w-full text-center sm:text-left">
                         <div className="relative z-10 w-full text-center sm:text-left">
                           <div className="flex items-center justify-center sm:justify-start gap-3 mb-3 sm:mb-4">
@@ -943,7 +947,7 @@ export default function App() {
                               DREAM BIKE
                             </span>
                           </h1>
-                          <p className="text-slate-400 mt-4 sm:mt-6 font-medium max-w-xl mx-auto sm:mx-0 text-sm sm:text-base leading-relaxed mb-6">
+                          <p className="text-slate-400 mt-3 sm:mt-4 font-medium max-w-xl mx-auto sm:mx-0 text-sm sm:text-base leading-snug mb-4 sm:mb-5">
                             TRAIL MATH is the world's first and largest comparison
                             tool for current gen eMTBs. Compare builds, specs, and
                             calculate exact out-of-pocket costs.
@@ -966,47 +970,49 @@ export default function App() {
                           </button>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 pt-6 lg:pt-8 mt-6 lg:mt-8 border-t border-slate-800/80 text-center sm:text-left">                          <div>
-                            <div className="text-2xl lg:text-4xl font-black text-white">
-                              {totalBrands}
+                        <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-3 lg:pt-4 mt-3 lg:mt-4 border-t border-slate-800/80 text-center sm:text-left">
+                            <div>
+                              <div className="text-2xl lg:text-3xl font-black text-white leading-none">
+                                {totalBrands}
+                              </div>
+                              <div className="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">
+                                Brands
+                              </div>
                             </div>
-                            <div className="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">
-                              Brands
+                            <div>
+                              <div className="text-2xl lg:text-3xl font-black text-white leading-none">
+                                {totalModels}
+                              </div>
+                              <div className="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">
+                                Models
+                              </div>
                             </div>
-                          </div>
-                          <div>
-                            <div className="text-2xl lg:text-4xl font-black text-white">
-                              {totalModels}
-                            </div>
-                            <div className="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">
-                              Models
-                            </div>
-                          </div>
-                          <div>
-                            <div className="text-2xl lg:text-4xl font-black text-white">
-                              {totalBuilds}
-                            </div>
-                            <div className="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">
-                              Builds
+                            <div>
+                              <div className="text-2xl lg:text-3xl font-black text-white leading-none">
+                                {totalBuilds}
+                              </div>
+                              <div className="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">
+                                Builds
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="md:w-1/2 w-full mt-6 md:mt-0 relative z-10 aspect-video rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/50 transform md:-rotate-2 hover:rotate-0 transition-transform duration-500 overflow-hidden ring-1 ring-white/10">
-                        {heroImages.map((src, index) => (
-                          <img
-                            key={src}
-                            src={src}
-                            alt={`Dream Rig ${index + 1}`}
-                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === heroImageIndex ? "opacity-100" : "opacity-0"}`}
-                            crossOrigin="anonymous"
-                          />
-                        ))}
+                        {/* ✅ Tightened mobile top margin from mt-6 to mt-4 */}
+                        <div className="md:w-1/2 w-full mt-4 md:mt-0 relative z-10 aspect-video rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/50 transform md:-rotate-2 hover:rotate-0 transition-transform duration-500 overflow-hidden ring-1 ring-white/10">
+                          {heroImages.map((src, index) => (
+                            <img
+                              key={src}
+                              src={src}
+                              alt={`Dream Rig ${index + 1}`}
+                              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === heroImageIndex ? "opacity-100" : "opacity-0"}`}
+                              crossOrigin="anonymous"
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
                 {/* Bigger spacer to push the next section out of view: mb-16 sm:mb-24 */}
                 <div className="w-full mb-16 sm:mb-24 [mask-image:_linear-gradient(to_right,transparent_0,_black_10%,_black_90%,transparent_100%)]">
@@ -1108,11 +1114,12 @@ export default function App() {
                             {build.msrp && build.price < build.msrp && (
                               <span className="text-[10px] font-bold text-slate-400 line-through mb-0.5">{formatPrice(build.msrp)}</span>
                             )}
+                            {/* ✅ Updated to match the "SAVE $X" styling from the Builds page */}
                             <div className="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-1.5">
                               {formatPrice(build.price)}
                               {build.msrp && build.price < build.msrp && (
-                                <div className="flex items-center gap-1">
-                                  <span className="bg-red-600 text-white text-[9px] font-black uppercase px-1.5 py-0.5 rounded shadow-sm">Sale</span>
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-red-600 text-[10px] sm:text-xs font-black uppercase tracking-tight">Save ${build.msrp - build.price}</span>
                                   {build.limitedStock && (
                                     <span className="bg-amber-500 text-white text-[8px] font-black uppercase px-1 py-0.5 rounded">Ltd</span>
                                   )}
@@ -1145,7 +1152,7 @@ export default function App() {
               <>
                 <div className="flex flex-col mt-8 sm:mt-12 mb-4 px-2">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">The Complete Catalog</h3>
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Trail Math Full Catalog</h3>
                     <div className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider hidden sm:block">{totalBuilds} Total Builds</div>
                   </div>
                   <div className="flex items-center gap-1.5 mt-2">
@@ -1541,19 +1548,15 @@ export default function App() {
                           {rigA.model} <br className="sm:hidden" />
                           {rigA.name}
                         </h3>
+                      {/* ✅ Stripped the sale tag out entirely so the text perfectly centers! */}
                       <div className="flex flex-col items-center justify-center">
-                      <div className="flex items-center gap-2">
-                      <span className="text-lg sm:text-2xl font-bold text-blue-400">
+                        <span className="text-lg sm:text-2xl font-bold text-blue-400">
                           {formatPrice(rigA.price)}
-                          </span>
-                          {rigA.msrp && rigA.price < rigA.msrp && (
-                          <span className="bg-red-600 text-white text-[10px] font-black uppercase px-1.5 py-0.5 rounded shadow-sm">Sale</span>
-                          )}
-                          </div>
-                          {rigA.msrp && rigA.price < rigA.msrp && (
-                           <span className="text-xs sm:text-sm font-bold text-slate-500 line-through mt-0.5">{formatPrice(rigA.msrp)}</span>
-  )}
-                       </div>
+                        </span>
+                        {rigA.msrp && rigA.price < rigA.msrp && (
+                          <span className="text-xs sm:text-sm font-bold text-slate-500 line-through mt-0.5">{formatPrice(rigA.msrp)}</span>
+                        )}
+                      </div>
                       </div>
                     </>
                   )}
@@ -1601,15 +1604,11 @@ export default function App() {
                           {rigB.model} <br className="sm:hidden" />
                           {rigB.name}
                         </h3>
+                        {/* ✅ Stripped the sale tag out entirely so the text perfectly centers! */}
                         <div className="flex flex-col items-center justify-center">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg sm:text-2xl font-bold text-emerald-400">
-                              {formatPrice(rigB.price)}
-                            </span>
-                            {rigB.msrp && rigB.price < rigB.msrp && (
-                              <span className="bg-red-600 text-white text-[10px] font-black uppercase px-1.5 py-0.5 rounded shadow-sm">Sale</span>
-                            )}
-                          </div>
+                          <span className="text-lg sm:text-2xl font-bold text-emerald-400">
+                            {formatPrice(rigB.price)}
+                          </span>
                           {rigB.msrp && rigB.price < rigB.msrp && (
                             <span className="text-xs sm:text-sm font-bold text-slate-500 line-through mt-0.5">{formatPrice(rigB.msrp)}</span>
                           )}
