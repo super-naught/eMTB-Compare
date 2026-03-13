@@ -238,7 +238,7 @@ const TrendingCarousel = ({ BIKES, onSelectBike, sponsor }: { BIKES: any[], onSe
         {displayBikes.map((bike, index) => {
           const isActive = index === activeIndex;
           return (
-            <div key={`carousel-${index}-${bike?.id}`} onClick={() => { if (isActive) { onSelectBike(bike?.id); } else { scrollToItem(index); } }} className={`min-w-[80vw] sm:min-w-[400px] md:min-w-[500px] snap-center snap-always shrink-0 px-2 sm:px-4 cursor-pointer flex flex-col items-center transition-all duration-700 ${isActive ? 'z-30' : 'z-10'}`}>
+            <div key={`carousel-${index}-${bike?.id}`} onClick={() => { if (isActive) { onSelectBike(bike?.id); } else { scrollToItem(index); } }} className={`min-w-[100vw] sm:min-w-[400px] md:min-w-[500px] snap-center snap-always shrink-0 px-2 sm:px-4 cursor-pointer flex flex-col items-center transition-all duration-700 ${isActive ? 'z-30' : 'z-10'}`}>
               <div className={`relative w-full flex items-center justify-center ${sponsor ? 'h-48 sm:h-64 md:h-[20rem]' : 'h-64 sm:h-80 md:h-[24rem]'}`}>
                 <img src={bike?.image} alt={bike?.model} className={`max-w-full max-h-full object-contain transition-all duration-700 ease-out ${isActive ? 'scale-[1.25] sm:scale-[1.35] opacity-100 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)]' : 'scale-75 opacity-30 hover:opacity-60 drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]'}`} crossOrigin="anonymous" />
               </div>
