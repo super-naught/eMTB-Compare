@@ -6,6 +6,7 @@ import { createClient } from "@supabase/supabase-js";
 import { useRegisterSW } from "virtual:pwa-register/react";
 import { Analytics } from "@vercel/analytics/react";
 
+
 // Helper to create a secure client using the Clerk token
 const createClerkSupabaseClient = (token: string) => {
   return createClient(
@@ -787,6 +788,7 @@ export default function App() {
 
   return (
     <div className="min-h-[100dvh] bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col relative pb-20 sm:pb-0">
+      <Analytics />
       <header className="bg-slate-50/90 backdrop-blur-md sticky top-0 z-40 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           <div
