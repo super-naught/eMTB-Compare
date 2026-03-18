@@ -291,6 +291,97 @@ const formatWheelSetup = (setup?: string) => {
   if (s.includes("27.5")) return '27.5" (27.5"F, 27.5"R)';
   return setup;
 };
+import { eMTBData } from './bikeData';
+
+function EmergencyMigrationButton() {
+  const [status, setStatus] = useState("FORCE SYNC DATABASE");
+
+  const runMigration = async () => {
+    setStatus("Syncing... Check Browser Console!");
+    
+    const SUPABASE_URL = 'https://vttixosswbxtreaobckz.supabase.co';
+    const SUPABASE_SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ0dGl4b3Nzd2J4dHJlYW9iY2t6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjQwMzI3MywiZXhwIjoyMDg3OTc5MjczfQ.BAOCn9Bt9dSC_Wl_6xNURS1mlxae5uJW0zgcrqn8sCk';
+    
+    const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+    try {
+      console.log("🚀 Starting Browser-Based Safe Migration...");
+      for (const brandData of eMTBData) {
+        const { data: brand, error: brandError } = await supabaseAdmin
+          .from('brands')
+          .upsert({ name: brandData.brand, logo_url: brandData.logo }, { onConflict: 'name' })
+          .select().single();
+
+        if (brandError) continue;
+        console.log(`✅ Synced: ${brand.name}`);
+
+        for (const modelData of brandData.models || []) {
+          const { data: model, error: modelError } = await supabaseAdmin
+            .from('models')
+            .upsert({
+              brand_id: brand.id,
+              name: modelData.name,
+              image_url: modelData.image,
+              suspension: modelData.suspension
+            }, { onConflict: 'brand_id, name' })
+            .select().single();
+
+          if (modelError) continue;
+
+          const { data: existingBuilds } = await supabaseAdmin
+            .from('builds').select('id, name, price').eq('model_id', model.id);
+
+          const buildsToInsert = modelData.builds.map((build: any) => {
+            const existingDbBuild = existingBuilds?.find(eb => eb.name === build.name);
+            return {
+              model_id: model.id,
+              name: build.name,
+              price: existingDbBuild ? existingDbBuild.price : build.price, 
+              msrp: build.msrp || build.price,
+              material: build.material,
+              motor: build.motor,
+              torque: build.torque,
+              battery: build.battery,
+              fork: build.fork,
+              shock: build.shock,
+              drivetrain: build.drivetrain,
+              brakes: build.brakes,
+              wheelset: build.wheelset,
+              hubs: build.hubs,
+              tires: build.tires,
+              wheels: build.wheels,
+              limited_stock: build.limitedStock || false
+            };
+          });
+
+          await supabaseAdmin.from('builds').upsert(buildsToInsert, { onConflict: 'model_id, name' });
+          
+          const validBuildNames = modelData.builds.map((b: any) => b.name);
+          if (existingBuilds) {
+            const buildsToDelete = existingBuilds.filter(eb => !validBuildNames.includes(eb.name));
+            if (buildsToDelete.length > 0) {
+              await supabaseAdmin.from('builds').delete().in('id', buildsToDelete.map(b => b.id));
+            }
+          }
+        }
+      }
+      setStatus("✅ MIGRATION COMPLETE");
+      alert("Database Successfully Updated! Refresh the page and delete this button.");
+    } catch (err) {
+      console.error(err);
+      setStatus("❌ ERROR - Check Console");
+    }
+  };
+
+  return (
+    <button 
+      onClick={runMigration}
+      className="fixed bottom-4 left-4 z-[9999] bg-red-600 hover:bg-red-500 text-white font-black px-6 py-4 rounded-xl shadow-2xl border-4 border-red-900 animate-pulse"
+    >
+      {status}
+    </button>
+  );
+}
 
 export default function App() {
   const [eMTBData, setEMTBData] = useState<BrandType[]>([]);
@@ -2854,7 +2945,7 @@ const { monthlyPayment, totalInterest, taxAmount, totalFinanced, totalCost } =
   );
   return (
     <div className="min-h-screen bg-slate-900 font-sans text-slate-200 selection:bg-blue-500/30">
-      {/* ... all your other code ... */}
+      <EmergencyMigrationButton />
       
       <Analytics /> {/* 👈 Just drop this here! */}
     </div>
