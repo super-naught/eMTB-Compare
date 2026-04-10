@@ -1,0 +1,78 @@
+📖 CommandsForRyan: The eMTB App Master Guide
+// 🏗️ 1. The Architecture (What Does What?)
+We stripped out the overly complex database stuff today. Here is exactly what each piece of the tech stack is doing right now:
+
+    The God File (src/bikeData.ts): This is the undisputed brain of your app. Every brand, model, build, price, and spec lives purely in this text file. Your website reads directly from here. No databases, no tables, no migrations.
+
+    Vercel (The Host): This is where your website actually lives on the internet. It watches your code. Whenever you push an update from your laptop to GitHub, Vercel automatically builds the new version and updates the live site within a minute.
+
+    Clerk (The Bouncer): Handles user accounts, passwords, and Google logins. It keeps your app secure without you having to code login screens.
+
+    Supabase (The Garage): We fired Supabase from managing the bike catalog. Now, its only job is remembering which specific bikes a logged-in user clicks "Star" on (their Shortlist).
+
+// 🚲 2. How to Update Bikes & Prices
+Because we moved back to the static file system, updating the app is incredibly simple.
+Method A: The Manual Update (Quick Fixes)
+
+    Open src/bikeData.ts in VS Code.
+
+    Find the bike you want to change, update the price:, or copy/paste a whole new block to add a new bike.
+
+    Save the file.
+
+    Run your git commands to push to GitHub (see section 4). Vercel will instantly update the live site.
+
+Method B: The Robot Scraper (Automated Price Checks)
+
+You built a web scraper that uses Google Gemini to read manufacturer websites and automatically write the new prices into your bikeData.ts file.
+
+    🚨 CRITICAL: You MUST disconnect from the corporate VPN/Wi-Fi to run this, or the IT firewall will block it. Connect to a mobile hotspot or home network.
+
+    Open your VS Code terminal.
+
+    Run: node robot.cjs
+
+    Watch the terminal. It will automatically update the prices in your src/bikeData.ts file if it finds a cheaper deal.
+
+    When it's done, run your git commands to push the updated file to the live site.
+
+To update your Trending Bikes
+- search "--- UPGRADED SMART CAROUSEL COMPONENT ---"
+- change out the model names to the bikes you want to showcase a few lines below that
+
+// 💻 3. Essential Terminal Commands
+Here are the commands you will actually use day-to-day. You run these in the VS Code terminal (View -> Terminal).
+
+Start the Local Development Site (To view your work on your laptop):
+Bash
+
+npm run dev
+
+(This will give you a localhost:5173 link to click so you can see your site in Chrome).
+
+Run the Price Scraper Robot:
+Bash
+
+node robot.cjs
+
+Push Updates to the Live Website (Vercel):
+Whenever you change code, add a bike to bikeData.ts, or run the robot, you have to send those changes to the internet. Run these three commands in order:
+Bash
+
+git add .
+git commit -m "Updated bike prices" 
+git push
+
+(Note: You can change the text inside the quotes to whatever you want to remind yourself what you changed).
+
+Install a New Package:
+If we ever need to add a new tool (like we did with Vercel Analytics today), you stop the dev server (Ctrl + C) and run:
+Bash
+
+npm install <package-name>
+
+⚠️ 4. Troubleshooting Reminders
+
+    "Fetch Failed" Error in Terminal: If you see this, 99% of the time it means your corporate VPN or background security agent is blocking Node.js from talking to the internet. Hop off the work network.
+
+    Missing Specs Error: If you manually add a bike to src/bikeData.ts and the app breaks with red squiggly lines, check your commas! Make sure every line has a comma at the end, and make sure you spelled price or motor correctly.

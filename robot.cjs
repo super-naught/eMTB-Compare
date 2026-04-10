@@ -1,15 +1,19 @@
 require('dotenv').config({ path: '.env.local' });
 const { chromium } = require('playwright');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const { createClient } = require('@supabase/supabase-js');
+const fs = require('fs');
+const path = require('path');
 
-const supabase = createClient(process.env.VITE_SUPABASE_URL, process.env.VITE_SUPABASE_ANON_KEY);
+// ❌ SUPABASE IS GONE. 
 const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY);
+
+// ✅ NEW: Point directly to your God File
+const BIKE_DATA_PATH = path.join(__dirname, 'src', 'bikeData.ts');
 
 // 1. The Sleep Timer to protect your Free Tier API limits
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// 2. The Master List of Brands
+// 2. The Master List of Brands (Keep your existing array here)
 const BRANDS_TO_SCRAPE = [
   // --- AMFLOW ---
   {
@@ -300,206 +304,101 @@ const BRANDS_TO_SCRAPE = [
   },
 ];
 
-async function runRobot() {
-  console.log("🤖 Universal Robot starting...");
-  const browser = await chromium.launch({ headless: true });
-  
-  // Give our robot a fake mustache so firewalls think it's a real human
-  const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-    extraHTTPHeaders: {
-      'Accept-Language': 'en-US,en;q=0.9',
-      'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
-      'sec-ch-ua-mobile': '?0',
-      'sec-ch-ua-platform': '"Windows"',
-      'sec-fetch-dest': 'document',
-      'sec-fetch-mode': 'navigate',
-      'sec-fetch-site': 'none',
-      'sec-fetch-user': '?1',
-      'upgrade-insecure-requests': '1'
-    }
-  });
-  
-  // Create Lookup Map from Database ONCE at the very beginning
-  console.log("🚀 Fetching universal models from the database...");
-  const { data: dbModels, error: modelsError } = await supabase.from('models').select('id, name');
-  
-  if (modelsError || !dbModels) {
-    console.error("❌ Could not fetch models from database. Stopping.");
-    await browser.close();
-    return;
-  }
-  
-  const modelMap = {};
-  dbModels.forEach(m => { modelMap[m.name] = m.id; });
+// --- NEW FILE SYSTEM UPDATER FUNCTION ---
+function updatePriceInGodFile(brandName, modelName, buildName, newPrice) {
+  try {
+    // 1. Read the current file
+    let fileContent = fs.readFileSync(BIKE_DATA_PATH, 'utf-8');
 
-  const aiModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    // 2. We use a regex trick to find the exact model and build block, then replace the price.
+    // This looks for the model name, then the build name, then the price line.
+    const searchPattern = new RegExp(
+      `(name:\\s*["']${modelName}["'][\\s\\S]*?name:\\s*["']${buildName}["'][\\s\\S]*?price:\\s*)(\\d+)`,
+      'i'
+    );
 
-  // 3. The Master Loop
-  for (const brand of BRANDS_TO_SCRAPE) {
-    console.log(`\n⚙️ Starting scrape for: ${brand.name}`);
-    
-    // The "Double Loop" to handle brands with multiple URLs
-    for (const url of brand.urls) {
-      console.log(`   📍 Visiting: ${url}`);
+    const match = fileContent.match(searchPattern);
+
+    if (match) {
+      const oldPrice = parseInt(match[2]);
       
-      const page = await context.newPage();
-      try {
-        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      if (oldPrice !== newPrice) {
+        // Replace the old price with the new price
+        fileContent = fileContent.replace(searchPattern, `$1${newPrice}`);
         
-        // --- 🇺🇸 THE REGION SELECTOR BYPASS ---
-        // If there's a region pop-up (like on Forbidden or Transition), try to click "US" or "USA ($)"
-        try {
-          // Look for common US region buttons
-          const usButton = await page.$('text="US"');
-          const usaButton = await page.$('text="USA ($)"');
-          
-          if (usButton) {
-            await usButton.click();
-            console.log("   🇺🇸 Clicked 'US' Region Button!");
-            await page.waitForTimeout(3000); // Wait for the USD prices to load
-          } else if (usaButton) {
-            await usaButton.click();
-            console.log("   🇺🇸 Clicked 'USA ($)' Region Button!");
-            await page.waitForTimeout(3000);
-          }
-        } catch (e) {
-          // If there is no pop-up, just silently keep going!
+        // 3. Save the file back!
+        fs.writeFileSync(BIKE_DATA_PATH, fileContent, 'utf-8');
+        
+        if (newPrice < oldPrice) {
+          console.log(`      🚨 PRICE DROP SAVED: ${modelName} [${buildName}] -> Was $${oldPrice}, Now $${newPrice}!`);
+        } else {
+          console.log(`      📈 PRICE INCREASE SAVED: ${modelName} [${buildName}] -> Was $${oldPrice}, Now $${newPrice}`);
         }
+      } else {
+        console.log(`      ✅ VERIFIED (No Change): ${modelName} [${buildName}] -> $${newPrice}`);
+      }
+    } else {
+      console.log(`      ⚠️ COULD NOT FIND IN FILE: ${modelName} [${buildName}]. Check spelling in bikeData.ts.`);
+    }
+  } catch (error) {
+    console.error(`      ❌ FILE SYSTEM ERROR: Could not update bikeData.ts`, error.message);
+  }
+}
 
-        // Mimic a human scrolling to trigger lazy-loaded bikes (Crucial for Orbea/Scott)
-        await page.evaluate(async () => {
-          await new Promise((resolve) => {
-            let totalHeight = 0;
-            const distance = 600;
-            const timer = setInterval(() => {
-              const scrollHeight = document.body.scrollHeight;
-              window.scrollBy(0, distance);
-              totalHeight += distance;
-              if (totalHeight >= scrollHeight - 300) {
-                clearInterval(timer);
-                resolve();
-              }
-            }, 250); // Scroll down every 250ms
-          });
-        });
+// --- MAIN SCRAPER FUNCTION ---
+async function runScraper() {
+  console.log("🤖 Starting eMTB Price Scraper...");
+  const browser = await chromium.launch({ headless: true });
+
+  for (const brand of BRANDS_TO_SCRAPE) {
+    console.log(`\n🔍 Checking ${brand.name}...`);
+
+    for (const url of brand.urls) {
+      const page = await browser.newPage();
+      try {
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
         
-        await page.waitForTimeout(2000); // Wait 2 seconds for the final prices to pop in
+        // Get page text for Gemini
         const pageText = await page.evaluate(() => document.body.innerText);
         
-        // Let's peek at the text to ensure it's not just a giant Cookie Banner!
-        console.log(`   📄 Page Text Snippet: ${pageText.substring(0, 150).replace(/\n/g, ' ')}...`);
+        // Your existing Gemini Prompt Logic
+        const prompt = `Analyze this webpage text for an e-bike manufacturer. 
+        Find the exact current prices for the following models: ${brand.models.join(', ')} 
+        and these specific builds: ${brand.builds.join(', ')}.
+        Return a strict JSON array like: [{ "model": "Timp Peak", "build": "Pro", "price": 6500 }]. 
+        Only return the JSON. No other text.
         
-        // Dynamically build the AI Prompt for this specific brand
-        const prompt = `
-          I am giving you text from the ${brand.name} e-MTB page. 
-          Find the current sale prices for the following models and their builds.
+        Webpage text: ${pageText.substring(0, 15000)}`;
 
-          MODELS TO FIND: ${brand.models.join(', ')}
-          BUILDS TO FIND: ${brand.builds.join(', ')}
-          
-          CRITICAL RULES:
-          1. Return WHOLE NUMBERS ONLY for the price (e.g., 15399).
-          2. The website might combine the model and build names into one long string (e.g., "Orbea Wild M-LTD" or "SCOTT Voltage eRIDE 900 Tuned Bike"). You must figure out the price and separate them back into the exact "model" and "build" strings I provided above.
-          3. If there are multiple listings for the same model and build, only return the LOWEST price.
-          4. ONLY return a valid JSON array of objects with keys: "model", "build", "price".
-          5. DO NOT include markdown formatting like \`\`\`json.
-          6. DO NOT include any conversational text.
-          7. If you cannot find any prices, return exactly this: []
-          
-          Example: [{"model": "${brand.models[0] || 'Model'}", "build": "${brand.builds[0] || 'Build'}", "price": 9999}]
-          
-          Text: ${pageText.substring(0, 25000)}
-        `;
-
-        const result = await aiModel.generateContent(prompt);
-        const responseText = result.response.text();
-
-        let priceData;
-        try {
-          // Clean the JSON output
-          const jsonString = responseText.replace(/```json/g, "").replace(/```/g, "").trim();
-          const rawData = JSON.parse(jsonString);
-          
-          // Data Cleaner: Force whole numbers and keep lowest price
-          const uniqueMap = {};
-          for (const item of rawData) {
-            const roundedPrice = Math.round(item.price);
-            const key = `${item.model}-${item.build}`;
-            if (!uniqueMap[key] || roundedPrice < uniqueMap[key].price) {
-              uniqueMap[key] = { ...item, price: roundedPrice };
-            }
-          }
-          priceData = Object.values(uniqueMap);
-          console.log(`   🔍 AI found ${priceData.length} prices.`);
-          
-        } catch (e) {
-          console.error("   ❌ Failed to parse JSON from AI for this page.");
-          continue; // Skip the DB update and move to the next URL
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const result = await model.generateContent(prompt);
+        let responseText = result.response.text().trim();
+        
+        // Clean up markdown block if Gemini adds it
+        if (responseText.startsWith('```json')) {
+            responseText = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
         }
 
-        // Surgical Database Sync
-        for (const item of priceData) {
-          const modelId = modelMap[item.model];
-          if (!modelId) {
-             console.log(`      ⚠️ SKIPPED: Model "${item.model}" not in DB.`);
-             continue;
-          }
-          
-          // 1. Fetch the current build from the database to check the old price
-          const { data: currentBuilds, error: fetchError } = await supabase
-            .from('builds')
-            .select('id, price')
-            .match({ name: item.build, model_id: modelId });
-            
-          if (fetchError) {
-            console.error(`      ❌ Error fetching ${item.model} ${item.build}:`, fetchError.message);
-            continue;
-          }
-          
-          if (!currentBuilds || currentBuilds.length === 0) {
-            console.log(`      ⚠️ SKIPPED: Build "${item.build}" for "${item.model}" not found in DB.`);
-            continue;
-          }
-          
-          const dbBuild = currentBuilds[0];
-          const newPrice = item.price;
-          
-          // 2. Compare the prices and update if necessary
-          if (dbBuild.price !== newPrice) {
-            const { error: updateError } = await supabase
-              .from('builds')
-              .update({ price: newPrice })
-              .eq('id', dbBuild.id);
-              
-            if (updateError) {
-              console.error(`      ❌ DB ERROR: Failed to update ${item.model} [${item.build}]:`, updateError.message);
-            } else {
-              if (newPrice < dbBuild.price) {
-                 console.log(`      🚨 PRICE DROP: ${item.model} [${item.build}] -> Was $${dbBuild.price}, Now $${newPrice}!`);
-              } else {
-                 console.log(`      📈 PRICE INCREASE: ${item.model} [${item.build}] -> Was $${dbBuild.price}, Now $${newPrice}`);
-              }
-            }
-          } else {
-            console.log(`      ✅ VERIFIED (No Change): ${item.model} [${item.build}] -> $${newPrice}`);
-          }
-        } 
-        
+        const scrapedData = JSON.parse(responseText);
+
+        // Loop through Gemini's results and update the file
+        for (const item of scrapedData) {
+          updatePriceInGodFile(brand.name, item.model, item.build, item.price);
+        }
+
       } catch (err) {
-        console.error(`   ❌ Error scraping ${url}:`, err instanceof Error ? err.message : String(err));
+        console.error(`   ❌ Error scraping ${url}:`, err.message);
       } finally {
-        await page.close(); // Always close the tab when done
+        await page.close();
       }
       
-      // The crucial rate-limit cooler!
-      console.log(`   🛑 Sleeping 10 seconds to keep the AI API happy...`);
+      console.log(`   🛑 Sleeping 10 seconds to keep Gemini API happy...`);
       await delay(10000);
     }
   }
 
   await browser.close();
-  console.log("\n🤖 Universal Robot finished!");
+  console.log("\n🏁 SCRAPE COMPLETE! Check your bikeData.ts file for updates.");
 }
 
-runRobot();
+runScraper();
