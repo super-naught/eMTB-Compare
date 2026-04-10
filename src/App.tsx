@@ -593,6 +593,8 @@ export default function App() {
       "90Nm",
       "105Nm",
       "108Nm",
+      "125Nm",
+      "150Nm",
       "TBD",
     ],
     [],
